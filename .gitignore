@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.env*.local
+.vercel
+.DS_Store
+npm-debug.log*
+
+# Raw source material (unprocessed photos, working notes) — not used by the app;
+# everything it needs is already in public/.
+assets

@@ -1,0 +1,96 @@
+/** @type {import('tailwindcss').Config} */
+
+// Every colour resolves through a CSS variable, so `.dark` on <html> repaints the
+// whole site without a single class change. Variables hold "R G B" triples.
+const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+
+module.exports = {
+  darkMode: "class",
+  content: [
+    "./app/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./lib/**/*.{js,jsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Page and surfaces
+        paper: {
+          50: token("paper-50"),
+          100: token("paper-100"),
+          200: token("paper-200"),
+          300: token("paper-300"),
+          400: token("paper-400"),
+        },
+        // Type
+        ink: {
+          DEFAULT: token("ink"),
+          900: token("ink-900"),
+          700: token("ink-700"),
+          500: token("ink-500"),
+          300: token("ink-300"),
+        },
+        // Secondary accent
+        moss: {
+          900: token("moss-900"),
+          800: token("moss-800"),
+          700: token("moss-700"),
+          600: token("moss-600"),
+          500: token("moss-500"),
+          400: token("moss-400"),
+          300: token("moss-300"),
+        },
+        // Primary accent
+        flame: {
+          DEFAULT: token("flame"),
+          700: token("flame-700"),
+          600: token("flame-600"),
+          400: token("flame-400"),
+          300: token("flame-300"),
+          100: token("flame-100"),
+        },
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      boxShadow: {
+        glow: "0 0 26px -8px rgba(235,125,0,0.5)",
+        "glow-moss": "0 0 26px -8px rgba(44,87,69,0.35)",
+        card: "0 20px 50px -28px rgb(var(--shadow) / 0.45)",
+      },
+      keyframes: {
+        marquee: {
+          from: { transform: "translate3d(0,0,0)" },
+          to: { transform: "translate3d(-100%,0,0)" },
+        },
+        float: {
+          "0%,100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-14px)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "200% 50%" },
+        },
+        pulseRing: {
+          "0%": { transform: "scale(0.9)", opacity: "0.7" },
+          "70%": { transform: "scale(1.7)", opacity: "0" },
+          "100%": { transform: "scale(1.7)", opacity: "0" },
+        },
+        blink: {
+          "0%,100%": { opacity: "1" },
+          "50%": { opacity: "0.25" },
+        },
+      },
+      animation: {
+        marquee: "marquee var(--marquee-duration,26s) linear infinite",
+        float: "float 6s ease-in-out infinite",
+        shimmer: "shimmer 6s linear infinite",
+        pulseRing: "pulseRing 2.4s ease-out infinite",
+        blink: "blink 1.6s ease-in-out infinite",
+      },
+    },
+  },
+  plugins: [],
+};

@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------
+   Theme tokens. Light is the default; adding `.dark` to <html>
+   repaints everything because every Tailwind colour reads these.
+   Values are "R G B" so Tailwind can apply its own alpha.
+---------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --paper-50: 253 251 244; /* #FDFBF4 */
+  --paper-100: 247 242 228;
+  --paper-200: 240 233 214;
+  --paper-300: 229 220 194;
+  --paper-400: 213 201 166;
+
+  --ink: 46 41 16; /* #2E2910 */
+  --ink-900: 36 31 12;
+  --ink-700: 74 66 34;
+  --ink-500: 110 101 64;
+  --ink-300: 156 146 104;
+
+  --moss-900: 22 41 31;
+  --moss-800: 30 59 46;
+  --moss-700: 33 67 47;
+  --moss-600: 44 87 69; /* #2C5745 */
+  --moss-500: 60 114 89;
+  --moss-400: 78 140 113;
+  --moss-300: 120 191 160;
+
+  --flame: 235 125 0; /* #EB7D00 */
+  --flame-700: 168 88 0;
+  --flame-600: 196 102 0;
+  --flame-400: 255 154 46;
+  --flame-300: 255 179 92;
+  --flame-100: 255 231 201;
+
+  --shadow: 46 41 16;
+  --grid-line: 46 41 16;
+  --grid-alpha: 0.06;
+  --cursor-blob: 235 125 0;
+  --cursor-dot: 46 41 16;
+  --cursor-blend: multiply;
+  --bubble-rim: 255 255 255;
+  --bubble-core: 255 255 255;
+  --bubble-core-alpha: 0.9;
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Black page, layered up in near-black steps */
+  --paper-50: 8 8 8; /* #080808 */
+  --paper-100: 18 17 16;
+  --paper-200: 26 24 21;
+  --paper-300: 45 40 33;
+  --paper-400: 66 58 47;
+
+  /* Warm amber type — bright enough to read as body copy on black */
+  --ink: 255 176 103; /* #FFB067 */
+  --ink-900: 255 200 145;
+  --ink-700: 224 138 60;
+  --ink-500: 190 112 40;
+  --ink-300: 145 86 32;
+
+  --moss-900: 120 191 160;
+  --moss-800: 30 59 46;
+  --moss-700: 150 210 182;
+  --moss-600: 120 191 160;
+  --moss-500: 100 175 143;
+  --moss-400: 120 191 160;
+  --moss-300: 150 210 182;
+
+  --flame: 235 125 0;
+  --flame-700: 255 179 92;
+  --flame-600: 255 154 46;
+  --flame-400: 255 154 46;
+  --flame-300: 255 179 92;
+  --flame-100: 74 42 5;
+
+  --shadow: 0 0 0;
+  --grid-line: 255 176 103;
+  --grid-alpha: 0.07;
+  --cursor-blob: 255 154 46;
+  --cursor-dot: 255 210 160;
+  --cursor-blend: screen;
+  --bubble-rim: 255 176 103;
+  --bubble-core: 255 154 46;
+  --bubble-core-alpha: 0.16;
+}
+
+/* Scrolling is animated in JS (lib/smoothScroll.js); native smooth would fight it. */
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  @apply bg-paper-50 text-ink/75 antialiased;
+  /* `clip` (not `hidden`) so position: sticky keeps working */
+  overflow-x: clip;
+  background-image:
+    radial-gradient(55rem 40rem at 10% -8%, rgba(235, 125, 0, 0.14), transparent 60%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(44, 87, 69, 0.12), transparent 62%),
+    radial-gradient(42rem 34rem at 50% 108%, rgba(235, 125, 0, 0.08), transparent 62%);
+  background-attachment: fixed;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.dark body {
+  background-image:
+    radial-gradient(55rem 40rem at 10% -8%, rgba(235, 125, 0, 0.16), transparent 60%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(120, 191, 160, 0.08), transparent 62%),
+    radial-gradient(42rem 34rem at 50% 108%, rgba(235, 125, 0, 0.1), transparent 62%);
+}
+
+/* Native cursor is replaced by <LiquidCursor /> on fine-pointer devices only */
+html.has-liquid-cursor,
+html.has-liquid-cursor * {
+  cursor: none !important;
+}
+
+::selection {
+  background: rgba(235, 125, 0, 0.28);
+  color: rgb(var(--ink));
+}
+.dark ::selection {
+  background: rgba(235, 125, 0, 0.45);
+  color: rgb(255 235 215);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--paper-100));
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgb(var(--flame)), rgb(var(--moss-600)));
+  border-radius: 999px;
+  border: 2px solid rgb(var(--paper-100));
+}
+
+@layer components {
+  .glass {
+    @apply rounded-3xl border border-ink/10 bg-paper-50/70 backdrop-blur-xl;
+  }
+  .glass-soft {
+    @apply rounded-2xl border border-ink/10 bg-paper-50/60 backdrop-blur-md;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-flame-600 via-flame to-moss-600 bg-clip-text text-transparent;
+  }
+  .section {
+    @apply relative mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60;
+  }
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-3.5 py-1.5 text-xs font-medium text-ink/70;
+  }
+}
+
+@layer utilities {
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(
+        to right,
+        rgb(var(--grid-line) / var(--grid-alpha)) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--grid-line) / var(--grid-alpha)) 1px,
+        transparent 1px
+      );
+    background-size: 64px 64px;
+  }
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  }
+  .perspective {
+    perspective: 1400px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float,
+  .animate-pulseRing,
+  .animate-shimmer {
+    animation: none !important;
+  }
+}
+
+/* ---- Liquid cursor ---- */
+.cursor-blob {
+  background: rgb(var(--cursor-blob) / 0.5);
+  mix-blend-mode: var(--cursor-blend);
+}
+.cursor-dot {
+  background: rgb(var(--cursor-dot) / 0.85);
+  mix-blend-mode: var(--cursor-blend);
+}
+
+/* ---- Chibi Bubble Pop ---- */
+.bubble {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  touch-action: manipulation;
+}
+.bubble[data-state="popped"] {
+  pointer-events: none;
+}
+.bubble-skin {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 1px solid rgb(var(--bubble-rim) / 0.85);
+  background: radial-gradient(
+    circle at 30% 24%,
+    rgb(var(--bubble-core) / var(--bubble-core-alpha)),
+    rgba(235, 125, 0, 0.12) 48%,
+    rgb(var(--moss-600) / 0.16) 78%
+  );
+  box-shadow:
+    inset 0 -12px 26px -14px rgba(235, 125, 0, 0.7),
+    inset 0 10px 20px -12px rgb(var(--bubble-core) / 0.8),
+    0 12px 26px -16px rgb(var(--shadow) / 0.6);
+  backdrop-filter: blur(2px);
+  transition: transform 0.18s ease;
+}
+.bubble:hover .bubble-skin {
+  transform: scale(1.07);
+}
+.bubble:active .bubble-skin {
+  transform: scale(0.94);
+}
+.bubble-img {
+  width: 76%;
+  height: 76%;
+  object-fit: contain;
+  user-select: none;
+  filter: drop-shadow(0 4px 8px rgb(var(--shadow) / 0.28));
+}
+.bubble-shine {
+  position: absolute;
+  left: 17%;
+  top: 11%;
+  width: 26%;
+  height: 19%;
+  border-radius: 9999px;
+  background: rgb(var(--bubble-core) / 0.95);
+  filter: blur(4px);
+}
+.bubble-burst {
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 2px solid rgba(235, 125, 0, 0.75);
+  opacity: 0;
+}
+.bubble[data-state="popped"] .bubble-skin {
+  animation: bubblePop 0.3s ease-out forwards;
+}
+.bubble[data-state="popped"] .bubble-burst {
+  animation: bubbleBurst 0.32s ease-out forwards;
+}
+
+@keyframes bubblePop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.18);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(0.35);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleBurst {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
