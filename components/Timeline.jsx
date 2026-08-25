@@ -2,26 +2,19 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar, Check, Plus } from "lucide-react";
+import { Calendar, Check, ChevronDown, Plus } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import { experience, accents } from "@/lib/data";
 import { getIcon } from "@/lib/icons";
-import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const EASE = "cubic-bezier(0.22,1,0.36,1)";
 
-function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
+/* ------------------------------------------------------------------ *
+ * Desktop (lg+): panels that expand sideways.
+ * ------------------------------------------------------------------ */
+function JobPanel({ job, index, total, isActive, onActivate }) {
   const accent = accents[job.accent];
   const Icon = getIcon(job.icon);
-
-  // `null` until the media query is read on mount — leave sizing to the CSS
-  // classes for that first paint so nothing jumps on desktop.
-  const sizing =
-    isDesktop === null
-      ? {}
-      : isDesktop
-      ? { flexGrow: isActive ? 4.6 : 1, flexBasis: 0, height: "100%" }
-      : { height: isActive ? "31rem" : "5rem" };
 
   return (
     <motion.div
@@ -42,15 +35,14 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      style={{ ...sizing, transitionTimingFunction: EASE }}
-      // Pre-hydration fallback. It has to be min-height, not height: `flex-1`
-      // sets flex-basis:0 which wins over height on a column flex container's
-      // main axis, collapsing the panels to their 2px borders.
-      className={`group relative min-w-0 flex-1 overflow-hidden rounded-3xl border border-ink/10 bg-paper-100 transition-[height,flex-grow,border-color] duration-700 hover:border-ink/20 lg:min-h-0 ${
-        isActive ? "min-h-[31rem]" : "min-h-20"
-      }`}
+      style={{
+        flexGrow: isActive ? 4.6 : 1,
+        flexBasis: 0,
+        height: "100%",
+        transitionTimingFunction: EASE,
+      }}
+      className="group relative min-w-0 flex-1 overflow-hidden rounded-3xl border border-ink/10 bg-paper-100 transition-[flex-grow,border-color] duration-700 hover:border-ink/20"
     >
-      {/* Accent wash */}
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 opacity-70"
@@ -62,27 +54,24 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
         <div className="absolute inset-0 bg-gradient-to-t from-paper-50 via-paper-50/60 to-transparent" />
       </div>
 
-      {/* Collapsed label */}
+      {/* Collapsed spine */}
       <div
-        className={`absolute inset-0 flex items-center justify-between px-5 transition-opacity duration-300 lg:flex-col lg:items-start lg:justify-between lg:px-0 lg:py-6 ${
+        className={`absolute inset-0 flex flex-col items-start justify-between py-6 transition-opacity duration-300 ${
           isActive ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
-        <div className="flex items-center gap-4 lg:w-full lg:flex-col lg:gap-3">
-          <span className="font-mono text-[11px] text-ink/45 lg:text-center">
+        <div className="flex w-full flex-col items-center gap-3">
+          <span className="font-mono text-[11px] text-ink/45">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <Icon className={`hidden h-4 w-4 lg:block ${accent.text}`} />
-          <h3 className="font-display text-base font-semibold tracking-tight text-ink lg:hidden">
-            {job.company}
-          </h3>
+          <Icon className={`h-4 w-4 ${accent.text}`} />
         </div>
 
-        <h3 className="hidden font-display text-base font-semibold tracking-tight text-ink/85 lg:block lg:[writing-mode:vertical-rl] lg:rotate-180">
+        <h3 className="font-display text-base font-semibold tracking-tight text-ink/85 [writing-mode:vertical-rl] rotate-180">
           {job.company}
         </h3>
 
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors group-hover:border-ink/40 group-hover:text-ink lg:mx-auto">
+        <span className="mx-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors group-hover:border-ink/40 group-hover:text-ink">
           <Plus className="h-3.5 w-3.5" />
         </span>
       </div>
@@ -94,7 +83,7 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.45, delay: 0.2 } }}
             exit={{ opacity: 0, transition: { duration: 0.15 } }}
-            className="relative flex h-full flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:gap-10"
+            className="relative flex h-full flex-row items-center gap-10 p-8"
           >
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-3">
@@ -102,14 +91,14 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
                   {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                 </span>
                 {job.current ? (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-600/25 bg-sky-600/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-600">
-                    <span className="h-1.5 w-1.5 rounded-full bg-sky-600 animate-blink" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-azure/30 bg-azure/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-azure-600">
+                    <span className="h-1.5 w-1.5 rounded-full bg-azure animate-blink" />
                     Current
                   </span>
                 ) : null}
               </div>
 
-              <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-[2rem] sm:leading-tight">
+              <h3 className="mt-3 font-display text-[2rem] font-semibold leading-tight tracking-tight text-ink">
                 {job.company}
               </h3>
               <p className={`mt-1.5 text-sm font-semibold ${accent.text}`}>{job.role}</p>
@@ -121,7 +110,7 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
 
               <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/60">{job.summary}</p>
 
-              <ul className="mt-5 hidden space-y-2 sm:block">
+              <ul className="mt-5 space-y-2">
                 {job.points.map((point) => (
                   <li key={point} className="flex items-start gap-2.5 text-[13px] text-ink/60">
                     <Check className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${accent.text}`} />
@@ -143,7 +132,7 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
             </div>
 
             {/* Chapter marker */}
-            <div className="relative hidden w-[13rem] shrink-0 lg:block">
+            <div className="relative w-[13rem] shrink-0">
               <div
                 className="pointer-events-none absolute inset-2 rounded-full blur-3xl"
                 style={{ background: `rgba(${accent.rgb},0.18)` }}
@@ -168,9 +157,112 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
   );
 }
 
+/* ------------------------------------------------------------------ *
+ * Phone / tablet: a real accordion. The header carries the whole story
+ * — role, company and dates — so a closed row is still worth reading.
+ * ------------------------------------------------------------------ */
+function JobRow({ job, index, isOpen, onToggle }) {
+  const accent = accents[job.accent];
+  const Icon = getIcon(job.icon);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative overflow-hidden rounded-2xl border bg-paper-100 transition-colors duration-300 ${
+        isOpen ? accent.border : "border-ink/10"
+      }`}
+    >
+      <div
+        className="absolute inset-0 opacity-60"
+        style={{
+          background: `radial-gradient(80% 60% at 0% 0%, rgba(${accent.rgb},0.14), transparent 60%)`,
+        }}
+      />
+
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        data-cursor={isOpen ? "close" : "open"}
+        className="relative flex w-full items-center gap-3.5 p-4 text-left"
+      >
+        <span
+          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border bg-paper-50 ${accent.border}`}
+        >
+          <Icon className={`h-5 w-5 ${accent.text}`} />
+        </span>
+
+        <span className="min-w-0 flex-1">
+          <span className="flex items-center gap-2">
+            <span className="truncate font-display text-[15px] font-semibold tracking-tight text-ink">
+              {job.company}
+            </span>
+            {job.current ? (
+              <span className="shrink-0 rounded-full bg-azure/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-azure-600">
+                Now
+              </span>
+            ) : null}
+          </span>
+          <span className={`mt-0.5 block truncate text-[12px] font-medium ${accent.text}`}>
+            {job.role}
+          </span>
+          <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-ink/45">
+            {job.period}
+          </span>
+        </span>
+
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/60">
+          <ChevronDown
+            className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          />
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen ? (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="relative overflow-hidden"
+          >
+            <div className="border-t border-ink/10 px-4 pb-5 pt-4">
+              <p className="text-[13px] leading-relaxed text-ink/60">{job.summary}</p>
+
+              <ul className="mt-4 space-y-2">
+                {job.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2.5 text-[13px] text-ink/60">
+                    <Check className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${accent.text}`} />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {job.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-ink/10 bg-ink/[0.04] px-2.5 py-1 text-[11px] font-medium text-ink/70"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function Timeline() {
   const [active, setActive] = useState(0);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const [openRow, setOpenRow] = useState(0);
 
   return (
     <section id="experience" className="relative scroll-mt-24 py-24 sm:py-28">
@@ -179,10 +271,24 @@ export default function Timeline() {
           eyebrow="Experience"
           title="The journey so far —"
           highlight="quest log"
-          description="From native Android to production Flutter apps, with a growing AI side quest running in parallel. Hover a chapter to open it."
+          description="From native Android to production Flutter apps, with a growing AI side quest running in parallel."
         />
 
-        <div className="mt-12 flex flex-col gap-3 lg:h-[32rem] lg:flex-row">
+        {/* Phones and tablets get the accordion; the two layouts are swapped in
+            CSS rather than JS so neither flashes before hydration. */}
+        <div className="mt-10 space-y-3 lg:hidden">
+          {experience.map((job, i) => (
+            <JobRow
+              key={job.company}
+              job={job}
+              index={i}
+              isOpen={openRow === i}
+              onToggle={() => setOpenRow(openRow === i ? -1 : i)}
+            />
+          ))}
+        </div>
+
+        <div className="mt-12 hidden h-[32rem] gap-3 lg:flex">
           {experience.map((job, i) => (
             <JobPanel
               key={job.company}
@@ -190,7 +296,6 @@ export default function Timeline() {
               index={i}
               total={experience.length}
               isActive={active === i}
-              isDesktop={isDesktop}
               onActivate={() => setActive(i)}
             />
           ))}
