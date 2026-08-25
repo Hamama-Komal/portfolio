@@ -10,38 +10,38 @@
 :root {
   color-scheme: light;
 
-  --paper-50: 255 255 255;
-  --paper-100: 244 248 255;
-  --paper-200: 217 233 255; /* #d9e9ff */
-  --paper-300: 179 210 255; /* #b3d2ff */
-  --paper-400: 138 173 224;
+  --paper-50: 255 255 255; /* pure white page */
+  --paper-100: 241 246 251; /* #F1F6FB cool tint */
+  --paper-200: 228 237 247;
+  --paper-300: 205 222 240;
+  --paper-400: 165 190 218;
 
-  --ink: 36 58 89; /* #243a59 */
-  --ink-900: 22 36 57;
-  --ink-700: 51 82 127; /* #33527f */
-  --ink-500: 92 122 166;
-  --ink-300: 138 164 200;
+  --ink: 10 25 41; /* #0A1929 near-black navy */
+  --ink-900: 5 15 26;
+  --ink-700: 30 54 80;
+  --ink-500: 82 105 130;
+  --ink-300: 138 158 180;
 
-  --sky-900: 22 36 57;
-  --sky-800: 36 58 89;
-  --sky-700: 45 72 112;
-  --sky-600: 51 82 127; /* #33527f */
-  --sky-500: 90 130 190;
-  --sky-400: 138 180 235;
-  --sky-300: 179 210 255; /* #b3d2ff */
+  --sky-900: 5 15 26;
+  --sky-800: 10 25 41;
+  --sky-700: 1 78 158;
+  --sky-600: 2 105 210;
+  --sky-500: 2 125 253; /* #027DFD */
+  --sky-400: 66 165 245; /* #42A5F5 */
+  --sky-300: 144 202 249;
 
-  --azure: 51 82 127; /* #33527f */
-  --azure-700: 36 58 89; /* #243a59 */
-  --azure-600: 45 72 112;
-  --azure-400: 108 148 210;
-  --azure-300: 179 210 255; /* #b3d2ff */
-  --azure-100: 217 233 255; /* #d9e9ff */
+  --azure: 2 125 253; /* #027DFD Flutter blue */
+  --azure-700: 1 78 158;
+  --azure-600: 2 105 210;
+  --azure-400: 66 165 245; /* #42A5F5 */
+  --azure-300: 144 202 249;
+  --azure-100: 227 242 253; /* #E3F2FD */
 
-  --shadow: 36 58 89;
-  --grid-line: 36 58 89;
-  --grid-alpha: 0.07;
-  --cursor-blob: 51 82 127;
-  --cursor-dot: 36 58 89;
+  --shadow: 10 25 41;
+  --grid-line: 10 25 41;
+  --grid-alpha: 0.06;
+  --cursor-blob: 2 125 253;
+  --cursor-dot: 10 25 41;
   --cursor-blend: multiply;
   --bubble-rim: 255 255 255;
   --bubble-core: 255 255 255;
@@ -51,42 +51,42 @@
 .dark {
   color-scheme: dark;
 
-  /* Deep navy ground built down from #243a59 */
-  --paper-50: 11 18 30;
-  --paper-100: 18 28 45;
-  --paper-200: 27 43 68;
-  --paper-300: 36 58 89; /* #243a59 */
-  --paper-400: 51 82 127; /* #33527f */
+  /* Deep navy-black ground */
+  --paper-50: 6 16 25; /* #061019 */
+  --paper-100: 15 32 51; /* #0F2033 */
+  --paper-200: 22 44 68;
+  --paper-300: 32 60 90;
+  --paper-400: 48 82 120;
 
-  --ink: 217 233 255; /* #d9e9ff */
-  --ink-900: 240 246 255;
-  --ink-700: 179 210 255; /* #b3d2ff */
-  --ink-500: 138 173 224;
-  --ink-300: 102 133 180;
+  --ink: 227 242 253; /* #E3F2FD ice blue */
+  --ink-900: 245 250 255;
+  --ink-700: 178 210 240;
+  --ink-500: 130 165 200;
+  --ink-300: 95 125 160;
 
-  --sky-900: 217 233 255;
-  --sky-800: 36 58 89;
-  --sky-700: 179 210 255;
-  --sky-600: 179 210 255; /* #b3d2ff */
-  --sky-500: 150 190 245;
-  --sky-400: 179 210 255;
-  --sky-300: 217 233 255;
+  --sky-900: 227 242 253;
+  --sky-800: 15 32 51;
+  --sky-700: 144 202 249;
+  --sky-600: 100 181 246;
+  --sky-500: 66 165 245; /* #42A5F5 */
+  --sky-400: 100 181 246;
+  --sky-300: 144 202 249;
 
-  --azure: 179 210 255; /* #b3d2ff */
-  --azure-700: 217 233 255;
-  --azure-600: 179 210 255;
-  --azure-400: 150 190 245;
-  --azure-300: 217 233 255;
-  --azure-100: 36 58 89;
+  --azure: 66 165 245; /* #42A5F5 bright Flutter blue */
+  --azure-700: 144 202 249;
+  --azure-600: 100 181 246;
+  --azure-400: 100 181 246;
+  --azure-300: 144 202 249;
+  --azure-100: 15 32 51;
 
   --shadow: 0 0 0;
-  --grid-line: 179 210 255;
+  --grid-line: 100 181 246;
   --grid-alpha: 0.07;
-  --cursor-blob: 179 210 255;
-  --cursor-dot: 217 233 255;
+  --cursor-blob: 66 165 245;
+  --cursor-dot: 144 202 249;
   --cursor-blend: screen;
-  --bubble-rim: 179 210 255;
-  --bubble-core: 217 233 255;
+  --bubble-rim: 100 181 246;
+  --bubble-core: 227 242 253;
   --bubble-core-alpha: 0.18;
 }
 
@@ -100,9 +100,9 @@ body {
   /* `clip` (not `hidden`) so position: sticky keeps working */
   overflow-x: clip;
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(179, 210, 255, 0.55), transparent 62%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(51, 82, 127, 0.12), transparent 62%),
-    radial-gradient(42rem 34rem at 50% 108%, rgba(217, 233, 255, 0.7), transparent 62%);
+    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.1), transparent 62%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.09), transparent 62%),
+    radial-gradient(42rem 34rem at 50% 108%, rgba(2, 125, 253, 0.07), transparent 62%);
   background-attachment: fixed;
   transition:
     background-color 0.4s ease,
@@ -111,9 +111,9 @@ body {
 
 .dark body {
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(51, 82, 127, 0.4), transparent 62%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(179, 210, 255, 0.1), transparent 62%),
-    radial-gradient(42rem 34rem at 50% 108%, rgba(51, 82, 127, 0.3), transparent 62%);
+    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.22), transparent 62%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.12), transparent 62%),
+    radial-gradient(42rem 34rem at 50% 108%, rgba(2, 125, 253, 0.16), transparent 62%);
 }
 
 /* Native cursor is replaced by <LiquidCursor /> on fine-pointer devices only */
@@ -123,12 +123,12 @@ html.has-liquid-cursor * {
 }
 
 ::selection {
-  background: rgba(51, 82, 127, 0.22);
+  background: rgba(2, 125, 253, 0.2);
   color: rgb(var(--ink));
 }
 .dark ::selection {
-  background: rgba(179, 210, 255, 0.35);
-  color: rgb(240 246 255);
+  background: rgba(66, 165, 245, 0.35);
+  color: rgb(245 250 255);
 }
 
 ::-webkit-scrollbar {

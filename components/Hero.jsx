@@ -70,7 +70,7 @@ export default function Hero() {
               className="mt-6 max-w-lg font-display text-lg font-medium leading-snug text-ink/80 sm:text-xl"
             >
               Flutter Developer building{" "}
-              <span className="text-azure">smart mobile apps with AI</span>.
+              <span className="text-azure-600">smart mobile apps with AI</span>.
             </motion.p>
 
             <motion.p
