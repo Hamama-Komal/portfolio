@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { smoothScrollTo } from "@/lib/smoothScroll";
 import ThemeToggle from "./ThemeToggle";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { profile } from "@/lib/data";
 
 const links = [
   { id: "top", label: "Home" },
   { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
+  { id: "experience", label: "Work" },
   { id: "projects", label: "Projects" },
   { id: "stack", label: "Stack" },
   { id: "anime", label: "Me" },
@@ -83,7 +85,7 @@ export default function NavBar() {
               onMouseEnter={() => setHovered(link.id)}
               aria-label={link.label}
               aria-current={isActive ? "true" : undefined}
-              className="relative flex h-9 items-center justify-center rounded-full px-2 outline-none"
+              className="relative flex h-9 items-center justify-center rounded-full px-1 outline-none sm:px-2"
             >
               {isActive ? (
                 <motion.span
@@ -93,7 +95,7 @@ export default function NavBar() {
                 />
               ) : null}
 
-              <span className="relative flex items-center gap-2 px-1.5">
+              <span className="relative flex items-center gap-1.5 px-1 sm:gap-2 sm:px-1.5">
                 <span
                   className={`block rounded-full transition-all duration-300 ${
                     isActive
@@ -111,7 +113,9 @@ export default function NavBar() {
                       animate={{ width: "auto", opacity: 1 }}
                       exit={{ width: 0, opacity: 0 }}
                       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden whitespace-nowrap text-[13px] font-medium tracking-tight text-paper-50"
+                      /* Below ~380px the label would push the pill past the
+                         viewport, so the dots stand alone on the smallest phones. */
+                      className="overflow-hidden whitespace-nowrap text-[13px] font-medium tracking-tight text-paper-50 max-[380px]:hidden"
                     >
                       {link.label}
                     </motion.span>
@@ -137,7 +141,29 @@ export default function NavBar() {
           );
         })}
 
-        <span className="mx-1 h-5 w-px bg-ink/10" />
+        <span className="mx-1 hidden h-5 w-px bg-ink/10 sm:block" />
+
+        {/* Direct links — always one click away, not buried in the footer */}
+        <div className="hidden items-center gap-0.5 sm:flex">
+          {[
+            { href: `mailto:${profile.email}`, Icon: Mail, label: "Email", external: false },
+            { href: profile.linkedin, Icon: Linkedin, label: "LinkedIn", external: true },
+            { href: profile.github, Icon: Github, label: "GitHub", external: true },
+          ].map(({ href, Icon, label, external }) => (
+            <a
+              key={label}
+              href={href}
+              aria-label={label}
+              data-cursor={label.toLowerCase()}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-ink/55 transition-colors duration-300 hover:bg-ink/[0.06] hover:text-azure"
+            >
+              <Icon className="h-3.5 w-3.5" />
+            </a>
+          ))}
+        </div>
+
         <ThemeToggle />
       </motion.nav>
     </header>

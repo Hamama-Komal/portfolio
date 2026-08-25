@@ -65,8 +65,8 @@ export default function AvatarReveal() {
   return (
     <div className="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-none">
       {/* Ambient light behind the portrait */}
-      <div className="pointer-events-none absolute inset-[8%] rounded-full bg-flame/25 blur-[90px]" />
-      <div className="pointer-events-none absolute bottom-[12%] right-[6%] h-40 w-40 rounded-full bg-moss-400/15 blur-[80px]" />
+      <div className="pointer-events-none absolute inset-[8%] rounded-full bg-azure/25 blur-[90px]" />
+      <div className="pointer-events-none absolute bottom-[12%] right-[6%] h-40 w-40 rounded-full bg-sky-400/15 blur-[80px]" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.97, y: 20 }}
@@ -131,7 +131,7 @@ export default function AvatarReveal() {
           </motion.div>
 
           {/* Colour grade so both layers sit in the page palette */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-flame/10 via-transparent to-moss-400/10 mix-blend-overlay" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-azure/10 via-transparent to-sky-400/10 mix-blend-overlay" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-paper-50 via-paper-50/25 to-transparent" />
 
           {/* Soft light that tracks the pointer */}

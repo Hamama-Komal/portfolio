@@ -4,7 +4,7 @@ import { marqueeItems } from "@/lib/data";
 
 function Badge({ item }) {
   return (
-    <span className="flex shrink-0 items-center gap-2 rounded-2xl border border-ink/10 bg-ink/[0.04] px-4 py-2.5 text-sm font-medium text-ink/80 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-flame/40 hover:bg-flame/10 hover:text-ink">
+    <span className="flex shrink-0 items-center gap-2 rounded-2xl border border-ink/10 bg-ink/[0.04] px-4 py-2.5 text-sm font-medium text-ink/80 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-azure/40 hover:bg-azure/10 hover:text-ink">
       <span className="text-base leading-none" aria-hidden>
         {item.emoji}
       </span>

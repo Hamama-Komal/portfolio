@@ -198,7 +198,7 @@ export default function BubbleGame() {
             Score <span className="ml-1.5 font-semibold text-ink">{score}</span>
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-ink/[0.04] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/60">
-            <Trophy className="h-3 w-3 text-flame-600" />
+            <Trophy className="h-3 w-3 text-azure-600" />
             {best}
           </span>
           <AnimatePresence>
@@ -208,7 +208,7 @@ export default function BubbleGame() {
                 initial={{ scale: 0.7, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="rounded-full border border-flame/40 bg-flame/15 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-flame-600"
+                className="rounded-full border border-azure/40 bg-azure/15 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-azure-600"
               >
                 {combo}× streak
               </motion.span>
@@ -224,7 +224,7 @@ export default function BubbleGame() {
       {/* Timer bar */}
       <div className="mb-3 h-[3px] w-full overflow-hidden rounded-full bg-ink/10">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-flame to-moss-600 transition-[width] duration-100 ease-linear"
+          className="h-full rounded-full bg-gradient-to-r from-azure to-sky-600 transition-[width] duration-100 ease-linear"
           style={{ width: `${phase === "playing" ? progress : 100}%` }}
         />
       </div>
@@ -277,7 +277,7 @@ export default function BubbleGame() {
                     Time!
                   </p>
                   <p className="font-display text-5xl font-semibold text-ink">{score}</p>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-flame-600">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-azure-600">
                     {score >= best && score > 0 ? "new best" : `best ${best}`}
                   </p>
                 </>

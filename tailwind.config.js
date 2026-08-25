@@ -31,23 +31,23 @@ module.exports = {
           300: token("ink-300"),
         },
         // Secondary accent
-        moss: {
-          900: token("moss-900"),
-          800: token("moss-800"),
-          700: token("moss-700"),
-          600: token("moss-600"),
-          500: token("moss-500"),
-          400: token("moss-400"),
-          300: token("moss-300"),
+        sky: {
+          900: token("sky-900"),
+          800: token("sky-800"),
+          700: token("sky-700"),
+          600: token("sky-600"),
+          500: token("sky-500"),
+          400: token("sky-400"),
+          300: token("sky-300"),
         },
         // Primary accent
-        flame: {
-          DEFAULT: token("flame"),
-          700: token("flame-700"),
-          600: token("flame-600"),
-          400: token("flame-400"),
-          300: token("flame-300"),
-          100: token("flame-100"),
+        azure: {
+          DEFAULT: token("azure"),
+          700: token("azure-700"),
+          600: token("azure-600"),
+          400: token("azure-400"),
+          300: token("azure-300"),
+          100: token("azure-100"),
         },
       },
       fontFamily: {
@@ -56,8 +56,8 @@ module.exports = {
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        glow: "0 0 26px -8px rgba(235,125,0,0.5)",
-        "glow-moss": "0 0 26px -8px rgba(44,87,69,0.35)",
+        glow: "0 0 26px -8px rgba(51,82,127,0.45)",
+        "glow-sky": "0 0 26px -8px rgba(179,210,255,0.5)",
         card: "0 20px 50px -28px rgb(var(--shadow) / 0.45)",
       },
       keyframes: {

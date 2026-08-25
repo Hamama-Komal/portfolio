@@ -10,38 +10,38 @@
 :root {
   color-scheme: light;
 
-  --paper-50: 253 251 244; /* #FDFBF4 */
-  --paper-100: 247 242 228;
-  --paper-200: 240 233 214;
-  --paper-300: 229 220 194;
-  --paper-400: 213 201 166;
+  --paper-50: 255 255 255;
+  --paper-100: 244 248 255;
+  --paper-200: 217 233 255; /* #d9e9ff */
+  --paper-300: 179 210 255; /* #b3d2ff */
+  --paper-400: 138 173 224;
 
-  --ink: 46 41 16; /* #2E2910 */
-  --ink-900: 36 31 12;
-  --ink-700: 74 66 34;
-  --ink-500: 110 101 64;
-  --ink-300: 156 146 104;
+  --ink: 36 58 89; /* #243a59 */
+  --ink-900: 22 36 57;
+  --ink-700: 51 82 127; /* #33527f */
+  --ink-500: 92 122 166;
+  --ink-300: 138 164 200;
 
-  --moss-900: 22 41 31;
-  --moss-800: 30 59 46;
-  --moss-700: 33 67 47;
-  --moss-600: 44 87 69; /* #2C5745 */
-  --moss-500: 60 114 89;
-  --moss-400: 78 140 113;
-  --moss-300: 120 191 160;
+  --sky-900: 22 36 57;
+  --sky-800: 36 58 89;
+  --sky-700: 45 72 112;
+  --sky-600: 51 82 127; /* #33527f */
+  --sky-500: 90 130 190;
+  --sky-400: 138 180 235;
+  --sky-300: 179 210 255; /* #b3d2ff */
 
-  --flame: 235 125 0; /* #EB7D00 */
-  --flame-700: 168 88 0;
-  --flame-600: 196 102 0;
-  --flame-400: 255 154 46;
-  --flame-300: 255 179 92;
-  --flame-100: 255 231 201;
+  --azure: 51 82 127; /* #33527f */
+  --azure-700: 36 58 89; /* #243a59 */
+  --azure-600: 45 72 112;
+  --azure-400: 108 148 210;
+  --azure-300: 179 210 255; /* #b3d2ff */
+  --azure-100: 217 233 255; /* #d9e9ff */
 
-  --shadow: 46 41 16;
-  --grid-line: 46 41 16;
-  --grid-alpha: 0.06;
-  --cursor-blob: 235 125 0;
-  --cursor-dot: 46 41 16;
+  --shadow: 36 58 89;
+  --grid-line: 36 58 89;
+  --grid-alpha: 0.07;
+  --cursor-blob: 51 82 127;
+  --cursor-dot: 36 58 89;
   --cursor-blend: multiply;
   --bubble-rim: 255 255 255;
   --bubble-core: 255 255 255;
@@ -51,44 +51,43 @@
 .dark {
   color-scheme: dark;
 
-  /* Black page, layered up in near-black steps */
-  --paper-50: 8 8 8; /* #080808 */
-  --paper-100: 18 17 16;
-  --paper-200: 26 24 21;
-  --paper-300: 45 40 33;
-  --paper-400: 66 58 47;
+  /* Deep navy ground built down from #243a59 */
+  --paper-50: 11 18 30;
+  --paper-100: 18 28 45;
+  --paper-200: 27 43 68;
+  --paper-300: 36 58 89; /* #243a59 */
+  --paper-400: 51 82 127; /* #33527f */
 
-  /* Warm amber type — bright enough to read as body copy on black */
-  --ink: 255 176 103; /* #FFB067 */
-  --ink-900: 255 200 145;
-  --ink-700: 224 138 60;
-  --ink-500: 190 112 40;
-  --ink-300: 145 86 32;
+  --ink: 217 233 255; /* #d9e9ff */
+  --ink-900: 240 246 255;
+  --ink-700: 179 210 255; /* #b3d2ff */
+  --ink-500: 138 173 224;
+  --ink-300: 102 133 180;
 
-  --moss-900: 120 191 160;
-  --moss-800: 30 59 46;
-  --moss-700: 150 210 182;
-  --moss-600: 120 191 160;
-  --moss-500: 100 175 143;
-  --moss-400: 120 191 160;
-  --moss-300: 150 210 182;
+  --sky-900: 217 233 255;
+  --sky-800: 36 58 89;
+  --sky-700: 179 210 255;
+  --sky-600: 179 210 255; /* #b3d2ff */
+  --sky-500: 150 190 245;
+  --sky-400: 179 210 255;
+  --sky-300: 217 233 255;
 
-  --flame: 235 125 0;
-  --flame-700: 255 179 92;
-  --flame-600: 255 154 46;
-  --flame-400: 255 154 46;
-  --flame-300: 255 179 92;
-  --flame-100: 74 42 5;
+  --azure: 179 210 255; /* #b3d2ff */
+  --azure-700: 217 233 255;
+  --azure-600: 179 210 255;
+  --azure-400: 150 190 245;
+  --azure-300: 217 233 255;
+  --azure-100: 36 58 89;
 
   --shadow: 0 0 0;
-  --grid-line: 255 176 103;
+  --grid-line: 179 210 255;
   --grid-alpha: 0.07;
-  --cursor-blob: 255 154 46;
-  --cursor-dot: 255 210 160;
+  --cursor-blob: 179 210 255;
+  --cursor-dot: 217 233 255;
   --cursor-blend: screen;
-  --bubble-rim: 255 176 103;
-  --bubble-core: 255 154 46;
-  --bubble-core-alpha: 0.16;
+  --bubble-rim: 179 210 255;
+  --bubble-core: 217 233 255;
+  --bubble-core-alpha: 0.18;
 }
 
 /* Scrolling is animated in JS (lib/smoothScroll.js); native smooth would fight it. */
@@ -101,9 +100,9 @@ body {
   /* `clip` (not `hidden`) so position: sticky keeps working */
   overflow-x: clip;
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(235, 125, 0, 0.14), transparent 60%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(44, 87, 69, 0.12), transparent 62%),
-    radial-gradient(42rem 34rem at 50% 108%, rgba(235, 125, 0, 0.08), transparent 62%);
+    radial-gradient(55rem 40rem at 10% -8%, rgba(179, 210, 255, 0.55), transparent 62%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(51, 82, 127, 0.12), transparent 62%),
+    radial-gradient(42rem 34rem at 50% 108%, rgba(217, 233, 255, 0.7), transparent 62%);
   background-attachment: fixed;
   transition:
     background-color 0.4s ease,
@@ -112,9 +111,9 @@ body {
 
 .dark body {
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(235, 125, 0, 0.16), transparent 60%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(120, 191, 160, 0.08), transparent 62%),
-    radial-gradient(42rem 34rem at 50% 108%, rgba(235, 125, 0, 0.1), transparent 62%);
+    radial-gradient(55rem 40rem at 10% -8%, rgba(51, 82, 127, 0.4), transparent 62%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(179, 210, 255, 0.1), transparent 62%),
+    radial-gradient(42rem 34rem at 50% 108%, rgba(51, 82, 127, 0.3), transparent 62%);
 }
 
 /* Native cursor is replaced by <LiquidCursor /> on fine-pointer devices only */
@@ -124,12 +123,12 @@ html.has-liquid-cursor * {
 }
 
 ::selection {
-  background: rgba(235, 125, 0, 0.28);
+  background: rgba(51, 82, 127, 0.22);
   color: rgb(var(--ink));
 }
 .dark ::selection {
-  background: rgba(235, 125, 0, 0.45);
-  color: rgb(255 235 215);
+  background: rgba(179, 210, 255, 0.35);
+  color: rgb(240 246 255);
 }
 
 ::-webkit-scrollbar {
@@ -140,7 +139,7 @@ html.has-liquid-cursor * {
   background: rgb(var(--paper-100));
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgb(var(--flame)), rgb(var(--moss-600)));
+  background: linear-gradient(180deg, rgb(var(--azure)), rgb(var(--sky-500)));
   border-radius: 999px;
   border: 2px solid rgb(var(--paper-100));
 }
@@ -153,7 +152,7 @@ html.has-liquid-cursor * {
     @apply rounded-2xl border border-ink/10 bg-paper-50/60 backdrop-blur-md;
   }
   .text-gradient {
-    @apply bg-gradient-to-r from-flame-600 via-flame to-moss-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-azure-600 via-azure to-sky-500 bg-clip-text text-transparent;
   }
   .section {
     @apply relative mx-auto w-full max-w-6xl px-5 sm:px-8;
@@ -237,11 +236,11 @@ html.has-liquid-cursor * {
   background: radial-gradient(
     circle at 30% 24%,
     rgb(var(--bubble-core) / var(--bubble-core-alpha)),
-    rgba(235, 125, 0, 0.12) 48%,
-    rgb(var(--moss-600) / 0.16) 78%
+    rgb(var(--azure) / 0.14) 48%,
+    rgb(var(--sky-500) / 0.18) 78%
   );
   box-shadow:
-    inset 0 -12px 26px -14px rgba(235, 125, 0, 0.7),
+    inset 0 -12px 26px -14px rgb(var(--azure) / 0.7),
     inset 0 10px 20px -12px rgb(var(--bubble-core) / 0.8),
     0 12px 26px -16px rgb(var(--shadow) / 0.6);
   backdrop-filter: blur(2px);
@@ -274,7 +273,7 @@ html.has-liquid-cursor * {
   position: absolute;
   inset: -6px;
   border-radius: 9999px;
-  border: 2px solid rgba(235, 125, 0, 0.75);
+  border: 2px solid rgb(var(--azure) / 0.8);
   opacity: 0;
 }
 .bubble[data-state="popped"] .bubble-skin {

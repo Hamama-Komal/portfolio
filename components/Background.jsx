@@ -45,13 +45,13 @@ export default function Background() {
       {/* Ambient light pools */}
       <motion.div
         style={{ y: hazeShift }}
-        className="absolute -left-32 top-0 h-[34rem] w-[34rem] rounded-full bg-flame/[0.16] blur-[130px]"
+        className="absolute -left-32 top-0 h-[34rem] w-[34rem] rounded-full bg-azure/[0.16] blur-[130px]"
       />
       <motion.div
         style={{ y: ceilShift }}
-        className="absolute -right-24 top-1/4 h-[30rem] w-[30rem] rounded-full bg-moss-400/[0.18] blur-[130px]"
+        className="absolute -right-24 top-1/4 h-[30rem] w-[30rem] rounded-full bg-sky-400/[0.18] blur-[130px]"
       />
-      <div className="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-flame-300/[0.14] blur-[130px]" />
+      <div className="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-azure-300/[0.14] blur-[130px]" />
 
       {/* Perspective stage */}
       <div className="absolute inset-0 [perspective:900px]">

@@ -22,24 +22,24 @@ const socials = [
     value: profile.phone,
     href: profile.phoneHref,
     icon: Phone,
-    color: "hover:border-moss-600/50 hover:text-moss-600 hover:shadow-[0_0_28px_-8px_rgba(52,211,153,0.8)]",
-    iconColor: "text-moss-600",
+    color: "hover:border-sky-600/50 hover:text-sky-600 hover:shadow-[0_0_28px_-8px_rgba(52,211,153,0.8)]",
+    iconColor: "text-sky-600",
   },
   {
     label: "Email",
     value: profile.email,
     href: `mailto:${profile.email}`,
     icon: Mail,
-    color: "hover:border-flame/50 hover:text-flame-600 hover:shadow-[0_0_28px_-8px_rgba(139,92,246,0.9)]",
-    iconColor: "text-flame-600",
+    color: "hover:border-azure/50 hover:text-azure-600 hover:shadow-[0_0_28px_-8px_rgba(139,92,246,0.9)]",
+    iconColor: "text-azure-600",
   },
   {
     label: "LinkedIn",
     value: "hamama-komal",
     href: profile.linkedin,
     icon: Linkedin,
-    color: "hover:border-moss-400/50 hover:text-moss-600 hover:shadow-[0_0_28px_-8px_rgba(56,189,248,0.9)]",
-    iconColor: "text-moss-600",
+    color: "hover:border-sky-400/50 hover:text-sky-600 hover:shadow-[0_0_28px_-8px_rgba(56,189,248,0.9)]",
+    iconColor: "text-sky-600",
     external: true,
   },
   {
@@ -82,11 +82,11 @@ export default function Contact() {
       <div className="section">
         <Reveal from="up">
           <div className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-gradient-to-b from-ink/[0.06] to-ink/[0.02] p-8 text-center backdrop-blur-2xl sm:p-14">
-            <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-flame/20 blur-[100px]" />
+            <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-azure/20 blur-[100px]" />
             <div className="pointer-events-none absolute inset-0 grid-bg opacity-30 [mask-image:radial-gradient(60%_50%_at_50%_0%,#000,transparent)]" />
 
             <span className="eyebrow relative">
-              <span className="h-1.5 w-1.5 rounded-full bg-moss-600" />
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-600" />
               Contact
             </span>
 
@@ -126,7 +126,7 @@ export default function Contact() {
                 type="button"
                 onClick={copyEmail}
                 data-cursor="copy"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-flame to-moss-400 px-6 py-3.5 text-sm font-bold text-paper-50 transition-transform duration-300 hover:scale-[1.03] active:scale-95"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-azure to-sky-400 px-6 py-3.5 text-sm font-bold text-paper-50 transition-transform duration-300 hover:scale-[1.03] active:scale-95"
               >
                 <span className="absolute inset-0 -translate-x-full bg-ink/30 transition-transform duration-700 group-hover:translate-x-full" />
                 <AnimatePresence mode="wait" initial={false}>
@@ -163,9 +163,9 @@ export default function Contact() {
                 href={CV_FILE}
                 download
                 data-cursor="download"
-                className="group inline-flex items-center gap-2.5 rounded-2xl border border-ink/15 bg-paper-50/60 px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:border-flame/50 hover:text-flame-700"
+                className="group inline-flex items-center gap-2.5 rounded-2xl border border-ink/15 bg-paper-50/60 px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:border-azure/50 hover:text-azure-700"
               >
-                <Download className="h-4 w-4 text-flame transition-transform duration-300 group-hover:translate-y-0.5" />
+                <Download className="h-4 w-4 text-azure transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV
               </a>
             </div>
@@ -176,7 +176,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="relative mt-3 font-mono text-xs text-moss-600"
+                  className="relative mt-3 font-mono text-xs text-sky-600"
                 >
                   {profile.email}
                 </motion.p>
@@ -191,7 +191,7 @@ export default function Contact() {
           </p>
           <a
             href="#top"
-            className="group flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-4 py-2 text-xs text-ink/60 transition-colors hover:border-flame/40 hover:text-ink"
+            className="group flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-4 py-2 text-xs text-ink/60 transition-colors hover:border-azure/40 hover:text-ink"
           >
             <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
             Back to top

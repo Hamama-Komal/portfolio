@@ -1,14 +1,14 @@
-import { Outfit, Sora, JetBrains_Mono } from "next/font/google";
+import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
-const sans = Outfit({
+const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const display = Sora({
+const display = Outfit({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -24,13 +24,16 @@ const siteUrl = "https://hamama-komal.vercel.app";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Hamama Komal — Flutter App Developer & AI Explorer",
+  title: "Hamama Komal | Flutter Developer & AI Engineer",
   description:
-    "Portfolio of Hamama Komal — Full-Time Flutter App Developer at Devlix Technologies and Part-Time AI Engineer & AI/ML Instructor at XOKSIS. Main quest: Mobile Development. Side quest: AI.",
+    "Flutter developer in Bhakkar, Pakistan building smart mobile apps with AI. 10+ apps on Google Play, clean architecture, LLM and RAG features.",
   keywords: [
     "Hamama Komal",
     "Flutter Developer",
     "Mobile App Developer",
+    "Bhakkar",
+    "Pakistan",
+    "Clean Architecture",
     "AI Engineer",
     "RAG",
     "LLM",
@@ -39,9 +42,9 @@ export const metadata = {
   ],
   authors: [{ name: "Hamama Komal" }],
   openGraph: {
-    title: "Hamama Komal — Flutter App Developer & AI Explorer",
+    title: "Hamama Komal | Flutter Developer & AI Engineer",
     description:
-      "My main quest is Mobile Development. My side quest is AI.",
+      "Flutter developer building smart mobile apps with AI. 10+ apps live on Google Play.",
     url: siteUrl,
     siteName: "Hamama Komal",
     type: "website",
@@ -49,8 +52,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hamama Komal — Flutter App Developer & AI Explorer",
-    description: "My main quest is Mobile Development. My side quest is AI.",
+    title: "Hamama Komal | Flutter Developer & AI Engineer",
+    description: "Flutter developer building smart mobile apps with AI.",
     images: ["/img/me-orange.webp"],
   },
   icons: {

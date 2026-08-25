@@ -15,7 +15,7 @@ export default function SectionHeading({ eyebrow, title, highlight, description,
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-flame shadow-glow" />
+          <span className="h-1.5 w-1.5 rounded-full bg-azure shadow-glow" />
           {eyebrow}
         </motion.span>
       ) : null}

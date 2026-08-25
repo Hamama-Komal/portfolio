@@ -97,8 +97,8 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
                   {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                 </span>
                 {job.current ? (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-moss-600/25 bg-moss-600/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-moss-600">
-                    <span className="h-1.5 w-1.5 rounded-full bg-moss-600 animate-blink" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-600/25 bg-sky-600/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-600">
+                    <span className="h-1.5 w-1.5 rounded-full bg-sky-600 animate-blink" />
                     Current
                   </span>
                 ) : null}

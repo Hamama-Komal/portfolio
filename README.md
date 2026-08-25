@@ -9,8 +9,8 @@ An interactive, animated portfolio — warm paper by day, black-and-amber by nig
 | 1 | Hero | Gradient name, "Open for Mobile & AI Projects" status line, large frameless portrait (orange backdrop) feathered into the page with a cursor **spotlight reveal** — the anime layer clips away to uncover the real photo — plus magnetic CTA buttons |
 | 2 | Intro | Glass bio card + dual-role cards, infinite dual-row tech ticker that pauses on hover |
 | 3 | Experience | Expanded-card accordion — hover a chapter and it grows (horizontally on desktop, vertically on mobile) to reveal the role, dates, focus points and a chapter marker |
-| 4 | Projects | Sticky stacking deck — each card pins a little lower than the last so the next slides over it, with covered cards scaling down and dimming; every card carries a 3D fan of app screenshots |
-| 5 | Tech Stack | Bento grid with a pointer-tracking spotlight per card |
+| 4 | Projects | Sticky stacking deck — each card pins a little lower than the last so the next slides over it. Every card states the **problem**, the **solution**, the stack and a live Play Store link, alongside a 3D fan of app screenshots |
+| 5 | Skills | Bento grid grouped into Mobile, AI & Teaching, Architecture, Backend and Tools, with a pointer-tracking spotlight per card |
 | 6 | A Little About Me | **Chibi Bubble Pop** — a 30-second game: transparent anime cut-outs float up inside glass bubbles, pop them for points, chain them fast for a streak multiplier. Best score is kept in `localStorage`. |
 | 7 | Contact | Social pill buttons + a magnetic "Copy Email" button that flashes *Copied to Clipboard!* |
 
@@ -34,13 +34,16 @@ With nothing stored, the site follows the visitor's system preference.
 
 | Token | Light | Dark | Used for |
 |-------|-------|------|----------|
-| `paper-50` → `paper-300` | `#FDFBF4` → `#E5DCC2` | `#080808` → `#2D2821` | Page base and every surface |
-| `ink` | `#2E2910` | `#FFB067` | All type; opacity steps (`text-ink/70`, `/45`) give the hierarchy |
-| `flame` | `#EB7D00` | `#EB7D00` | Primary accent — CTAs, highlights, portrait backdrop |
-| `moss-600` | `#2C5745` | `#78BFA0` | Secondary accent — section labels, AI sections |
+| `paper-50` → `paper-300` | `#FFFFFF` → `#b3d2ff` | `#0B121E` → `#243a59` | Page base and every surface |
+| `ink` | `#243a59` | `#d9e9ff` | All type; opacity steps (`text-ink/70`, `/45`) give the hierarchy |
+| `azure` | `#33527f` | `#b3d2ff` | Primary accent — CTAs, highlights, links |
+| `sky-500` | `#5A82BE` | `#b3d2ff` | Secondary accent — section labels, AI sections |
 
-Dark mode is black-backed with warm amber type and amber-tinted outlines; the liquid cursor
-switches from `multiply` to `screen` blending so it stays visible on either ground.
+The four source swatches (`#243a59`, `#33527f`, `#b3d2ff`, `#d9e9ff`) swap roles between themes:
+deep navies carry type on light and become surfaces on dark, while the pale blues do the reverse.
+The liquid cursor switches from `multiply` to `screen` blending so it stays visible on either ground.
+
+Type: **Inter** for body, **Outfit** for headings, **JetBrains Mono** for labels and metadata.
 
 ## Local development
 

@@ -34,7 +34,7 @@ export default function ThemeToggle() {
       onClick={toggle}
       data-cursor={isDark ? "light" : "dark"}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      className="relative ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors duration-300 hover:border-flame/50 hover:text-flame"
+      className="relative ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors duration-300 hover:border-azure/50 hover:text-azure"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

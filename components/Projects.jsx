@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Check, Sparkles, Play } from "lucide-react";
+import { ArrowUpRight, Check, Lightbulb, Play, Sparkles, Target } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import AppShot from "./AppShot";
 import AiProjectArt from "./AiProjectArt";
@@ -25,7 +25,7 @@ function ProjectCard({ project, index, total, progress }) {
   return (
     <div
       className="sticky flex justify-center pb-6"
-      style={{ top: `calc(5.5rem + ${index * 1.1}rem)` }}
+      style={{ top: `calc(5.5rem + ${index * 0.9}rem)` }}
     >
       <motion.article
         style={{ scale, transformOrigin: "top center" }}
@@ -48,7 +48,7 @@ function ProjectCard({ project, index, total, progress }) {
           <div className="absolute inset-0 bg-gradient-to-t from-paper-50 via-paper-50/55 to-transparent" />
         </div>
 
-        <div className="relative flex flex-col gap-7 p-6 sm:p-9 lg:h-[28rem] lg:flex-row lg:items-center lg:gap-12">
+        <div className="relative flex flex-col gap-7 p-6 sm:p-9 lg:h-[34rem] lg:flex-row lg:items-center lg:gap-12">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-mono text-[11px] text-ink/45">
@@ -69,11 +69,32 @@ function ProjectCard({ project, index, total, progress }) {
             <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-ink sm:text-[2.1rem] sm:leading-[1.1]">
               {project.title}
             </h3>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/60">
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink/60">
               {project.tagline}
             </p>
 
-            <ul className="mt-5 space-y-2">
+            <dl className="mt-6 space-y-4">
+              <div>
+                <dt className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/45">
+                  <Target className={`h-3 w-3 ${accent.text}`} />
+                  Problem
+                </dt>
+                <dd className="mt-1.5 max-w-lg text-[13px] leading-relaxed text-ink/65">
+                  {project.problem}
+                </dd>
+              </div>
+              <div>
+                <dt className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/45">
+                  <Lightbulb className={`h-3 w-3 ${accent.text}`} />
+                  Solution
+                </dt>
+                <dd className="mt-1.5 max-w-lg text-[13px] leading-relaxed text-ink/65">
+                  {project.solution}
+                </dd>
+              </div>
+            </dl>
+
+            <ul className="mt-5 space-y-1.5">
               {project.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2.5 text-[13px] text-ink/60">
                   <Check className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${accent.text}`} />

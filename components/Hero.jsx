@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
 import AvatarReveal from "./AvatarReveal";
 import Magnetic from "./Magnetic";
 import { profile, CV_FILE } from "@/lib/data";
@@ -40,11 +40,16 @@ export default function Hero() {
           >
             <motion.div variants={item} className="flex items-center gap-3">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-moss-600 opacity-60 animate-pulseRing" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss-600" />
+                <span className="absolute inline-flex h-full w-full rounded-full bg-sky-600 opacity-60 animate-pulseRing" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sky-600" />
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink/60">
                 {profile.status}
+              </span>
+              <span className="hidden h-3 w-px bg-ink/15 sm:block" />
+              <span className="hidden items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-ink/45 sm:flex">
+                <MapPin className="h-3 w-3" />
+                {profile.location}
               </span>
             </motion.div>
 
@@ -55,29 +60,34 @@ export default function Hero() {
               <span className="block bg-gradient-to-br from-ink via-ink to-ink/45 bg-clip-text text-transparent">
                 Hamama
               </span>
-              <span className="block bg-gradient-to-r from-flame via-ink to-moss-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-azure via-ink to-sky-600 bg-clip-text text-transparent">
                 Komal
               </span>
             </motion.h1>
 
             <motion.p
               variants={item}
-              className="mt-6 max-w-md text-[15px] leading-relaxed text-ink/60 sm:text-base"
+              className="mt-6 max-w-lg font-display text-lg font-medium leading-snug text-ink/80 sm:text-xl"
             >
-              Flutter App Developer
-              <span className="mx-2 text-ink/35">·</span>
-              AI Explorer
-              <span className="mx-2 text-ink/35">·</span>
-              Software Developer
+              Flutter Developer building{" "}
+              <span className="text-azure">smart mobile apps with AI</span>.
+            </motion.p>
+
+            <motion.p
+              variants={item}
+              className="mt-3 max-w-md text-[15px] leading-relaxed text-ink/55"
+            >
+              I ship production Flutter apps with clean architecture — and bring LLM and RAG
+              features into them.
             </motion.p>
 
             {/* Catchphrase */}
             <motion.div variants={item} className="mt-9 border-l border-ink/10 pl-5">
               <p className="font-display text-base font-medium leading-relaxed text-ink sm:text-lg">
                 My main quest is{" "}
-                <span className="text-flame-600">Mobile Development</span>.
+                <span className="text-azure-600">Mobile Development</span>.
                 <br />
-                My side quest is <span className="text-moss-600">AI</span>.
+                My side quest is <span className="text-sky-600">AI</span>.
               </p>
             </motion.div>
 
@@ -97,7 +107,7 @@ export default function Hero() {
                 href={CV_FILE}
                 download
                 data-cursor="download"
-                className="group inline-flex items-center gap-2 rounded-full border border-flame/45 bg-flame/10 px-6 py-3 text-sm font-semibold text-flame-700 transition-colors duration-300 hover:border-flame hover:bg-flame/20"
+                className="group inline-flex items-center gap-2 rounded-full border border-azure/45 bg-azure/10 px-6 py-3 text-sm font-semibold text-azure-700 transition-colors duration-300 hover:border-azure hover:bg-azure/20"
               >
                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV

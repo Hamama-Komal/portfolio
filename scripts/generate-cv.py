@@ -12,13 +12,13 @@ MARGIN_X = 52
 TOP = 44
 BOTTOM = 38
 
-INK = (0.180, 0.161, 0.063)  # #2E2910
-INK_SOFT = (0.376, 0.353, 0.212)
-MUTED = (0.545, 0.529, 0.408)
-FLAME = (0.922, 0.490, 0.000)  # #EB7D00
-MOSS = (0.173, 0.341, 0.271)  # #2C5745
-PAPER = (0.992, 0.984, 0.957)  # #FDFBF4
-RULE = (0.898, 0.863, 0.761)
+INK = (0.141, 0.227, 0.349)  # #243a59
+INK_SOFT = (0.263, 0.353, 0.494)
+MUTED = (0.427, 0.505, 0.616)
+ACCENT = (0.200, 0.322, 0.498)  # #33527f
+DEEP = (0.141, 0.227, 0.349)  # #243a59
+PAPER = (1.0, 1.0, 1.0)
+RULE = (0.702, 0.824, 1.0)  # #b3d2ff
 
 BOLD = "hebo"
 REG = "helv"
@@ -44,6 +44,17 @@ def wrapped_lines(content, width, size, fontname):
     return total
 
 
+# Base-14 Helvetica is Latin-1 encoded; characters outside it (em dash, bullet)
+# render as "?" or vanish, so normalise before anything reaches the page.
+SUBS = {"—": " - ", "–": "-", "•": "·", "’": "'", "“": '"', "”": '"'}
+
+
+def latin1(text):
+    for bad, good in SUBS.items():
+        text = text.replace(bad, good)
+    return text.encode("latin-1", "replace").decode("latin-1")
+
+
 class Sheet:
     def __init__(self):
         self.doc = fitz.open()
@@ -55,7 +66,7 @@ class Sheet:
         self.page = self.doc.new_page(width=PAGE_W, height=PAGE_H)
         self.page.draw_rect(fitz.Rect(0, 0, PAGE_W, PAGE_H), color=None, fill=PAPER)
         # warm accent bar down the left edge
-        self.page.draw_rect(fitz.Rect(0, 0, 6, PAGE_H), color=None, fill=FLAME)
+        self.page.draw_rect(fitz.Rect(0, 0, 6, PAGE_H), color=None, fill=ACCENT)
         self.y = TOP
 
     def space(self, amount):
@@ -68,6 +79,7 @@ class Sheet:
     def text(self, content, size=9.5, font=REG, color=INK_SOFT, leading=1.38, indent=0, gap=0):
         width = PAGE_W - MARGIN_X * 2 - indent
         line_h = size * leading
+        content = latin1(content)
         height = wrapped_lines(content, width, size, font) * line_h
 
         self.room(height + gap)
@@ -78,6 +90,7 @@ class Sheet:
         self.y += height + gap
 
     def heading(self, label):
+        label = latin1(label)
         self.room(46)
         self.space(7)
         self.page.insert_text(
@@ -85,7 +98,7 @@ class Sheet:
             label.upper(),
             fontsize=8.5,
             fontname=BOLD,
-            color=MOSS,
+            color=DEEP,
         )
         self.y += 13
         self.page.draw_line(
@@ -97,6 +110,7 @@ class Sheet:
         self.y += 8
 
     def role(self, title, org, period):
+        title, org, period = latin1(title), latin1(org), latin1(period)
         self.room(40)
         self.page.insert_text((MARGIN_X, self.y + 9), title, fontsize=10.5, fontname=BOLD, color=INK)
         w = fitz.get_text_length(period, fontname=REG, fontsize=8.5)
@@ -104,14 +118,14 @@ class Sheet:
             (PAGE_W - MARGIN_X - w, self.y + 9), period, fontsize=8.5, fontname=REG, color=MUTED
         )
         self.y += 12
-        self.page.insert_text((MARGIN_X, self.y + 8), org, fontsize=9.5, fontname=OBL, color=FLAME)
+        self.page.insert_text((MARGIN_X, self.y + 8), org, fontsize=9.5, fontname=OBL, color=ACCENT)
         self.y += 13
 
     def bullets(self, items):
         for item in items:
             self.room(16)
             self.page.insert_text(
-                (MARGIN_X + 3, self.y + 8), "•", fontsize=9.5, fontname=REG, color=FLAME
+                (MARGIN_X + 3, self.y + 8), "·", fontsize=13, fontname=BOLD, color=ACCENT
             )
             self.text(item, size=9.5, indent=14, gap=1)
         self.space(2)
@@ -121,19 +135,19 @@ def build():
     s = Sheet()
 
     # ---- Header ----
-    s.page.insert_text((MARGIN_X, s.y + 26), "Hamama Komal", fontsize=26, fontname=BOLD, color=INK)
+    s.page.insert_text((MARGIN_X, s.y + 26), latin1("Hamama Komal"), fontsize=26, fontname=BOLD, color=INK)
     s.y += 34
     s.page.insert_text(
         (MARGIN_X, s.y + 11),
-        "Flutter App Developer  |  AI Explorer  |  Software Developer",
+        latin1("Flutter Developer  |  Building Smart Mobile Apps with AI"),
         fontsize=10.5,
         fontname=REG,
-        color=FLAME,
+        color=ACCENT,
     )
     s.y += 19
     s.page.insert_text(
         (MARGIN_X, s.y + 9),
-        "+92 302 1976361   ·   Hamama.komal.00@gmail.com",
+        latin1("Bhakkar, Pakistan   ·   +92 302 1976361   ·   Hamama.komal.00@gmail.com"),
         fontsize=8.8,
         fontname=REG,
         color=MUTED,
@@ -141,25 +155,25 @@ def build():
     s.y += 12
     s.page.insert_text(
         (MARGIN_X, s.y + 9),
-        "linkedin.com/in/hamama-komal   ·   github.com/Hamama-Komal",
+        latin1("linkedin.com/in/hamama-komal   ·   github.com/Hamama-Komal"),
         fontsize=8.8,
         fontname=REG,
         color=MUTED,
     )
     s.y += 16
     s.page.draw_line(
-        fitz.Point(MARGIN_X, s.y), fitz.Point(PAGE_W - MARGIN_X, s.y), color=FLAME, width=1.6
+        fitz.Point(MARGIN_X, s.y), fitz.Point(PAGE_W - MARGIN_X, s.y), color=ACCENT, width=1.6
     )
     s.y += 6
 
     # ---- Profile ----
     s.heading("Profile")
     s.text(
-        "Flutter App Developer working full-time at Devlix Technologies, focused on building, improving and "
-        "shipping production-ready mobile applications. My journey started with native Android and "
-        "moved into Flutter, where I found my main focus: clean, responsive, user-friendly mobile "
-        "experiences. Alongside that I work part-time as an AI Engineer and AI/ML Instructor, building "
-        "LLM and RAG-powered systems and teaching the concepts behind them. 30+ apps built, 10+ on Google Play.",
+        "Flutter developer building production mobile applications with a strict clean-architecture "
+        "approach, working full-time at Devlix Technologies. Started in native Android and moved into "
+        "Flutter, where clean, scalable app structure became the focus. Alongside that, part-time AI "
+        "Engineer and AI/ML Instructor at XOKSIS — building LLM and RAG-powered features and teaching "
+        "those concepts to developers starting out. 30+ apps built, 10+ live on Google Play.",
         gap=2,
     )
 
@@ -205,13 +219,14 @@ def build():
     # ---- Skills ----
     s.heading("Technical Skills")
     for label, items in [
-        ("Mobile", "Flutter · Dart · Android · Firebase · GetX · Provider · Dependency Injection"),
-        ("Backend", "Python · FastAPI · PostgreSQL · SQLAlchemy"),
+        ("Mobile", "Flutter · Dart · Android · Provider · GetX · Dependency Injection · Material Design"),
+        ("Architecture", "Clean Architecture · MVVM · Repository Pattern · SOLID · State Management"),
         (
             "AI / ML",
-            "LLMs · RAG · LangChain · LlamaIndex · CrewAI · LangGraph · Vector Databases · Embeddings",
+            "LLMs · Prompt Engineering · RAG Pipelines · Agentic AI · Vector Databases · Curriculum Design",
         ),
-        ("Development", "Git · Docker · REST APIs · Clean Architecture · MVVM · Async Programming"),
+        ("Backend", "Firebase · REST APIs · Python · FastAPI · PostgreSQL · Authentication"),
+        ("Tools", "Git & GitHub · Android Studio · VS Code · Docker · Play Console"),
     ]:
         s.room(20)
         s.page.insert_text((MARGIN_X, s.y + 8), label, fontsize=9.5, fontname=BOLD, color=INK)
@@ -223,15 +238,15 @@ def build():
     for name, detail in [
         ("Football Wallpapers", "High-resolution football wallpaper app (Ronaldo, Messi, Neymar)."),
         ("14 August Photo Editor", "Themed photo editor built around Pakistan's Independence Day."),
-        ("Voice Changer", "Real-time voice effects and audio processing."),
+        ("Voice Changer", "On-device audio effects engine with instant playback."),
         ("Hide Photos & Videos", "Private vault with gallery lock for photos and videos."),
     ]:
         s.room(16)
-        s.page.insert_text((MARGIN_X + 3, s.y + 8), "•", fontsize=9.5, fontname=REG, color=FLAME)
-        s.page.insert_text((MARGIN_X + 14, s.y + 8), name, fontsize=9.5, fontname=BOLD, color=INK)
-        w = fitz.get_text_length(name, fontname=BOLD, fontsize=9.5)
+        s.page.insert_text((MARGIN_X + 3, s.y + 8), "·", fontsize=13, fontname=BOLD, color=ACCENT)
+        s.page.insert_text((MARGIN_X + 14, s.y + 8), latin1(name), fontsize=9.5, fontname=BOLD, color=INK)
+        w = fitz.get_text_length(latin1(name), fontname=BOLD, fontsize=9.5)
         s.page.insert_text(
-            (MARGIN_X + 18 + w, s.y + 8), "— " + detail, fontsize=9.5, fontname=REG, color=INK_SOFT
+            (MARGIN_X + 18 + w, s.y + 8), latin1("- " + detail), fontsize=9.5, fontname=REG, color=INK_SOFT
         )
         s.y += 13
     s.space(2)

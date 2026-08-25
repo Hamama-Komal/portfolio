@@ -27,7 +27,7 @@ export default function AiProjectArt() {
           </motion.span>
           <div className="absolute bottom-2 left-2 right-2 h-1 rounded-full bg-ink/20">
             <motion.span
-              className="block h-full rounded-full bg-flame"
+              className="block h-full rounded-full bg-azure"
               animate={{ width: ["12%", "78%", "12%"] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -40,25 +40,25 @@ export default function AiProjectArt() {
             <span className="block h-1.5 w-full rounded-full bg-ink/35" />
             <span className="mt-1.5 block h-1.5 w-2/3 rounded-full bg-ink/20" />
           </div>
-          <div className="w-5/6 rounded-2xl rounded-bl-sm border border-flame/25 bg-flame/[0.12] px-3 py-2">
-            <span className="block h-1.5 w-full rounded-full bg-flame/60" />
-            <span className="mt-1.5 block h-1.5 w-4/5 rounded-full bg-flame/35" />
-            <span className="mt-1.5 block h-1.5 w-1/2 rounded-full bg-flame/25" />
+          <div className="w-5/6 rounded-2xl rounded-bl-sm border border-azure/25 bg-azure/[0.12] px-3 py-2">
+            <span className="block h-1.5 w-full rounded-full bg-azure/60" />
+            <span className="mt-1.5 block h-1.5 w-4/5 rounded-full bg-azure/35" />
+            <span className="mt-1.5 block h-1.5 w-1/2 rounded-full bg-azure/25" />
           </div>
         </div>
 
         {/* Quiz + flashcard tiles */}
         <div className="mt-auto grid grid-cols-2 gap-2">
           <motion.div
-            className="rounded-xl border border-moss-600/25 bg-moss-600/10 p-2.5"
+            className="rounded-xl border border-sky-600/25 bg-sky-600/10 p-2.5"
             animate={{ y: [0, -3, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-moss-600">
+            <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-sky-600">
               Quiz
             </span>
-            <span className="mt-1.5 block h-1 w-full rounded-full bg-moss-600/40" />
-            <span className="mt-1 block h-1 w-3/4 rounded-full bg-moss-600/25" />
+            <span className="mt-1.5 block h-1 w-full rounded-full bg-sky-600/40" />
+            <span className="mt-1 block h-1 w-3/4 rounded-full bg-sky-600/25" />
           </motion.div>
           <motion.div
             className="rounded-xl border border-ink/20 bg-ink/[0.07] p-2.5"
