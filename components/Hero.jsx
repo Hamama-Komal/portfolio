@@ -149,7 +149,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 0.8 }}
-          className="mx-auto mt-14 flex w-fit items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.28em] text-ink/35 transition-colors hover:text-ink/80 sm:mt-16"
+          className="mx-auto mt-14 flex w-fit items-center gap-2.5 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.28em] text-ink/35 transition-colors hover:text-ink/80 sm:mt-16"
         >
           Scroll
           <motion.span

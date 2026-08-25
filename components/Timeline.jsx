@@ -43,7 +43,12 @@ function JobPanel({ job, index, total, isActive, onActivate, isDesktop }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       style={{ ...sizing, transitionTimingFunction: EASE }}
-      className="group relative min-w-0 flex-1 overflow-hidden rounded-3xl border border-ink/10 bg-paper-100 transition-[height,flex-grow,border-color] duration-700 hover:border-ink/20"
+      // Pre-hydration fallback. It has to be min-height, not height: `flex-1`
+      // sets flex-basis:0 which wins over height on a column flex container's
+      // main axis, collapsing the panels to their 2px borders.
+      className={`group relative min-w-0 flex-1 overflow-hidden rounded-3xl border border-ink/10 bg-paper-100 transition-[height,flex-grow,border-color] duration-700 hover:border-ink/20 lg:min-h-0 ${
+        isActive ? "min-h-[31rem]" : "min-h-20"
+      }`}
     >
       {/* Accent wash */}
       <div className="absolute inset-0">

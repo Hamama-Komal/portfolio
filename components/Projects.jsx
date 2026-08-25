@@ -7,13 +7,14 @@ import SectionHeading from "./SectionHeading";
 import AppShot from "./AppShot";
 import AiProjectArt from "./AiProjectArt";
 import { projects, moreProjects, accents } from "@/lib/data";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 /**
  * Stacking deck: every card sticks below the header at a slightly lower offset than
  * the one before it, so scrolling slides each new card over the previous one. Cards
  * already in the stack scale down and dim, which sells the depth.
  */
-function ProjectCard({ project, index, total, progress }) {
+function ProjectCard({ project, index, total, progress, stacked }) {
   const accent = accents[project.accent];
   const start = index / total;
 
@@ -24,11 +25,13 @@ function ProjectCard({ project, index, total, progress }) {
 
   return (
     <div
-      className="sticky flex justify-center pb-6"
-      style={{ top: `calc(5.5rem + ${index * 0.9}rem)` }}
+      // Below lg a card is taller than the viewport, so pinning it would hide its
+      // own bottom half. There the deck simply becomes a stack of cards.
+      className={stacked ? "sticky flex justify-center pb-6" : "flex justify-center pb-6"}
+      style={stacked ? { top: `calc(5.5rem + ${index * 0.9}rem)` } : undefined}
     >
       <motion.article
-        style={{ scale, transformOrigin: "top center" }}
+        style={stacked ? { scale, transformOrigin: "top center" } : undefined}
         className={`relative w-full overflow-hidden rounded-[1.75rem] border bg-paper-100 shadow-[0_-8px_60px_-20px_rgba(46,41,16,0.32)] ${accent.border}`}
       >
         {/* Accent spine */}
@@ -195,10 +198,12 @@ function ProjectCard({ project, index, total, progress }) {
         </div>
 
         {/* Cards deeper in the stack fade back */}
-        <motion.div
-          style={{ opacity: dim }}
-          className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-paper-50"
-        />
+        {stacked ? (
+          <motion.div
+            style={{ opacity: dim }}
+            className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-paper-50"
+          />
+        ) : null}
       </motion.article>
     </div>
   );
@@ -258,6 +263,7 @@ function MoreCard({ app, index }) {
 export default function Projects() {
   const containerRef = useRef(null);
   const [showMore, setShowMore] = useState(false);
+  const stacked = useMediaQuery("(min-width: 1024px)") === true;
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -282,10 +288,11 @@ export default function Projects() {
             index={i}
             total={projects.length}
             progress={scrollYProgress}
+            stacked={stacked}
           />
         ))}
         {/* Lets the last card sit at the top of the deck for a beat */}
-        <div className="h-[28vh]" />
+        {stacked ? <div className="h-[28vh]" /> : null}
       </div>
 
       {/* Everything else that shipped */}

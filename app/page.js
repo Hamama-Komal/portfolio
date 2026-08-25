@@ -21,7 +21,9 @@ export default function Home() {
       <SmoothAnchors />
       <ScrollProgress />
       <NavBar />
-      <main className="relative">
+      {/* `clip` not `hidden`: it contains the sideways travel of the entry
+          animations without creating a scroll container, so sticky still works. */}
+      <main className="relative overflow-x-clip">
         <Hero />
         <Intro />
         <Timeline />

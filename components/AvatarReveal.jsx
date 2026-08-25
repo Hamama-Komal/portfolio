@@ -63,14 +63,14 @@ export default function AvatarReveal() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-none">
+    <div className="relative mx-auto w-full max-w-[19rem] sm:max-w-[24rem] lg:max-w-none">
       {/* Ambient light behind the portrait */}
       <div className="pointer-events-none absolute inset-[10%] rounded-full bg-azure/25 blur-[90px]" />
 
       {/* Conic ring, counter-rotating dashed ring, and orbiting node */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -inset-[5%] rounded-full opacity-90"
+        className="pointer-events-none absolute -inset-[3%] rounded-full opacity-90 sm:-inset-[5%]"
         style={{
           background:
             "conic-gradient(from 0deg, rgb(var(--azure)) 0deg, rgb(var(--sky-300)) 90deg, transparent 200deg, rgb(var(--azure)) 360deg)",
@@ -82,7 +82,7 @@ export default function AvatarReveal() {
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -inset-[11%] rounded-full border border-dashed border-ink/15"
+        className="pointer-events-none absolute -inset-[7%] rounded-full border border-dashed border-ink/15 sm:-inset-[11%]"
         animate={{ rotate: -360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >

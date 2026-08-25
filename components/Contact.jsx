@@ -191,7 +191,7 @@ export default function Contact() {
           </p>
           <a
             href="#top"
-            className="group flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-4 py-2 text-xs text-ink/60 transition-colors hover:border-azure/40 hover:text-ink"
+            className="group flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-4 py-2.5 text-xs text-ink/60 transition-colors hover:border-azure/40 hover:text-ink"
           >
             <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
             Back to top
