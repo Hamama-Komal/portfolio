@@ -43,6 +43,8 @@
   --cursor-blob: 2 125 253;
   --cursor-dot: 10 25 41;
   --cursor-blend: multiply;
+  --dot-rgb: 10 25 41;
+  --dot-active-rgb: 2 125 253;
   --bubble-rim: 255 255 255;
   --bubble-core: 255 255 255;
   --bubble-core-alpha: 0.9;
@@ -85,6 +87,8 @@
   --cursor-blob: 66 165 245;
   --cursor-dot: 144 202 249;
   --cursor-blend: screen;
+  --dot-rgb: 144 202 249;
+  --dot-active-rgb: 66 165 245;
   --bubble-rim: 100 181 246;
   --bubble-core: 227 242 253;
   --bubble-core-alpha: 0.18;
@@ -100,9 +104,8 @@ body {
   /* `clip` (not `hidden`) so position: sticky keeps working */
   overflow-x: clip;
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.1), transparent 62%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.09), transparent 62%),
-    radial-gradient(42rem 34rem at 50% 108%, rgba(2, 125, 253, 0.07), transparent 62%);
+    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.06), transparent 62%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.05), transparent 62%);
   background-attachment: fixed;
   transition:
     background-color 0.4s ease,
@@ -111,9 +114,8 @@ body {
 
 .dark body {
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.22), transparent 62%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.12), transparent 62%),
-    radial-gradient(42rem 34rem at 50% 108%, rgba(2, 125, 253, 0.16), transparent 62%);
+    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.16), transparent 62%),
+    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.08), transparent 62%);
 }
 
 /* Native cursor is replaced by <LiquidCursor /> on fine-pointer devices only */

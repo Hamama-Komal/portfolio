@@ -1,4 +1,4 @@
-import Background from "@/components/Background";
+import DotGridBackground from "@/components/DotGridBackground";
 import ScrollProgress from "@/components/ScrollProgress";
 import LiquidCursor from "@/components/LiquidCursor";
 import SmoothAnchors from "@/components/SmoothAnchors";
@@ -14,7 +14,7 @@ import Contact from "@/components/Contact";
 export default function Home() {
   return (
     <>
-      <Background />
+      <DotGridBackground />
       <LiquidCursor />
       <SmoothAnchors />
       <ScrollProgress />
