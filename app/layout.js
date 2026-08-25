@@ -48,13 +48,13 @@ export const metadata = {
     url: siteUrl,
     siteName: "Hamama Komal",
     type: "website",
-    images: [{ url: "/img/me-orange.webp", width: 1024, height: 1024, alt: "Hamama Komal" }],
+    images: [{ url: "/img/me-blue.webp", width: 1024, height: 1024, alt: "Hamama Komal" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hamama Komal | Flutter Developer & AI Engineer",
     description: "Flutter developer building smart mobile apps with AI.",
-    images: ["/img/me-orange.webp"],
+    images: ["/img/me-blue.webp"],
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],

@@ -65,8 +65,29 @@ export default function AvatarReveal() {
   return (
     <div className="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-none">
       {/* Ambient light behind the portrait */}
-      <div className="pointer-events-none absolute inset-[8%] rounded-full bg-azure/25 blur-[90px]" />
-      <div className="pointer-events-none absolute bottom-[12%] right-[6%] h-40 w-40 rounded-full bg-sky-400/15 blur-[80px]" />
+      <div className="pointer-events-none absolute inset-[10%] rounded-full bg-azure/25 blur-[90px]" />
+
+      {/* Conic ring, counter-rotating dashed ring, and orbiting node */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -inset-[5%] rounded-full opacity-90"
+        style={{
+          background:
+            "conic-gradient(from 0deg, rgb(var(--azure)) 0deg, rgb(var(--sky-300)) 90deg, transparent 200deg, rgb(var(--azure)) 360deg)",
+          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)",
+          mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)",
+        }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -inset-[11%] rounded-full border border-dashed border-ink/15"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      >
+        <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-azure shadow-glow" />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.97, y: 20 }}
@@ -97,22 +118,16 @@ export default function AvatarReveal() {
             }
           }}
           aria-label="Reveal the real photo behind the anime avatar"
-          className="relative aspect-[4/5] w-full select-none"
-          style={{
-            WebkitMaskImage:
-              "radial-gradient(78% 68% at 50% 44%, #000 52%, rgba(0,0,0,0.55) 74%, transparent 100%)",
-            maskImage:
-              "radial-gradient(78% 68% at 50% 44%, #000 52%, rgba(0,0,0,0.55) 74%, transparent 100%)",
-          }}
+          className="relative aspect-square w-full select-none overflow-hidden rounded-full ring-1 ring-inset ring-ink/10"
         >
           {/* Bottom layer — the real portrait */}
           <Image
-            src="/img/me-orange.webp"
+            src="/img/me-blue.webp"
             alt="Hamama Komal"
             fill
             priority
             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 30rem, 34rem"
-            className="object-cover object-[32%_40%] contrast-[1.05] saturate-[0.9]"
+            className="scale-[1.18] object-cover object-[30%_35%]"
           />
 
           {/* Top layer — the anime avatar, clipped away around the pointer */}
@@ -126,13 +141,12 @@ export default function AvatarReveal() {
               fill
               priority
               sizes="(max-width: 640px) 92vw, (max-width: 1024px) 30rem, 34rem"
-              className="object-cover object-[50%_16%] contrast-[1.05] saturate-[0.95]"
+              className="scale-[1.05] object-cover object-[50%_18%]"
             />
           </motion.div>
 
           {/* Colour grade so both layers sit in the page palette */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-azure/10 via-transparent to-sky-400/10 mix-blend-overlay" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-paper-50 via-paper-50/25 to-transparent" />
 
           {/* Soft light that tracks the pointer */}
           <motion.div
@@ -145,7 +159,7 @@ export default function AvatarReveal() {
               height: 320,
               opacity: hovered && !pinned ? 1 : 0,
               background:
-                "radial-gradient(circle, rgba(235,227,167,0.18), rgba(235,227,167,0) 65%)",
+                "radial-gradient(circle, rgba(255,255,255,0.22), rgba(255,255,255,0) 65%)",
               transition: "opacity 300ms ease",
             }}
           />

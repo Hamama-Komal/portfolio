@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Check, Lightbulb, Play, Sparkles, Target } from "lucide-react";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, Check, ChevronDown, Lightbulb, Play, Sparkles, Target } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import AppShot from "./AppShot";
 import AiProjectArt from "./AiProjectArt";
-import { projects, accents } from "@/lib/data";
+import { projects, moreProjects, accents } from "@/lib/data";
 
 /**
  * Stacking deck: every card sticks below the header at a slightly lower offset than
@@ -204,8 +204,60 @@ function ProjectCard({ project, index, total, progress }) {
   );
 }
 
+/** Compact card for the shipped-apps grid behind the "view more" toggle. */
+function MoreCard({ app, index }) {
+  return (
+    <motion.a
+      href={app.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-cursor="google play"
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-paper-100 transition-colors duration-300 hover:border-azure/40"
+    >
+      <div className="relative h-36 overflow-hidden bg-paper-200">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={app.shot}
+          alt={`${app.title} screenshot`}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-transparent to-transparent" />
+      </div>
+
+      <div className="flex flex-1 flex-col p-4">
+        <div className="flex items-start justify-between gap-2">
+          <h4 className="font-display text-sm font-semibold leading-tight text-ink">{app.title}</h4>
+          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-ink/35 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-azure" />
+        </div>
+        <p className="mt-1 text-[12px] leading-snug text-ink/55">{app.subtitle}</p>
+
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {app.stack.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-ink/10 bg-ink/[0.04] px-2 py-0.5 text-[10px] font-medium text-ink/60"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <span className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/35">
+          {app.org}
+        </span>
+      </div>
+    </motion.a>
+  );
+}
+
 export default function Projects() {
   const containerRef = useRef(null);
+  const [showMore, setShowMore] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -234,6 +286,45 @@ export default function Projects() {
         ))}
         {/* Lets the last card sit at the top of the deck for a beat */}
         <div className="h-[28vh]" />
+      </div>
+
+      {/* Everything else that shipped */}
+      <div className="section">
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShowMore((v) => !v)}
+            aria-expanded={showMore}
+            data-cursor={showMore ? "collapse" : "expand"}
+            className="group inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-paper-50/70 px-6 py-3 text-sm font-semibold text-ink backdrop-blur-md transition-colors duration-300 hover:border-azure/50 hover:text-azure-600"
+          >
+            {showMore ? "Show fewer" : `View ${moreProjects.length} more projects`}
+            <ChevronDown
+              className={`h-4 w-4 transition-transform duration-300 ${
+                showMore ? "rotate-180" : "group-hover:translate-y-0.5"
+              }`}
+            />
+          </button>
+        </div>
+
+        <AnimatePresence initial={false}>
+          {showMore ? (
+            <motion.div
+              key="more"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="grid gap-4 pt-8 sm:grid-cols-2 lg:grid-cols-3">
+                {moreProjects.map((app, i) => (
+                  <MoreCard key={app.title} app={app} index={i} />
+                ))}
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
     </section>
   );

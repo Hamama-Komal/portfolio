@@ -57,21 +57,11 @@ module.exports = {
       },
       boxShadow: {
         glow: "0 0 26px -8px rgba(51,82,127,0.45)",
-        "glow-sky": "0 0 26px -8px rgba(179,210,255,0.5)",
-        card: "0 20px 50px -28px rgb(var(--shadow) / 0.45)",
       },
       keyframes: {
         marquee: {
           from: { transform: "translate3d(0,0,0)" },
           to: { transform: "translate3d(-100%,0,0)" },
-        },
-        float: {
-          "0%,100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-14px)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "0% 50%" },
-          "100%": { backgroundPosition: "200% 50%" },
         },
         pulseRing: {
           "0%": { transform: "scale(0.9)", opacity: "0.7" },
@@ -85,8 +75,6 @@ module.exports = {
       },
       animation: {
         marquee: "marquee var(--marquee-duration,26s) linear infinite",
-        float: "float 6s ease-in-out infinite",
-        shimmer: "shimmer 6s linear infinite",
         pulseRing: "pulseRing 2.4s ease-out infinite",
         blink: "blink 1.6s ease-in-out infinite",
       },
