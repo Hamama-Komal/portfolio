@@ -91,7 +91,7 @@ export default function Contact() {
             </span>
 
             <h2 className="relative mt-5 font-display text-3xl font-extrabold tracking-tight text-ink sm:text-5xl">
-              Let&apos;s build <span className="text-gradient">something</span>
+              Let&apos;s work <span className="text-azure-600">together</span>
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink/60 sm:text-base">
               Mobile development, AI, or something completely experimental — if it makes me stop and

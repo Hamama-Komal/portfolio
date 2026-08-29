@@ -9,7 +9,6 @@ import Intro from "@/components/Intro";
 import Timeline from "@/components/Timeline";
 import Projects from "@/components/Projects";
 import TechStack from "@/components/TechStack";
-import AnimeSection from "@/components/AnimeSection";
 import Contact from "@/components/Contact";
 
 export default function Home() {
@@ -29,7 +28,6 @@ export default function Home() {
         <Timeline />
         <Projects />
         <TechStack />
-        <AnimeSection />
         <Contact />
       </main>
     </>

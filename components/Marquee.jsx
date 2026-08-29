@@ -2,49 +2,27 @@
 
 import { marqueeItems } from "@/lib/data";
 
-function Badge({ item }) {
+/** A single slow band of the tools I actually work in. Pauses on hover. */
+export default function Marquee() {
   return (
-    <span className="flex shrink-0 items-center gap-2 rounded-2xl border border-ink/10 bg-ink/[0.04] px-4 py-2.5 text-sm font-medium text-ink/80 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-azure/40 hover:bg-azure/10 hover:text-ink">
-      <span className="text-base leading-none" aria-hidden>
-        {item.emoji}
-      </span>
-      {item.label}
-    </span>
-  );
-}
-
-function Track({ items, reverse = false, duration = "24s" }) {
-  const style = {
-    "--marquee-duration": duration,
-    animationDirection: reverse ? "reverse" : "normal",
-  };
-
-  return (
-    <div className="group relative flex overflow-hidden mask-fade-x py-1">
+    <div className="group relative flex overflow-hidden mask-fade-x border-y border-ink/[0.07] py-4">
       {[0, 1].map((copy) => (
         <div
           key={copy}
           aria-hidden={copy === 1}
-          style={style}
-          className="flex min-w-full shrink-0 items-center gap-3 pr-3 animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none"
+          style={{ "--marquee-duration": "45s" }}
+          className="flex min-w-full shrink-0 items-center animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none"
         >
-          {items.map((item, i) => (
-            <Badge key={`${item.label}-${i}`} item={item} />
+          {marqueeItems.map((item, i) => (
+            <span key={`${item}-${i}`} className="flex shrink-0 items-center">
+              <span className="whitespace-nowrap px-6 font-display text-sm font-medium tracking-tight text-ink/45 transition-colors duration-300 hover:text-azure-600">
+                {item}
+              </span>
+              <span className="h-1 w-1 shrink-0 rounded-full bg-azure/30" />
+            </span>
           ))}
         </div>
       ))}
-    </div>
-  );
-}
-
-export default function Marquee() {
-  const half = Math.ceil(marqueeItems.length / 2);
-  const shifted = [...marqueeItems.slice(half), ...marqueeItems.slice(0, half)];
-
-  return (
-    <div className="relative w-full space-y-3 overflow-hidden">
-      <Track items={marqueeItems} duration="22s" />
-      <Track items={shifted} reverse duration="28s" />
     </div>
   );
 }

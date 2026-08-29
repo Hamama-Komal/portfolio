@@ -2,10 +2,9 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Check, ChevronDown, Lightbulb, Play, Sparkles, Target } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown, Lightbulb, Play, Target } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import AppShot from "./AppShot";
-import AiProjectArt from "./AiProjectArt";
 import { projects, moreProjects, accents } from "@/lib/data";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
@@ -21,7 +20,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
   const scale = useTransform(progress, [start, 1], [1, 1 - (total - 1 - index) * 0.035]);
   const dim = useTransform(progress, [start, Math.min(1, start + 1 / total)], [0, 0.5]);
 
-  const shots = project.shots.length ? project.shots : [null];
+  const shots = project.shots;
 
   return (
     <div
@@ -60,11 +59,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${accent.border} ${accent.text}`}
               >
-                {project.featured ? (
-                  <Sparkles className="h-3 w-3" />
-                ) : (
-                  <Play className="h-3 w-3" />
-                )}
+                <Play className="h-3 w-3" />
                 {project.kind}
               </span>
             </div>
@@ -130,7 +125,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
               </a>
             ) : (
               <p className="mt-7 font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45">
-                Side quest · in progress
+                In development
               </p>
             )}
           </div>
@@ -145,7 +140,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
               const offset = i - (arr.length - 1) / 2;
               return (
                 <div
-                  key={shot || "art"}
+                  key={shot}
                   style={{
                     zIndex: 10 - Math.abs(offset) * 2,
                     transform: `translateX(${offset * 46}%) rotateY(${offset * -20}deg) scale(${
@@ -154,17 +149,13 @@ function ProjectCard({ project, index, total, progress, stacked }) {
                   }}
                   className="absolute h-[21rem] w-[10rem] overflow-hidden rounded-[1.6rem] border border-ink/15 bg-paper-50 shadow-[0_30px_80px_-30px_rgba(46,41,16,0.32)]"
                 >
-                  {shot ? (
-                    <AppShot
-                      src={shot}
-                      alt={`${project.title} screenshot ${i + 1}`}
-                      initials={project.initials}
-                      accentRgb={accent.rgb}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <AiProjectArt />
-                  )}
+                  <AppShot
+                    src={shot}
+                    alt={`${project.title} screenshot ${i + 1}`}
+                    initials={project.initials}
+                    accentRgb={accent.rgb}
+                    className="h-full w-full object-cover"
+                  />
                   <div className="pointer-events-none absolute inset-0 rounded-[1.6rem] ring-1 ring-inset ring-ink/10" />
                   {offset !== 0 ? (
                     <div className="pointer-events-none absolute inset-0 bg-paper-50/45" />
@@ -178,20 +169,16 @@ function ProjectCard({ project, index, total, progress, stacked }) {
           <div className="flex gap-3 lg:hidden">
             {shots.slice(0, 3).map((shot, i) => (
               <div
-                key={shot || "art-m"}
+                key={shot}
                 className="h-40 w-[5.5rem] shrink-0 overflow-hidden rounded-2xl border border-ink/15 bg-paper-50"
               >
-                {shot ? (
-                  <AppShot
-                    src={shot}
-                    alt={`${project.title} screenshot ${i + 1}`}
-                    initials={project.initials}
-                    accentRgb={accent.rgb}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <AiProjectArt />
-                )}
+                <AppShot
+                  src={shot}
+                  alt={`${project.title} screenshot ${i + 1}`}
+                  initials={project.initials}
+                  accentRgb={accent.rgb}
+                  className="h-full w-full object-cover"
+                />
               </div>
             ))}
           </div>
@@ -274,9 +261,9 @@ export default function Projects() {
       <div className="section">
         <SectionHeading
           eyebrow="Projects"
-          title="Things I've built and"
+          title="Apps I've"
           highlight="shipped"
-          description="30+ apps built, 10+ live on Google Play. Here are the highlights — keep scrolling, the cards stack like a deck."
+          description="Ten apps live on the Play Store. Four of them in detail below."
         />
       </div>
 

@@ -139,7 +139,7 @@ def build():
     s.y += 34
     s.page.insert_text(
         (MARGIN_X, s.y + 11),
-        latin1("Flutter Developer  |  Building Smart Mobile Apps with AI"),
+        latin1("Flutter Developer  |  Android Applications"),
         fontsize=10.5,
         fontname=REG,
         color=ACCENT,
@@ -169,11 +169,11 @@ def build():
     # ---- Profile ----
     s.heading("Profile")
     s.text(
-        "Flutter developer building production mobile applications with a strict clean-architecture "
-        "approach, working full-time at Devlix Technologies. Started in native Android and moved into "
-        "Flutter, where clean, scalable app structure became the focus. Alongside that, part-time AI "
-        "Engineer and AI/ML Instructor at XOKSIS — building LLM and RAG-powered features and teaching "
-        "those concepts to developers starting out. 30+ apps built, 10+ live on Google Play.",
+        "Flutter developer building production Android applications, working full-time at Devlix "
+        "Technologies. Started in native Android with Java and MVVM, then moved to Flutter, where "
+        "clean architecture and maintainable app structure became the focus. Ten applications "
+        "shipped to the Google Play Store, most built end to end from requirement to release. "
+        "Also teaches AI and machine learning part-time at XOKSIS.",
         gap=2,
     )
 
@@ -236,10 +236,14 @@ def build():
     # ---- Published apps ----
     s.heading("Published Applications — Google Play")
     for name, detail in [
-        ("Football Wallpapers", "High-resolution football wallpaper app (Ronaldo, Messi, Neymar)."),
-        ("14 August Photo Editor", "Themed photo editor built around Pakistan's Independence Day."),
+        ("Hide Photos & Videos", "Private vault with gallery lock for photos and video."),
         ("Voice Changer", "On-device audio effects engine with instant playback."),
-        ("Hide Photos & Videos", "Private vault with gallery lock for photos and videos."),
+        ("Football Wallpapers", "High-resolution wallpaper app with cached image browsing."),
+        ("14 August Photo Editor", "Themed photo editor built around Pakistan's Independence Day."),
+        ("AI Grammar Checker", "Writing assistant with grammar correction (ETOS Way)."),
+        ("Voice Notes", "Diary and memo recorder with local storage (ETOS Way)."),
+        ("Status Saver", "Media downloader and manager (ETOS Way)."),
+        ("GPS Land Area Calculator", "Map-based area measurement using Google Maps (ETOS Way)."),
     ]:
         s.room(16)
         s.page.insert_text((MARGIN_X + 3, s.y + 8), "·", fontsize=13, fontname=BOLD, color=ACCENT)
@@ -251,21 +255,11 @@ def build():
         s.y += 13
     s.space(2)
 
-    # ---- Featured project ----
-    s.heading("Featured Project")
-    s.role("YouTube AI Learning Assistant", "Python · FastAPI · LLMs · RAG · Vector DBs", "Side project")
-    s.bullets(
-        [
-            "Turns a YouTube video into an interactive learning experience.",
-            "Interactive Q&A over video content, AI quiz generation and flashcards for revision.",
-        ]
-    )
-
     s.doc.set_metadata(
         {
             "title": "Hamama Komal — CV",
             "author": "Hamama Komal",
-            "subject": "Flutter App Developer | AI Explorer | Software Developer",
+            "subject": "Flutter Developer | Android Applications",
         }
     )
     s.doc.save("public/Hamama-Komal-CV.pdf", deflate=True, garbage=4)

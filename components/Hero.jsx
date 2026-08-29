@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
-import AvatarReveal from "./AvatarReveal";
+import Portrait from "./Portrait";
 import Magnetic from "./Magnetic";
+import CountUp from "./CountUp";
 import { profile, CV_FILE } from "@/lib/data";
 
 const container = {
@@ -21,9 +22,9 @@ const item = {
 };
 
 const stats = [
-  { k: "30+", v: "Apps built" },
-  { k: "10+", v: "Live on Google Play" },
-  { k: "2", v: "Roles — mobile + AI" },
+  { n: 10, suffix: "+", v: "Apps on Google Play" },
+  { n: 4, suffix: "", v: "Years building mobile" },
+  { n: 30, suffix: "+", v: "Apps built in total" },
 ];
 
 export default function Hero() {
@@ -57,39 +58,26 @@ export default function Hero() {
               variants={item}
               className="mt-7 font-display text-[3.25rem] font-semibold leading-[0.95] tracking-[-0.03em] sm:text-7xl lg:text-[5.25rem]"
             >
-              <span className="block bg-gradient-to-br from-ink via-ink to-ink/45 bg-clip-text text-transparent">
-                Hamama
-              </span>
-              <span className="block bg-gradient-to-r from-azure via-ink to-sky-600 bg-clip-text text-transparent">
-                Komal
-              </span>
+              <span className="block text-ink">Hamama</span>
+              <span className="block text-ink">Komal</span>
             </motion.h1>
 
             <motion.p
               variants={item}
               className="mt-6 max-w-lg font-display text-lg font-medium leading-snug text-ink/80 sm:text-xl"
             >
-              Flutter Developer building{" "}
-              <span className="text-azure-600">smart mobile apps with AI</span>.
+              Flutter Developer shipping{" "}
+              <span className="text-azure-600">production mobile apps</span>.
             </motion.p>
 
             <motion.p
               variants={item}
               className="mt-3 max-w-md text-[15px] leading-relaxed text-ink/55"
             >
-              I ship production Flutter apps with clean architecture — and bring LLM and RAG
-              features into them.
+              Full-time at Devlix Technologies. I build Android apps in Flutter — clean
+              architecture, real users, shipped to the Play Store.
             </motion.p>
 
-            {/* Catchphrase */}
-            <motion.div variants={item} className="mt-9 border-l border-ink/10 pl-5">
-              <p className="font-display text-base font-medium leading-relaxed text-ink sm:text-lg">
-                My main quest is{" "}
-                <span className="text-azure-600">Mobile Development</span>.
-                <br />
-                My side quest is <span className="text-sky-600">AI</span>.
-              </p>
-            </motion.div>
 
             <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
               <Magnetic strength={0.25}>
@@ -128,7 +116,7 @@ export default function Hero() {
               {stats.map((stat) => (
                 <div key={stat.v}>
                   <dt className="font-display text-2xl font-semibold tracking-tight text-ink">
-                    {stat.k}
+                    <CountUp value={stat.n} suffix={stat.suffix} />
                   </dt>
                   <dd className="mt-1 text-[11px] uppercase tracking-[0.14em] text-ink/45">
                     {stat.v}
@@ -140,7 +128,7 @@ export default function Hero() {
 
           {/* Portrait */}
           <div className="order-1 lg:order-2 lg:-mr-6 lg:-mt-6">
-            <AvatarReveal />
+            <Portrait />
           </div>
         </div>
 

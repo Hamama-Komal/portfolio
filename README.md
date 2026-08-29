@@ -1,6 +1,6 @@
 # Hamama Komal — Portfolio
 
-An interactive, animated portfolio — warm paper by day, black-and-amber by night — built with **Next.js 15 (App Router)**, **Tailwind CSS**, **Framer Motion** and **Lucide React**. Ready to deploy on Vercel with zero configuration.
+A portfolio for a Flutter developer — light and dark, built with **Next.js 15 (App Router)**, **Tailwind CSS**, **Framer Motion** and **Lucide React**. Ready to deploy on Vercel with zero configuration.
 
 ## Sections
 
@@ -11,8 +11,7 @@ An interactive, animated portfolio — warm paper by day, black-and-amber by nig
 | 3 | Experience | Expanded-card accordion — hover a chapter and it grows (horizontally on desktop, vertically on mobile) to reveal the role, dates, focus points and a chapter marker |
 | 4 | Projects | Sticky stacking deck — each card pins a little lower than the last so the next slides over it. Every card states the **problem**, the **solution**, the stack and a live Play Store link, alongside a 3D fan of app screenshots |
 | 5 | Skills | Bento grid grouped into Mobile, AI & Teaching, Architecture, Backend and Tools, with a pointer-tracking spotlight per card |
-| 6 | A Little About Me | **Chibi Bubble Pop** — a 30-second game: transparent anime cut-outs float up inside glass bubbles, pop them for points, chain them fast for a streak multiplier. Best score is kept in `localStorage`. |
-| 7 | Contact | Social pill buttons + a magnetic "Copy Email" button that flashes *Copied to Clipboard!* |
+| 6 | Contact | Social pill buttons + a magnetic "Copy Email" button that flashes *Copied to Clipboard!* |
 
 ## Site-wide interactions
 
@@ -84,7 +83,7 @@ Three screenshots per published app live in `public/img/apps/` (pulled from the 
 
 The YouTube AI Learning Assistant has no store listing, so it renders `components/AiProjectArt.jsx` — a hand-built animated mock of the video → Q&A → quiz → flashcard flow. Swap in a real image by adding a path to its `shots` array.
 
-Bubble-game chibis live in `public/img/anime/` as trimmed, transparent WebP (13 files, ~15 KB each), generated from `assets/anime/`. The count is read from `animeChibis` in `lib/data.js` — add files as `14.webp`, `15.webp`, … and bump the length there.
+All screenshots are compressed WebP under 60 KB each.
 
 ## CV
 

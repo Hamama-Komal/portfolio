@@ -70,9 +70,9 @@ export default function TechStack() {
       <div className="section">
         <SectionHeading
           eyebrow="Tech Stack"
-          title="The tools behind the"
-          highlight="builds"
-          description="Grouped by what I reach for first — mobile in the front seat, AI riding shotgun."
+          title="What I build"
+          highlight="with"
+          description="Grouped by how often I reach for them on a working day."
         />
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">

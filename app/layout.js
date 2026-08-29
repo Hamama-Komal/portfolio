@@ -24,9 +24,9 @@ const siteUrl = "https://hamama-komal.vercel.app";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Hamama Komal | Flutter Developer & AI Engineer",
+  title: "Hamama Komal | Flutter Developer",
   description:
-    "Flutter developer in Bhakkar, Pakistan building smart mobile apps with AI. 10+ apps on Google Play, clean architecture, LLM and RAG features.",
+    "Flutter developer in Bhakkar, Pakistan. 10+ Android apps shipped to the Play Store, built on clean architecture with Provider, GetX and Firebase.",
   keywords: [
     "Hamama Komal",
     "Flutter Developer",
@@ -42,18 +42,18 @@ export const metadata = {
   ],
   authors: [{ name: "Hamama Komal" }],
   openGraph: {
-    title: "Hamama Komal | Flutter Developer & AI Engineer",
+    title: "Hamama Komal | Flutter Developer",
     description:
-      "Flutter developer building smart mobile apps with AI. 10+ apps live on Google Play.",
+      "Flutter developer. 10+ Android apps live on the Play Store.",
     url: siteUrl,
     siteName: "Hamama Komal",
     type: "website",
-    images: [{ url: "/img/me-blue.webp", width: 1024, height: 1024, alt: "Hamama Komal" }],
+    images: [{ url: "/img/me-blue.webp", width: 1024, height: 1024, alt: "Hamama Komal, Flutter developer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hamama Komal | Flutter Developer & AI Engineer",
-    description: "Flutter developer building smart mobile apps with AI.",
+    title: "Hamama Komal | Flutter Developer",
+    description: "Flutter developer. 10+ Android apps live on the Play Store.",
     images: ["/img/me-blue.webp"],
   },
   icons: {

@@ -269,9 +269,9 @@ export default function Timeline() {
       <div className="section">
         <SectionHeading
           eyebrow="Experience"
-          title="The journey so far —"
-          highlight="quest log"
-          description="From native Android to production Flutter apps, with a growing AI side quest running in parallel."
+          title="Where I've"
+          highlight="so far"
+          description="Four years from native Android into full-time Flutter development."
         />
 
         {/* Phones and tablets get the accordion; the two layouts are swapped in

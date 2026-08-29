@@ -20,7 +20,7 @@ const focusCards = [
     label: "Part-Time",
     title: "AI Engineer & AI/ML Instructor",
     company: "XOKSIS",
-    text: "Exploring LLM applications, RAG pipelines and agentic AI — and teaching the concepts behind them to future engineers.",
+    text: "Teaching AI and machine learning fundamentals, and building LLM-backed features alongside the Flutter work.",
     accent: "sky",
   },
 ];
@@ -30,10 +30,10 @@ export default function Intro() {
     <section id="about" className="relative scroll-mt-24 py-24 sm:py-28">
       <div className="section">
         <SectionHeading
-          eyebrow="Intro"
-          title="A developer who likes"
-          highlight="shipping things"
-          description="Flutter by day, AI by night — and increasingly, both in the same app."
+          eyebrow="About"
+          title="Mobile development is"
+          highlight="the work"
+          description="Four years building Android apps — the last two in Flutter, full time."
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -43,28 +43,20 @@ export default function Intro() {
               <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-azure/20 blur-3xl" />
               <Quote className="h-7 w-7 text-azure-600/70" />
               <p className="mt-5 text-base leading-relaxed text-ink/80 sm:text-lg">
-                Hi, I&apos;m Hamama — a Flutter developer based in{" "}
-                <span className="font-semibold text-ink">Bhakkar, Pakistan</span>. My journey started
-                with native Android and moved into Flutter, where I found what I actually enjoy:
-                building clean, scalable apps. Clean architecture isn&apos;t a checkbox for me —
-                separation of concerns is how I keep a codebase worth returning to.
+                I&apos;m a Flutter developer based in{" "}
+                <span className="font-semibold text-ink">Bhakkar, Pakistan</span>, working full time
+                at Devlix Technologies. I started in native Android with Java and MVVM, then moved
+                to Flutter — where most of my work has been since.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-ink/65 sm:text-base">
-                Today I&apos;m a{" "}
-                <span className="font-semibold text-ink">
-                  Full-Time Flutter Developer at Devlix Technologies
-                </span>{" "}
-                and a{" "}
-                <span className="font-semibold text-ink">
-                  Part-Time AI Engineer &amp; Instructor at XOKSIS
-                </span>
-                , where I build with LLMs, RAG pipelines and vector databases — and teach those
-                concepts to developers starting out.
+                Ten of my apps are live on the Play Store — photo editors, media tools, a private
+                vault, wallpaper and utility apps. Most were built solo, from requirement through
+                release, on clean architecture with Provider or GetX and Firebase behind them.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-ink/65 sm:text-base">
-                Both halves need the same thing: clarity. Good products and good teaching are
-                mostly the work of making something complicated feel obvious.{" "}
-                <span className="text-gradient font-semibold">Let&apos;s build something.</span>
+                I also teach AI and machine learning part time at XOKSIS, which keeps me honest
+                about explaining technical work clearly — a habit that carries straight back into
+                code review and handover.
               </p>
             </div>
           </Reveal>
