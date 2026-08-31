@@ -1,101 +1,78 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Check, ChevronDown, Lightbulb, Play, Target } from "lucide-react";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Check, Lightbulb, Target, X } from "lucide-react";
 import SectionHeading from "./SectionHeading";
-import AppShot from "./AppShot";
-import { projects, moreProjects, accents } from "@/lib/data";
-import { useMediaQuery } from "@/lib/useMediaQuery";
+import CircularGallery from "./CircularGallery";
+import { projects, moreProjects } from "@/lib/data";
 
-/**
- * Stacking deck: every card sticks below the header at a slightly lower offset than
- * the one before it, so scrolling slides each new card over the previous one. Cards
- * already in the stack scale down and dim, which sells the depth.
- */
-function ProjectCard({ project, index, total, progress, stacked }) {
-  const accent = accents[project.accent];
-  const start = index / total;
-
-  const scale = useTransform(progress, [start, 1], [1, 1 - (total - 1 - index) * 0.035]);
-  const dim = useTransform(progress, [start, Math.min(1, start + 1 / total)], [0, 0.5]);
-
-  const shots = project.shots;
-
+/** Detail sheet for the card the visitor picked out of the gallery. */
+function ProjectDetail({ project, onClose }) {
   return (
-    <div
-      // Below lg a card is taller than the viewport, so pinning it would hide its
-      // own bottom half. There the deck simply becomes a stack of cards.
-      className={stacked ? "sticky flex justify-center pb-6" : "flex justify-center pb-6"}
-      style={stacked ? { top: `calc(5.5rem + ${index * 0.9}rem)` } : undefined}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-[120] flex items-end justify-center bg-ink/40 backdrop-blur-sm sm:items-center sm:p-6"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.title} details`}
     >
-      <motion.article
-        style={stacked ? { scale, transformOrigin: "top center" } : undefined}
-        className={`relative w-full overflow-hidden rounded-[1.75rem] border bg-paper-100 shadow-[0_-8px_60px_-20px_rgba(46,41,16,0.32)] ${accent.border}`}
+      <motion.div
+        initial={{ y: 40, opacity: 0, scale: 0.98 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        exit={{ y: 30, opacity: 0, scale: 0.98 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        onClick={(event) => event.stopPropagation()}
+        className="relative max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-t-[1.75rem] border border-ink/10 bg-paper-100 p-6 sm:rounded-[1.75rem] sm:p-9"
       >
-        {/* Accent spine */}
-        <span
-          className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${accent.grad} opacity-80`}
-        />
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close details"
+          className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink/60 transition-colors hover:border-ink/40 hover:text-ink"
+        >
+          <X className="h-4 w-4" />
+        </button>
 
-        {/* Card ground — opaque so the deck reads as stacked paper */}
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(95% 75% at 8% 0%, rgba(${accent.rgb},0.18), transparent 60%)`,
-            }}
-          />
-          <div className="absolute inset-0 grid-bg opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-paper-50 via-paper-50/55 to-transparent" />
-        </div>
+        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-azure-600">
+          {project.kind}
+        </span>
+        <h3 className="mt-2 max-w-md font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+          {project.title}
+        </h3>
+        <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink/60">{project.tagline}</p>
 
-        <div className="relative flex flex-col gap-7 p-6 sm:p-9 lg:h-[34rem] lg:flex-row lg:items-center lg:gap-12">
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="font-mono text-[11px] text-ink/45">
-                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-              </span>
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${accent.border} ${accent.text}`}
-              >
-                <Play className="h-3 w-3" />
-                {project.kind}
-              </span>
-            </div>
-
-            <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight text-ink sm:text-[2.1rem] sm:leading-[1.1]">
-              {project.title}
-            </h3>
-            <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink/60">
-              {project.tagline}
-            </p>
-
-            <dl className="mt-6 space-y-4">
+        <div className="mt-7 grid gap-7 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <dl className="space-y-5">
               <div>
                 <dt className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/45">
-                  <Target className={`h-3 w-3 ${accent.text}`} />
+                  <Target className="h-3 w-3 text-azure-600" />
                   Problem
                 </dt>
-                <dd className="mt-1.5 max-w-lg text-[13px] leading-relaxed text-ink/65">
+                <dd className="mt-1.5 text-[13px] leading-relaxed text-ink/70">
                   {project.problem}
                 </dd>
               </div>
               <div>
                 <dt className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/45">
-                  <Lightbulb className={`h-3 w-3 ${accent.text}`} />
+                  <Lightbulb className="h-3 w-3 text-azure-600" />
                   Solution
                 </dt>
-                <dd className="mt-1.5 max-w-lg text-[13px] leading-relaxed text-ink/65">
+                <dd className="mt-1.5 text-[13px] leading-relaxed text-ink/70">
                   {project.solution}
                 </dd>
               </div>
             </dl>
 
-            <ul className="mt-5 space-y-1.5">
+            <ul className="mt-6 space-y-2">
               {project.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2.5 text-[13px] text-ink/60">
-                  <Check className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${accent.text}`} />
+                <li key={feature} className="flex items-start gap-2.5 text-[13px] text-ink/65">
+                  <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-azure-600" />
                   {feature}
                 </li>
               ))}
@@ -105,7 +82,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
               {project.stack.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full border border-ink/10 bg-ink/[0.04] px-3 py-1 text-[11px] font-medium text-ink/70"
+                  className="rounded-full border border-ink/10 bg-paper-200 px-3 py-1 text-[11px] font-medium text-ink/70"
                 >
                   {tech}
                 </span>
@@ -118,143 +95,42 @@ function ProjectCard({ project, index, total, progress, stacked }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="google play"
-                className="group/link mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold text-paper-50 transition-all duration-300 hover:gap-3"
+                className="group/link mt-7 inline-flex items-center gap-2 rounded-full bg-azure px-5 py-2.5 text-[13px] font-semibold text-black transition-all duration-300 hover:gap-3"
               >
                 View on Google Play
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
               </a>
-            ) : (
-              <p className="mt-7 font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45">
-                In development
-              </p>
-            )}
+            ) : null}
           </div>
 
-          {/* Desktop: a shallow 3D fan of phones */}
-          <div className="relative hidden h-[21rem] w-[19rem] shrink-0 items-center justify-center perspective lg:flex">
-            <div
-              className="pointer-events-none absolute inset-4 rounded-full blur-3xl"
-              style={{ background: `rgba(${accent.rgb},0.2)` }}
-            />
-            {shots.slice(0, 3).map((shot, i, arr) => {
-              const offset = i - (arr.length - 1) / 2;
-              return (
-                <div
-                  key={shot}
-                  style={{
-                    zIndex: 10 - Math.abs(offset) * 2,
-                    transform: `translateX(${offset * 46}%) rotateY(${offset * -20}deg) scale(${
-                      offset === 0 ? 1 : 0.82
-                    })`,
-                  }}
-                  className="absolute h-[21rem] w-[10rem] overflow-hidden rounded-[1.6rem] border border-ink/15 bg-paper-50 shadow-[0_30px_80px_-30px_rgba(46,41,16,0.32)]"
-                >
-                  <AppShot
-                    src={shot}
-                    alt={`${project.title} screenshot ${i + 1}`}
-                    initials={project.initials}
-                    accentRgb={accent.rgb}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="pointer-events-none absolute inset-0 rounded-[1.6rem] ring-1 ring-inset ring-ink/10" />
-                  {offset !== 0 ? (
-                    <div className="pointer-events-none absolute inset-0 bg-paper-50/45" />
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Mobile: a compact row of screenshots */}
-          <div className="flex gap-3 lg:hidden">
-            {shots.slice(0, 3).map((shot, i) => (
-              <div
+          {/* Screenshots */}
+          <div className="flex gap-3 lg:flex-col">
+            {project.shots.slice(0, 3).map((shot, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 key={shot}
-                className="h-40 w-[5.5rem] shrink-0 overflow-hidden rounded-2xl border border-ink/15 bg-paper-50"
-              >
-                <AppShot
-                  src={shot}
-                  alt={`${project.title} screenshot ${i + 1}`}
-                  initials={project.initials}
-                  accentRgb={accent.rgb}
-                  className="h-full w-full object-cover"
-                />
-              </div>
+                src={shot}
+                alt={`${project.title} screenshot ${i + 1}`}
+                loading="lazy"
+                className="h-40 w-full flex-1 rounded-xl border border-ink/10 object-cover object-top lg:h-32"
+              />
             ))}
           </div>
         </div>
-
-        {/* Cards deeper in the stack fade back */}
-        {stacked ? (
-          <motion.div
-            style={{ opacity: dim }}
-            className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-paper-50"
-          />
-        ) : null}
-      </motion.article>
-    </div>
-  );
-}
-
-/** Compact card for the shipped-apps grid behind the "view more" toggle. */
-function MoreCard({ app, index }) {
-  return (
-    <motion.a
-      href={app.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-cursor="google play"
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-paper-100 transition-colors duration-300 hover:border-azure/40"
-    >
-      <div className="relative h-36 overflow-hidden bg-paper-200">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={app.shot}
-          alt={`${app.title} screenshot`}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-transparent to-transparent" />
-      </div>
-
-      <div className="flex flex-1 flex-col p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h4 className="font-display text-sm font-semibold leading-tight text-ink">{app.title}</h4>
-          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-ink/35 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-azure" />
-        </div>
-        <p className="mt-1 text-[12px] leading-snug text-ink/55">{app.subtitle}</p>
-
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {app.stack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-ink/10 bg-ink/[0.04] px-2 py-0.5 text-[10px] font-medium text-ink/60"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        <span className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/35">
-          {app.org}
-        </span>
-      </div>
-    </motion.a>
+      </motion.div>
+    </motion.div>
   );
 }
 
 export default function Projects() {
-  const containerRef = useRef(null);
-  const [showMore, setShowMore] = useState(false);
-  const stacked = useMediaQuery("(min-width: 1024px)") === true;
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  const [selected, setSelected] = useState(null);
+
+  // The gallery only needs an image and a caption. Memoised so the WebGL
+  // context is not torn down and rebuilt on every render.
+  const galleryItems = useMemo(
+    () => projects.map((project) => ({ image: project.shots[0], text: project.title })),
+    []
+  );
 
   return (
     <section id="projects" className="relative scroll-mt-24 py-24 sm:py-28">
@@ -263,63 +139,75 @@ export default function Projects() {
           eyebrow="Projects"
           title="Apps I've"
           highlight="shipped"
-          description="Ten apps live on the Play Store. Four of them in detail below."
+          description="Ten apps live on the Play Store. Drag to browse, tap a card for the detail."
         />
       </div>
 
-      <div ref={containerRef} className="section mt-12">
-        {projects.map((project, i) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={i}
-            total={projects.length}
-            progress={scrollYProgress}
-            stacked={stacked}
-          />
-        ))}
-        {/* Lets the last card sit at the top of the deck for a beat */}
-        {stacked ? <div className="h-[28vh]" /> : null}
+      <div className="mt-10 h-[26rem] w-full sm:h-[32rem]">
+        <CircularGallery
+          items={galleryItems}
+          bend={2.5}
+          borderRadius={0.06}
+          scrollEase={0.035}
+          onSelect={(index) => setSelected(projects[index])}
+        />
       </div>
 
-      {/* Everything else that shipped */}
-      <div className="section">
-        <div className="flex justify-center">
-          <button
-            type="button"
-            onClick={() => setShowMore((v) => !v)}
-            aria-expanded={showMore}
-            data-cursor={showMore ? "collapse" : "expand"}
-            className="group inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-paper-50/70 px-6 py-3 text-sm font-semibold text-ink backdrop-blur-md transition-colors duration-300 hover:border-azure/50 hover:text-azure-600"
-          >
-            {showMore ? "Show fewer" : `View ${moreProjects.length} more projects`}
-            <ChevronDown
-              className={`h-4 w-4 transition-transform duration-300 ${
-                showMore ? "rotate-180" : "group-hover:translate-y-0.5"
-              }`}
-            />
-          </button>
-        </div>
+      <div className="section mt-4">
+        <p className="text-center font-mono text-[11px] uppercase tracking-[0.16em] text-ink/40">
+          Drag or scroll · tap a card for details
+        </p>
+      </div>
 
-        <AnimatePresence initial={false}>
-          {showMore ? (
-            <motion.div
-              key="more"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden"
+      {/* The rest of what shipped */}
+      <div className="section mt-16">
+        <h3 className="text-center font-display text-sm font-semibold uppercase tracking-[0.16em] text-ink/50">
+          Also on the Play Store
+        </h3>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {moreProjects.map((app, i) => (
+            <motion.a
+              key={app.title}
+              href={app.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="google play"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="group flex items-center gap-4 rounded-2xl border border-ink/10 bg-paper-100 p-3 transition-colors duration-300 hover:border-azure"
             >
-              <div className="grid gap-4 pt-8 sm:grid-cols-2 lg:grid-cols-3">
-                {moreProjects.map((app, i) => (
-                  <MoreCard key={app.title} app={app} index={i} />
-                ))}
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={app.shot}
+                alt=""
+                loading="lazy"
+                className="h-16 w-16 shrink-0 rounded-xl border border-ink/10 object-cover object-top"
+              />
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-display text-sm font-semibold text-ink">
+                  {app.title}
+                </span>
+                <span className="mt-0.5 block truncate text-[12px] text-ink/55">
+                  {app.subtitle}
+                </span>
+                <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-ink/40">
+                  {app.org}
+                </span>
+              </span>
+              <ArrowUpRight className="h-4 w-4 shrink-0 text-ink/30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-azure-600" />
+            </motion.a>
+          ))}
+        </div>
       </div>
+
+      <AnimatePresence>
+        {selected ? (
+          <ProjectDetail project={selected} onClose={() => setSelected(null)} />
+        ) : null}
+      </AnimatePresence>
     </section>
   );
 }

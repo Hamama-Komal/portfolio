@@ -84,7 +84,7 @@ export default function Hero() {
               <a
                 href="#projects"
                 data-cursor="see work"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper-50 transition-all duration-300 hover:gap-3"
+                className="group inline-flex items-center gap-2 rounded-full bg-azure px-6 py-3 text-sm font-semibold text-black shadow-[0_8px_20px_-8px_rgb(var(--azure)/0.9)] transition-all duration-300 hover:gap-3"
               >
                 View my work
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -95,7 +95,7 @@ export default function Hero() {
                 href={CV_FILE}
                 download
                 data-cursor="download"
-                className="group inline-flex items-center gap-2 rounded-full border border-azure/45 bg-azure/10 px-6 py-3 text-sm font-semibold text-azure-700 transition-colors duration-300 hover:border-azure hover:bg-azure/20"
+                className="group inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:border-ink/40"
               >
                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV

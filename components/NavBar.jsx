@@ -96,7 +96,7 @@ export default function NavBar() {
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
           data-cursor={open ? "close" : "menu"}
-          className="relative flex h-9 items-center gap-2 rounded-full px-3 text-ink transition-colors duration-300 hover:text-azure"
+          className="relative flex h-9 items-center gap-2 rounded-full px-3 text-ink transition-colors duration-300 hover:text-azure-600"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
@@ -153,7 +153,7 @@ export default function NavBar() {
                     transition={{ delay: 0.04 + i * 0.035, duration: 0.25 }}
                     aria-current={isActive ? "true" : undefined}
                     className={`relative shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors duration-200 ${
-                      isActive ? "text-paper-50" : "text-ink/60 hover:text-ink"
+                      isActive ? "text-black" : "text-ink/60 hover:text-ink"
                     }`}
                   >
                     {isActive ? (
@@ -182,7 +182,7 @@ export default function NavBar() {
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.28 + i * 0.04, duration: 0.25 }}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink/55 transition-colors duration-300 hover:bg-ink/[0.06] hover:text-azure"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink/55 transition-colors duration-300 hover:bg-ink/[0.06] hover:text-azure-600"
                   >
                     <Icon className="h-3.5 w-3.5" />
                   </motion.a>

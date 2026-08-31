@@ -126,9 +126,9 @@ export default function Contact() {
                 type="button"
                 onClick={copyEmail}
                 data-cursor="copy"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-azure to-sky-400 px-6 py-3.5 text-sm font-bold text-paper-50 transition-transform duration-300 hover:scale-[1.03] active:scale-95"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-azure px-6 py-3.5 text-sm font-bold text-black transition-transform duration-300 hover:scale-[1.03] active:scale-95"
               >
-                <span className="absolute inset-0 -translate-x-full bg-ink/30 transition-transform duration-700 group-hover:translate-x-full" />
+                <span className="absolute inset-0 -translate-x-full bg-white/40 transition-transform duration-700 group-hover:translate-x-full" />
                 <AnimatePresence mode="wait" initial={false}>
                   {copied ? (
                     <motion.span
@@ -165,7 +165,7 @@ export default function Contact() {
                 data-cursor="download"
                 className="group inline-flex items-center gap-2.5 rounded-2xl border border-ink/15 bg-paper-50/60 px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:border-azure/50 hover:text-azure-700"
               >
-                <Download className="h-4 w-4 text-azure transition-transform duration-300 group-hover:translate-y-0.5" />
+                <Download className="h-4 w-4 text-azure-600 transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV
               </a>
             </div>

@@ -10,88 +10,93 @@
 :root {
   color-scheme: light;
 
-  --paper-50: 255 255 255; /* pure white page */
-  --paper-100: 241 246 251; /* #F1F6FB cool tint */
-  --paper-200: 228 237 247;
-  --paper-300: 205 222 240;
-  --paper-400: 165 190 218;
+  /* Surfaces: background -> card -> muted -> border */
+  --paper-50: 251 252 248; /* #fbfcf8 background */
+  --paper-100: 255 255 255; /* #ffffff card */
+  --paper-200: 241 245 249; /* #f1f5f9 muted */
+  --paper-300: 226 232 240; /* #e2e8f0 border */
+  --paper-400: 203 213 225;
 
-  --ink: 10 25 41; /* #0A1929 near-black navy */
-  --ink-900: 5 15 26;
-  --ink-700: 30 54 80;
-  --ink-500: 82 105 130;
-  --ink-300: 138 158 180;
+  /* Type: foreground -> secondary -> muted-foreground */
+  --ink: 15 23 42; /* #0f172a foreground */
+  --ink-900: 2 6 23;
+  --ink-700: 51 65 85; /* #334155 secondary */
+  --ink-500: 100 116 139; /* #64748b muted-foreground */
+  --ink-300: 148 163 184;
 
-  --sky-900: 5 15 26;
-  --sky-800: 10 25 41;
-  --sky-700: 1 78 158;
-  --sky-600: 2 105 210;
-  --sky-500: 2 125 253; /* #027DFD */
-  --sky-400: 66 165 245; /* #42A5F5 */
-  --sky-300: 144 202 249;
+  /* Slate scale for secondary surfaces */
+  --sky-900: 2 6 23;
+  --sky-800: 15 23 42;
+  --sky-700: 51 65 85;
+  --sky-600: 71 85 105;
+  --sky-500: 100 116 139;
+  --sky-400: 148 163 184;
+  --sky-300: 203 213 225;
 
-  --azure: 2 125 253; /* #027DFD Flutter blue */
-  --azure-700: 1 78 158;
-  --azure-600: 2 105 210;
-  --azure-400: 66 165 245; /* #42A5F5 */
-  --azure-300: 144 202 249;
-  --azure-100: 227 242 253; /* #E3F2FD */
+  /* Primary is a SURFACE colour — lime carries black text, never the reverse.
+     azure-600/700 are the readable accent tints for type on light. */
+  --azure: 175 243 62; /* #aff33e primary */
+  --azure-700: 20 83 45; /* #14532d */
+  --azure-600: 22 101 52; /* #166534 accent-foreground */
+  --azure-400: 132 204 22;
+  --azure-300: 217 249 157;
+  --azure-100: 240 253 244; /* #f0fdf4 accent */
 
-  --shadow: 10 25 41;
-  --grid-line: 10 25 41;
-  --grid-alpha: 0.06;
-  --cursor-blob: 2 125 253;
-  --cursor-dot: 10 25 41;
+  --on-primary: 0 0 0; /* #000000 primary-foreground */
+
+  --shadow: 0 0 0;
+  --shadow-opacity: 0.05;
+  --grid-line: 15 23 42;
+  --grid-alpha: 0.05;
+  --cursor-blob: 175 243 62;
+  --cursor-dot: 15 23 42;
   --cursor-blend: multiply;
-  --dot-rgb: 10 25 41;
-  --dot-active-rgb: 2 125 253;
-  --bubble-rim: 255 255 255;
-  --bubble-core: 255 255 255;
-  --bubble-core-alpha: 0.9;
+  --dot-rgb: 15 23 42;
+  --dot-active-rgb: 132 204 22;
 }
 
 .dark {
   color-scheme: dark;
 
-  /* Deep navy-black ground */
-  --paper-50: 6 16 25; /* #061019 */
-  --paper-100: 15 32 51; /* #0F2033 */
-  --paper-200: 22 44 68;
-  --paper-300: 32 60 90;
-  --paper-400: 48 82 120;
+  --paper-50: 2 6 23; /* #020617 background */
+  --paper-100: 15 23 42; /* #0f172a card */
+  --paper-200: 30 41 59; /* #1e293b muted */
+  --paper-300: 30 41 59; /* #1e293b border */
+  --paper-400: 51 65 85;
 
-  --ink: 227 242 253; /* #E3F2FD ice blue */
-  --ink-900: 245 250 255;
-  --ink-700: 178 210 240;
-  --ink-500: 130 165 200;
-  --ink-300: 95 125 160;
+  --ink: 248 250 252; /* #f8fafc foreground */
+  --ink-900: 255 255 255;
+  --ink-700: 203 213 225;
+  --ink-500: 148 163 184; /* #94a3b8 muted-foreground */
+  --ink-300: 100 116 139;
 
-  --sky-900: 227 242 253;
-  --sky-800: 15 32 51;
-  --sky-700: 144 202 249;
-  --sky-600: 100 181 246;
-  --sky-500: 66 165 245; /* #42A5F5 */
-  --sky-400: 100 181 246;
-  --sky-300: 144 202 249;
+  --sky-900: 248 250 252;
+  --sky-800: 30 41 59;
+  --sky-700: 203 213 225;
+  --sky-600: 148 163 184;
+  --sky-500: 148 163 184;
+  --sky-400: 203 213 225;
+  --sky-300: 226 232 240;
 
-  --azure: 66 165 245; /* #42A5F5 bright Flutter blue */
-  --azure-700: 144 202 249;
-  --azure-600: 100 181 246;
-  --azure-400: 100 181 246;
-  --azure-300: 144 202 249;
-  --azure-100: 15 32 51;
+  /* On dark the lime reads well as type too */
+  --azure: 175 243 62;
+  --azure-700: 217 249 157;
+  --azure-600: 175 243 62; /* #aff33e accent-foreground */
+  --azure-400: 175 243 62;
+  --azure-300: 132 204 22;
+  --azure-100: 20 83 45; /* #14532d accent */
+
+  --on-primary: 0 0 0;
 
   --shadow: 0 0 0;
-  --grid-line: 100 181 246;
-  --grid-alpha: 0.07;
-  --cursor-blob: 66 165 245;
-  --cursor-dot: 144 202 249;
+  --shadow-opacity: 0.4;
+  --grid-line: 175 243 62;
+  --grid-alpha: 0.05;
+  --cursor-blob: 175 243 62;
+  --cursor-dot: 248 250 252;
   --cursor-blend: screen;
-  --dot-rgb: 144 202 249;
-  --dot-active-rgb: 66 165 245;
-  --bubble-rim: 100 181 246;
-  --bubble-core: 227 242 253;
-  --bubble-core-alpha: 0.18;
+  --dot-rgb: 148 163 184;
+  --dot-active-rgb: 175 243 62;
 }
 
 /* Scrolling is animated in JS (lib/smoothScroll.js); native smooth would fight it. */
@@ -104,8 +109,8 @@ body {
   /* `clip` (not `hidden`) so position: sticky keeps working */
   overflow-x: clip;
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.06), transparent 62%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.05), transparent 62%);
+    radial-gradient(50rem 36rem at 12% -6%, rgba(175, 243, 62, 0.1), transparent 60%),
+    radial-gradient(44rem 34rem at 90% 4%, rgba(51, 65, 85, 0.05), transparent 62%);
   background-attachment: fixed;
   transition:
     background-color 0.4s ease,
@@ -114,8 +119,8 @@ body {
 
 .dark body {
   background-image:
-    radial-gradient(55rem 40rem at 10% -8%, rgba(2, 125, 253, 0.16), transparent 62%),
-    radial-gradient(48rem 38rem at 92% 6%, rgba(66, 165, 245, 0.08), transparent 62%);
+    radial-gradient(50rem 36rem at 12% -6%, rgba(175, 243, 62, 0.07), transparent 60%),
+    radial-gradient(44rem 34rem at 90% 4%, rgba(175, 243, 62, 0.04), transparent 62%);
 }
 
 /* Native cursor is replaced by <LiquidCursor /> on fine-pointer devices only */
@@ -125,12 +130,12 @@ html.has-liquid-cursor * {
 }
 
 ::selection {
-  background: rgba(2, 125, 253, 0.2);
+  background: rgba(175, 243, 62, 0.35);
   color: rgb(var(--ink));
 }
 .dark ::selection {
-  background: rgba(66, 165, 245, 0.35);
-  color: rgb(245 250 255);
+  background: rgba(175, 243, 62, 0.3);
+  color: rgb(248 250 252);
 }
 
 ::-webkit-scrollbar {
@@ -141,7 +146,7 @@ html.has-liquid-cursor * {
   background: rgb(var(--paper-100));
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgb(var(--azure)), rgb(var(--sky-500)));
+  background: rgb(var(--azure));
   border-radius: 999px;
   border: 2px solid rgb(var(--paper-100));
 }
@@ -203,99 +208,4 @@ html.has-liquid-cursor * {
 .cursor-dot {
   background: rgb(var(--cursor-dot) / 0.85);
   mix-blend-mode: var(--cursor-blend);
-}
-
-/* ---- Chibi Bubble Pop ---- */
-.bubble {
-  position: absolute;
-  padding: 0;
-  border: 0;
-  background: none;
-  touch-action: manipulation;
-}
-.bubble[data-state="popped"] {
-  pointer-events: none;
-}
-.bubble-skin {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  border-radius: 9999px;
-  border: 1px solid rgb(var(--bubble-rim) / 0.85);
-  background: radial-gradient(
-    circle at 30% 24%,
-    rgb(var(--bubble-core) / var(--bubble-core-alpha)),
-    rgb(var(--azure) / 0.14) 48%,
-    rgb(var(--sky-500) / 0.18) 78%
-  );
-  box-shadow:
-    inset 0 -12px 26px -14px rgb(var(--azure) / 0.7),
-    inset 0 10px 20px -12px rgb(var(--bubble-core) / 0.8),
-    0 12px 26px -16px rgb(var(--shadow) / 0.6);
-  backdrop-filter: blur(2px);
-  transition: transform 0.18s ease;
-}
-.bubble:hover .bubble-skin {
-  transform: scale(1.07);
-}
-.bubble:active .bubble-skin {
-  transform: scale(0.94);
-}
-.bubble-img {
-  width: 76%;
-  height: 76%;
-  object-fit: contain;
-  user-select: none;
-  filter: drop-shadow(0 4px 8px rgb(var(--shadow) / 0.28));
-}
-.bubble-shine {
-  position: absolute;
-  left: 17%;
-  top: 11%;
-  width: 26%;
-  height: 19%;
-  border-radius: 9999px;
-  background: rgb(var(--bubble-core) / 0.95);
-  filter: blur(4px);
-}
-.bubble-burst {
-  position: absolute;
-  inset: -6px;
-  border-radius: 9999px;
-  border: 2px solid rgb(var(--azure) / 0.8);
-  opacity: 0;
-}
-.bubble[data-state="popped"] .bubble-skin {
-  animation: bubblePop 0.3s ease-out forwards;
-}
-.bubble[data-state="popped"] .bubble-burst {
-  animation: bubbleBurst 0.32s ease-out forwards;
-}
-
-@keyframes bubblePop {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  40% {
-    transform: scale(1.18);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(0.35);
-    opacity: 0;
-  }
-}
-
-@keyframes bubbleBurst {
-  0% {
-    transform: scale(0.75);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1.75);
-    opacity: 0;
-  }
 }
