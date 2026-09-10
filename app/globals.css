@@ -161,3 +161,39 @@ body {
   }
 }
 
+/* ---- Cursor ---- */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: rgb(var(--azure));
+}
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid rgb(var(--azure));
+  /* the ring trails, so keep the transform snappy but let shape ease */
+  transition: border-radius 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: auto !important;
+  }
+}

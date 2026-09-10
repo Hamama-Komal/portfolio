@@ -55,29 +55,29 @@ export default function PhoneMockup({ src, alt, screenKey, direction = 1 }) {
         <span
           aria-hidden
           style={{ transform: "translateZ(-7px)" }}
-          className="absolute -left-[3px] top-[7.5rem] h-8 w-[4px] rounded-l-sm bg-gradient-to-r from-[#8b929c] to-[#2b3037]"
+          className="absolute -left-[3px] top-[23%] h-[5%] w-[4px] rounded-l-sm bg-gradient-to-r from-[#8b929c] to-[#2b3037]"
         />
         <span
           aria-hidden
           style={{ transform: "translateZ(-7px)" }}
-          className="absolute -left-[3px] top-[10.2rem] h-14 w-[4px] rounded-l-sm bg-gradient-to-r from-[#8b929c] to-[#2b3037]"
+          className="absolute -left-[3px] top-[32%] h-[11%] w-[4px] rounded-l-sm bg-gradient-to-r from-[#8b929c] to-[#2b3037]"
         />
         <span
           aria-hidden
           style={{ transform: "translateZ(-7px)" }}
-          className="absolute -left-[3px] top-[13.8rem] h-14 w-[4px] rounded-l-sm bg-gradient-to-r from-[#8b929c] to-[#2b3037]"
+          className="absolute -left-[3px] top-[45%] h-[11%] w-[4px] rounded-l-sm bg-gradient-to-r from-[#8b929c] to-[#2b3037]"
         />
         <span
           aria-hidden
           style={{ transform: "translateZ(-7px)" }}
-          className="absolute -right-[3px] top-[11rem] h-20 w-[4px] rounded-r-sm bg-gradient-to-l from-[#8b929c] to-[#2b3037]"
+          className="absolute -right-[3px] top-[36%] h-[16%] w-[4px] rounded-r-sm bg-gradient-to-l from-[#8b929c] to-[#2b3037]"
         />
 
         {/* ---- Titanium rail ---- */}
-        <div className="relative h-[28rem] w-[13.6rem] rounded-[2.5rem] bg-[linear-gradient(145deg,#9aa2ad_0%,#3d434c_18%,#15181d_42%,#2a2f36_62%,#8f97a2_88%,#41464f_100%)] p-[3px] shadow-[0_30px_60px_-25px_rgb(var(--shadow)/0.55),0_0_0_1px_rgba(0,0,0,0.35)] sm:h-[32rem] sm:w-[15.5rem]">
+        <div className="relative h-[19rem] w-[9.2rem] rounded-[1.8rem] bg-[linear-gradient(145deg,#9aa2ad_0%,#3d434c_18%,#15181d_42%,#2a2f36_62%,#8f97a2_88%,#41464f_100%)] p-[3px] shadow-[0_30px_60px_-25px_rgb(var(--shadow)/0.55),0_0_0_1px_rgba(0,0,0,0.35)] sm:h-[25rem] sm:w-[12.2rem]">
           {/* Inner bezel */}
-          <div className="relative h-full w-full overflow-hidden rounded-[2.3rem] bg-black p-[2px]">
-            <div className="relative h-full w-full overflow-hidden rounded-[2.2rem] bg-black">
+          <div className="relative h-full w-full overflow-hidden rounded-[1.65rem] bg-black p-[2px] sm:rounded-[1.95rem]">
+            <div className="relative h-full w-full overflow-hidden rounded-[1.55rem] bg-black sm:rounded-[1.85rem]">
               {/* ---- Screen ---- */}
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.img
@@ -97,7 +97,7 @@ export default function PhoneMockup({ src, alt, screenKey, direction = 1 }) {
               {/* Dynamic island */}
               <span
                 aria-hidden
-                className="absolute left-1/2 top-2 z-20 h-[1.35rem] w-[4.6rem] -translate-x-1/2 rounded-full bg-black shadow-[inset_0_0_2px_rgba(255,255,255,0.18)]"
+                className="absolute left-1/2 top-2 z-20 h-[1rem] w-[3.2rem] sm:h-[1.15rem] sm:w-[3.9rem] -translate-x-1/2 rounded-full bg-black shadow-[inset_0_0_2px_rgba(255,255,255,0.18)]"
               >
                 <span className="absolute right-3 top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full bg-[#0b1a2b] ring-1 ring-white/10" />
               </span>
@@ -119,7 +119,7 @@ export default function PhoneMockup({ src, alt, screenKey, direction = 1 }) {
               {/* Home indicator */}
               <span
                 aria-hidden
-                className="absolute bottom-2 left-1/2 z-20 h-[3.5px] w-24 -translate-x-1/2 rounded-full bg-white/70"
+                className="absolute bottom-2 left-1/2 z-20 h-[3px] w-16 sm:w-20 -translate-x-1/2 rounded-full bg-white/70"
               />
             </div>
           </div>

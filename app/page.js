@@ -1,5 +1,6 @@
 import DotGridBackground from "@/components/DotGridBackground";
 import Preloader from "@/components/Preloader";
+import Cursor from "@/components/Cursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothAnchors from "@/components/SmoothAnchors";
 import NavBar from "@/components/NavBar";
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Preloader />
+      <Cursor />
       <DotGridBackground />
       <SmoothAnchors />
       <ScrollProgress />

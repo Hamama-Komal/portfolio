@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Lightbulb, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Lightbulb, Target } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import PhoneMockup from "./PhoneMockup";
 import { projects, moreProjects } from "@/lib/data";
@@ -63,7 +63,7 @@ export default function Projects() {
         />
 
         {/* ---- The card ---- */}
-        <div className="relative mx-auto mt-12 max-w-5xl">
+        <div className="relative mx-auto mt-10 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -80,9 +80,9 @@ export default function Projects() {
             className="relative cursor-grab overflow-hidden rounded-[1.75rem] border border-ink/10 bg-paper-100 shadow-[0_18px_50px_-30px_rgb(var(--shadow)/0.4)] active:cursor-grabbing"
           >
 
-            <div className="relative grid items-center gap-8 p-6 sm:p-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:p-11">
+            <div className="relative grid items-center gap-7 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-9">
               {/* ---- Copy ---- */}
-              <div className="min-h-[26rem] lg:min-h-[30rem]">
+              <div className="min-h-[18rem] sm:min-h-[21rem] lg:min-h-[23rem]">
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
                     key={index}
@@ -108,7 +108,7 @@ export default function Projects() {
 
                       <motion.h3
                         variants={line}
-                        className="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight text-ink sm:text-[2.1rem]"
+                        className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight text-ink sm:text-[1.9rem]"
                       >
                         {project.title}
                       </motion.h3>
@@ -120,7 +120,7 @@ export default function Projects() {
                         {project.tagline}
                       </motion.p>
 
-                      <motion.dl variants={line} className="mt-6 space-y-4">
+                      <motion.dl variants={line} className="mt-5 space-y-3.5">
                         <div>
                           <dt className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/40">
                             <Target className="h-3 w-3 text-azure-600" />
@@ -141,19 +141,7 @@ export default function Projects() {
                         </div>
                       </motion.dl>
 
-                      <motion.ul variants={line} className="mt-5 space-y-1.5">
-                        {project.features.map((feature) => (
-                          <li
-                            key={feature}
-                            className="flex items-start gap-2.5 text-[13px] text-ink/60"
-                          >
-                            <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-azure-600" />
-                            {feature}
-                          </li>
-                        ))}
-                      </motion.ul>
-
-                      <motion.div variants={line} className="mt-5 flex flex-wrap gap-2">
+                      <motion.div variants={line} className="mt-5 flex flex-wrap gap-1.5">
                         {project.stack.map((tech) => (
                           <span
                             key={tech}
@@ -170,7 +158,7 @@ export default function Projects() {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group/link mt-7 inline-flex items-center gap-2 rounded-full bg-azure px-5 py-2.5 text-[13px] font-semibold text-black transition-all duration-300 hover:gap-3"
+                          className="group/link mt-6 inline-flex items-center gap-2 rounded-full bg-azure px-5 py-2.5 text-[13px] font-semibold text-black transition-all duration-300 hover:gap-3"
                         >
                           View on Google Play
                           <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
@@ -193,46 +181,42 @@ export default function Projects() {
             </div>
           </motion.div>
 
-          {/* ---- Controls ---- */}
-          <div className="mt-7 flex items-center justify-center gap-5">
-            <button
-              type="button"
-              onClick={() => paginate(-1)}
-              aria-label="Previous project"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-azure hover:bg-azure hover:text-black active:scale-95"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </button>
+          {/* Arrows sit on the card edges so they are always in view with it */}
+          <button
+            type="button"
+            onClick={() => paginate(-1)}
+            aria-label="Previous project"
+            className="absolute left-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-ink/15 bg-paper-100 text-ink shadow-[0_4px_14px_-6px_rgb(var(--shadow)/0.5)] transition-colors duration-300 hover:border-azure hover:bg-azure hover:text-black active:scale-95 lg:-left-5 lg:h-11 lg:w-11"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => paginate(1)}
+            aria-label="Next project"
+            className="absolute right-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-ink/15 bg-paper-100 text-ink shadow-[0_4px_14px_-6px_rgb(var(--shadow)/0.5)] transition-colors duration-300 hover:border-azure hover:bg-azure hover:text-black active:scale-95 lg:-right-5 lg:h-11 lg:w-11"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
 
-            <div className="flex items-center gap-2">
-              {projects.map((item, i) => (
-                <button
-                  key={item.title}
-                  type="button"
-                  onClick={() => setState([i, i > index ? 1 : -1])}
-                  aria-label={`Show ${item.title}`}
-                  aria-current={i === index ? "true" : undefined}
-                  className="group flex h-6 items-center px-0.5"
-                >
-                  <span
-                    className={`block h-1.5 rounded-full transition-all duration-400 ${
-                      i === index
-                        ? "w-7 bg-azure"
-                        : "w-1.5 bg-ink/20 group-hover:bg-ink/40"
-                    }`}
-                  />
-                </button>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => paginate(1)}
-              aria-label="Next project"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-azure hover:bg-azure hover:text-black active:scale-95"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </button>
+          {/* Position indicator */}
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {projects.map((item, i) => (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => setState([i, i > index ? 1 : -1])}
+                aria-label={`Show ${item.title}`}
+                aria-current={i === index ? "true" : undefined}
+                className="group flex h-6 items-center px-0.5"
+              >
+                <span
+                  className={`block h-1.5 rounded-full transition-all duration-300 ${
+                    i === index ? "w-7 bg-azure" : "w-1.5 bg-ink/20 group-hover:bg-ink/40"
+                  }`}
+                />
+              </button>
+            ))}
           </div>
         </div>
 

@@ -36,13 +36,10 @@ export default function Hero() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="order-2 lg:order-1"
+            className="card order-2 p-6 sm:p-8 lg:order-1 lg:p-9"
           >
             <motion.div variants={item} className="flex items-center gap-3">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-sky-600 opacity-60 animate-pulseRing" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sky-600" />
-              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-azure" />
               <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink/60">
                 {profile.status}
               </span>
@@ -55,7 +52,7 @@ export default function Hero() {
 
             <motion.h1
               variants={item}
-              className="mt-7 font-display text-[3.25rem] font-semibold leading-[0.95] tracking-[-0.03em] sm:text-7xl lg:text-[5.25rem]"
+              className="mt-6 font-display text-[3.25rem] font-semibold leading-[0.95] tracking-[-0.03em] sm:text-7xl lg:text-[5.25rem]"
             >
               <span className="block text-ink">Hamama</span>
               <span className="block text-ink">Komal</span>
@@ -104,7 +101,7 @@ export default function Hero() {
 
             <motion.dl
               variants={item}
-              className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/[0.07] pt-7"
+              className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/10 pt-6"
             >
               {stats.map((stat) => (
                 <div key={stat.v}>
