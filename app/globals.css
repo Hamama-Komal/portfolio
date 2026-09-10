@@ -68,7 +68,9 @@ body {
    hairline on the page animates at once and the whole thing shimmers. */
 html.theme-shift,
 html.theme-shift body {
-  transition: background-color 0.32s ease, color 0.32s ease;
+  transition:
+    background-color 0.32s ease,
+    color 0.32s ease;
 }
 
 ::selection {
@@ -140,8 +142,10 @@ html.theme-shift body {
   }
 }
 
+/* `backwards`, not `both`: opacity 1 stays the element's natural state, so the
+   copy is visible if the animation is ever disabled or never gets to run. */
 .rise {
-  animation: rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -180,7 +184,9 @@ html.has-cursor * {
   width: 28px;
   height: 28px;
   border: 1px solid rgb(var(--accent-ink) / 0.75);
-  transition: border-radius 0.22s ease, border-width 0.22s ease;
+  transition:
+    border-radius 0.22s ease,
+    border-width 0.22s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -193,4 +199,3 @@ html.has-cursor * {
     display: none;
   }
 }
-

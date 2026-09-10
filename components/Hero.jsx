@@ -5,10 +5,14 @@ import { profile, CV_FILE, stats, publishedCount } from "@/lib/data";
 /**
  * The hero is a server component with a CSS entrance.
  *
- * Framer would keep this copy at opacity 0 until hydration, and on a slow
- * connection that means a blank first paint of the largest element on the page.
- * `.rise` starts as soon as the stylesheet applies, so the name is on screen
- * before any JavaScript arrives — and none of this section ships any.
+ * Framer would hold this copy at opacity 0 until hydration, and on a slow
+ * connection that is a blank first paint of the largest element on the page.
+ * `.rise` starts the moment the stylesheet applies instead, and this section
+ * ships no JavaScript of its own.
+ *
+ * The name and the availability line carry no animation at all. They are the
+ * identity of the page, so they are painted rather than assembled — which also
+ * means their visibility can never depend on an animation having run.
  */
 const rise = (delay) => ({ animationDelay: `${delay}ms` });
 
@@ -16,7 +20,7 @@ export default function Hero() {
   return (
     <section id="top" className="shell pb-14 pt-24 sm:pb-16 sm:pt-28 lg:pb-20 lg:pt-32">
       {/* Standing details, stated once, in the technical register */}
-      <div className="rise flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-rule pb-4">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-rule pb-4">
         <span className="meta flex items-center gap-2 text-ink">
           <span className="h-1.5 w-1.5 rounded-full bg-accent" />
           {profile.available}
@@ -27,10 +31,7 @@ export default function Hero() {
 
       <div className="grid gap-12 pt-10 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16 lg:pt-14">
         <div>
-          <h1
-            style={rise(60)}
-            className="rise font-display text-[clamp(3.25rem,13vw,7.5rem)] font-normal leading-[0.9] tracking-tightest text-ink"
-          >
+          <h1 className="font-display text-[clamp(3.25rem,13vw,7.5rem)] font-normal leading-[0.9] tracking-tightest text-ink">
             <span className="block">Hamama</span>
             <span className="block">Komal</span>
           </h1>
@@ -47,8 +48,8 @@ export default function Hero() {
             style={rise(200)}
             className="rise mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft"
           >
-            Full-time at Devlix Technologies. I started in native Android with Java and MVVM,
-            moved across to Flutter, and have been shipping there since — mostly solo, from the
+            Full-time at Devlix Technologies. I started in native Android with Java and MVVM, moved
+            across to Flutter, and have been shipping there since — mostly solo, from the
             requirement through to the Play Console.
           </p>
 

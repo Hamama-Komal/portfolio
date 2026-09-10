@@ -71,7 +71,11 @@ export default function Contact() {
               onClick={copyEmail}
               className="inline-flex shrink-0 items-center gap-2 rounded-sm border border-rule px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint transition-colors duration-200 hover:border-ink/40 hover:text-ink"
             >
-              {copied ? <Check className="h-3.5 w-3.5 text-accent-ink" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? (
+                <Check className="h-3.5 w-3.5 text-accent-ink" />
+              ) : (
+                <Copy className="h-3.5 w-3.5" />
+              )}
               {copied ? "Copied" : "Copy"}
             </button>
           </div>

@@ -158,9 +158,7 @@ export default function NavBar() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span
-                    className={`text-[15px] ${
-                      active === link.id ? "text-accent-ink" : "text-ink"
-                    }`}
+                    className={`text-[15px] ${active === link.id ? "text-accent-ink" : "text-ink"}`}
                   >
                     {link.label}
                   </span>

@@ -21,15 +21,10 @@ export default function Capabilities() {
 
         <div className="mt-12 grid gap-x-10 border-t border-rule sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-x-12">
           {capabilities.map((group) => (
-            <div
-              key={group.label}
-              className="flex h-full flex-col border-b border-rule py-7"
-            >
+            <div key={group.label} className="flex h-full flex-col border-b border-rule py-7">
               <span className="meta text-accent-ink">{group.label}</span>
 
-              <p className="mt-4 text-[15px] leading-snug text-ink">
-                {group.statement}
-              </p>
+              <p className="mt-4 text-[15px] leading-snug text-ink">{group.statement}</p>
 
               <ul className="mt-6 border-t border-rule">
                 {group.items.map((entry) => (

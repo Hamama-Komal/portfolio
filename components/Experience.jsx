@@ -29,12 +29,8 @@ export default function Experience() {
               {/* Dates hold the left rail so the column scans as a timeline */}
               <div className="flex items-center gap-3 lg:block">
                 <span className="meta whitespace-nowrap">{job.period}</span>
-                <span className="meta mt-2 hidden lg:block">
-                  {job.type}
-                </span>
-                <span className="meta lg:hidden">
-                  · {job.type}
-                </span>
+                <span className="meta mt-2 hidden lg:block">{job.type}</span>
+                <span className="meta lg:hidden">· {job.type}</span>
               </div>
 
               <div>
@@ -50,9 +46,7 @@ export default function Experience() {
                   ) : null}
                 </div>
 
-                <p className="mt-1.5 text-[15px] font-medium text-accent-ink">
-                  {job.role}
-                </p>
+                <p className="mt-1.5 text-[15px] font-medium text-accent-ink">{job.role}</p>
 
                 <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
                   {job.summary}

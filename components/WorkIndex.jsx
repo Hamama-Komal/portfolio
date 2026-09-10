@@ -1,14 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Plus } from "lucide-react";
 import SectionMarker from "./SectionMarker";
 import { work, publishedCount, caseStudyCount } from "@/lib/data";
 
-const EASE = [0.22, 1, 0.36, 1];
-
-const PREVIEW_W = 184; // px — matches w-46 below
+const PREVIEW_W = 184; // px
 const PREVIEW_H = 392;
 
 /** Screenshots, framed plainly. The evidence should read as evidence. */
@@ -37,6 +35,14 @@ export default function WorkIndex() {
   const [open, setOpen] = useState(-1);
   const [hover, setHover] = useState(-1);
   const [previewY, setPreviewY] = useState(0);
+  // Screenshots mount on first open and stay mounted, so reopening is instant
+  // while a visitor who never opens a row downloads none of them.
+  const [seen, setSeen] = useState(() => new Set());
+
+  const toggle = (index) => {
+    setOpen((current) => (current === index ? -1 : index));
+    setSeen((current) => (current.has(index) ? current : new Set(current).add(index)));
+  };
 
   const listRef = useRef(null);
   const rowsRef = useRef([]);
@@ -83,7 +89,7 @@ export default function WorkIndex() {
                   <h3>
                     <button
                       type="button"
-                      onClick={() => setOpen(isOpen ? -1 : index)}
+                      onClick={() => toggle(index)}
                       onMouseEnter={() => alignPreview(index)}
                       onFocus={() => alignPreview(index)}
                       onMouseLeave={() => setHover(-1)}
@@ -122,68 +128,69 @@ export default function WorkIndex() {
                     </button>
                   </h3>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen ? (
-                      <motion.div
-                        id={`work-panel-${index}`}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.36, ease: EASE }}
-                        className="overflow-hidden"
-                      >
-                        {/* The preview is hidden while a row is open, so the
+                  {/* Collapsed with grid-template-rows rather than unmounted,
+                      so the case study — and above all the Play Store link —
+                      is in the HTML whether or not anybody opens the row.
+                      `inert` keeps the hidden links out of the tab order. */}
+                  <div
+                    id={`work-panel-${index}`}
+                    inert={isOpen ? undefined : true}
+                    className={`grid transition-[grid-template-rows] duration-[380ms] ease-out ${
+                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      {/* The preview is hidden while a row is open, so the
                             panel reclaims its gutter and the screenshots get
                             room to be readable. */}
-                        <div className="grid gap-8 pb-9 pt-1 lg:-mr-[15rem] lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-12">
-                          <div className="lg:pl-10">
-                            {item.tagline ? (
-                              <p className="max-w-xl text-[17px] leading-snug text-ink">
-                                {item.tagline}
-                              </p>
-                            ) : null}
+                      <div className="grid gap-8 pb-9 pt-1 lg:-mr-[15rem] lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-12">
+                        <div className="lg:pl-10">
+                          {item.tagline ? (
+                            <p className="max-w-xl text-[17px] leading-snug text-ink">
+                              {item.tagline}
+                            </p>
+                          ) : null}
 
-                            {item.problem ? (
-                              <dl className="mt-7 grid gap-6 sm:grid-cols-2">
-                                <div>
-                                  <dt className="meta pb-2">The problem</dt>
-                                  <dd className="border-t border-rule pt-3 text-[14px] leading-relaxed text-ink-soft">
-                                    {item.problem}
-                                  </dd>
-                                </div>
-                                <div>
-                                  <dt className="meta pb-2 text-accent-ink">What I built</dt>
-                                  <dd className="border-t border-rule pt-3 text-[14px] leading-relaxed text-ink-soft">
-                                    {item.solution}
-                                  </dd>
-                                </div>
-                              </dl>
-                            ) : null}
+                          {item.problem ? (
+                            <dl className="mt-7 grid gap-6 sm:grid-cols-2">
+                              <div>
+                                <dt className="meta pb-2">The problem</dt>
+                                <dd className="border-t border-rule pt-3 text-[14px] leading-relaxed text-ink-soft">
+                                  {item.problem}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="meta pb-2 text-accent-ink">What I built</dt>
+                                <dd className="border-t border-rule pt-3 text-[14px] leading-relaxed text-ink-soft">
+                                  {item.solution}
+                                </dd>
+                              </div>
+                            </dl>
+                          ) : null}
 
-                            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5">
-                              <span className="meta">{item.stack.join(" · ")}</span>
-                              {item.org ? (
-                                <span className="meta">at {item.org}</span>
-                              ) : null}
-                              <a
-                                href={item.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/link ml-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-accent-ink"
-                              >
-                                <span className="link-underline decoration-accent-ink/40">
-                                  View on Google Play
-                                </span>
-                                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
-                              </a>
-                            </div>
+                          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5">
+                            <span className="meta">{item.stack.join(" · ")}</span>
+                            {item.org ? <span className="meta">at {item.org}</span> : null}
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group/link ml-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-accent-ink"
+                            >
+                              <span className="link-underline decoration-accent-ink/40">
+                                View {item.title} on Google Play
+                              </span>
+                              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+                            </a>
                           </div>
-
-                          <Screens shots={item.shots ?? [item.shot]} title={item.title} />
                         </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
+
+                        {seen.has(index) ? (
+                          <Screens shots={item.shots ?? [item.shot]} title={item.title} />
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}

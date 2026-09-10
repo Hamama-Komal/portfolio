@@ -6,11 +6,7 @@ const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
 
 module.exports = {
   darkMode: "class",
-  content: [
-    "./app/**/*.{js,jsx}",
-    "./components/**/*.{js,jsx}",
-    "./lib/**/*.{js,jsx}",
-  ],
+  content: ["./app/**/*.{js,jsx}", "./components/**/*.{js,jsx}", "./lib/**/*.{js,jsx}"],
   theme: {
     extend: {
       colors: {
