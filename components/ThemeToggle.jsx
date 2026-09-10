@@ -32,7 +32,6 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      data-cursor={isDark ? "light" : "dark"}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       className="relative ml-1 flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 sm:h-8 sm:w-8 text-ink/70 transition-colors duration-300 hover:border-azure/50 hover:text-azure-600"
     >

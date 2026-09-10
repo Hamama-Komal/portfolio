@@ -48,9 +48,6 @@
   --shadow-opacity: 0.05;
   --grid-line: 15 23 42;
   --grid-alpha: 0.05;
-  --cursor-blob: 175 243 62;
-  --cursor-dot: 15 23 42;
-  --cursor-blend: multiply;
   --dot-rgb: 15 23 42;
   --dot-active-rgb: 132 204 22;
 }
@@ -58,44 +55,41 @@
 .dark {
   color-scheme: dark;
 
-  --paper-50: 2 6 23; /* #020617 background */
-  --paper-100: 15 23 42; /* #0f172a card */
-  --paper-200: 30 41 59; /* #1e293b muted */
-  --paper-300: 30 41 59; /* #1e293b border */
-  --paper-400: 51 65 85;
+  /* Neutral black — no blue cast */
+  --paper-50: 10 10 10; /* #0a0a0a background */
+  --paper-100: 20 20 20; /* #141414 card */
+  --paper-200: 28 28 28; /* #1c1c1c muted */
+  --paper-300: 42 42 42; /* #2a2a2a border */
+  --paper-400: 64 64 64;
 
-  --ink: 248 250 252; /* #f8fafc foreground */
+  --ink: 250 250 250; /* #fafafa foreground */
   --ink-900: 255 255 255;
-  --ink-700: 203 213 225;
-  --ink-500: 148 163 184; /* #94a3b8 muted-foreground */
-  --ink-300: 100 116 139;
+  --ink-700: 212 212 212;
+  --ink-500: 163 163 163; /* muted-foreground */
+  --ink-300: 115 115 115;
 
-  --sky-900: 248 250 252;
-  --sky-800: 30 41 59;
-  --sky-700: 203 213 225;
-  --sky-600: 148 163 184;
-  --sky-500: 148 163 184;
-  --sky-400: 203 213 225;
-  --sky-300: 226 232 240;
+  --sky-900: 250 250 250;
+  --sky-800: 28 28 28;
+  --sky-700: 212 212 212;
+  --sky-600: 163 163 163;
+  --sky-500: 163 163 163;
+  --sky-400: 212 212 212;
+  --sky-300: 229 229 229;
 
-  /* On dark the lime reads well as type too */
   --azure: 175 243 62;
   --azure-700: 217 249 157;
-  --azure-600: 175 243 62; /* #aff33e accent-foreground */
+  --azure-600: 175 243 62;
   --azure-400: 175 243 62;
   --azure-300: 132 204 22;
-  --azure-100: 20 83 45; /* #14532d accent */
+  --azure-100: 32 42 12;
 
   --on-primary: 0 0 0;
 
   --shadow: 0 0 0;
-  --shadow-opacity: 0.4;
+  --shadow-opacity: 0.5;
   --grid-line: 175 243 62;
-  --grid-alpha: 0.05;
-  --cursor-blob: 175 243 62;
-  --cursor-dot: 248 250 252;
-  --cursor-blend: screen;
-  --dot-rgb: 148 163 184;
+  --grid-alpha: 0.04;
+  --dot-rgb: 115 115 115;
   --dot-active-rgb: 175 243 62;
 }
 
@@ -108,25 +102,9 @@ body {
   @apply bg-paper-50 text-ink/75 antialiased;
   /* `clip` (not `hidden`) so position: sticky keeps working */
   overflow-x: clip;
-  background-image:
-    radial-gradient(50rem 36rem at 12% -6%, rgba(175, 243, 62, 0.1), transparent 60%),
-    radial-gradient(44rem 34rem at 90% 4%, rgba(51, 65, 85, 0.05), transparent 62%);
-  background-attachment: fixed;
   transition:
     background-color 0.4s ease,
     color 0.4s ease;
-}
-
-.dark body {
-  background-image:
-    radial-gradient(50rem 36rem at 12% -6%, rgba(175, 243, 62, 0.07), transparent 60%),
-    radial-gradient(44rem 34rem at 90% 4%, rgba(175, 243, 62, 0.04), transparent 62%);
-}
-
-/* Native cursor is replaced by <LiquidCursor /> on fine-pointer devices only */
-html.has-liquid-cursor,
-html.has-liquid-cursor * {
-  cursor: none !important;
 }
 
 ::selection {
@@ -152,11 +130,8 @@ html.has-liquid-cursor * {
 }
 
 @layer components {
-  .glass {
-    @apply rounded-3xl border border-ink/10 bg-paper-50/70 backdrop-blur-xl;
-  }
-  .text-gradient {
-    @apply bg-gradient-to-r from-azure-600 via-azure to-sky-500 bg-clip-text text-transparent;
+  .card {
+    @apply rounded-2xl border border-ink/10 bg-paper-100;
   }
   .section {
     @apply relative mx-auto w-full max-w-6xl px-5 sm:px-8;
@@ -174,20 +149,6 @@ html.has-liquid-cursor * {
     -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   }
-  .grid-bg {
-    background-image:
-      linear-gradient(
-        to right,
-        rgb(var(--grid-line) / var(--grid-alpha)) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        rgb(var(--grid-line) / var(--grid-alpha)) 1px,
-        transparent 1px
-      );
-    background-size: 64px 64px;
-  }
   .perspective {
     perspective: 1400px;
   }
@@ -200,12 +161,3 @@ html.has-liquid-cursor * {
   }
 }
 
-/* ---- Liquid cursor ---- */
-.cursor-blob {
-  background: rgb(var(--cursor-blob) / 0.5);
-  mix-blend-mode: var(--cursor-blend);
-}
-.cursor-dot {
-  background: rgb(var(--cursor-dot) / 0.85);
-  mix-blend-mode: var(--cursor-blend);
-}

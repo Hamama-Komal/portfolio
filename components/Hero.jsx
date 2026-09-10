@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
 import Portrait from "./Portrait";
-import Magnetic from "./Magnetic";
 import CountUp from "./CountUp";
 import { profile, CV_FILE } from "@/lib/data";
 
@@ -80,27 +79,21 @@ export default function Hero() {
 
 
             <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
-              <Magnetic strength={0.25}>
               <a
                 href="#projects"
-                data-cursor="see work"
                 className="group inline-flex items-center gap-2 rounded-full bg-azure px-6 py-3 text-sm font-semibold text-black shadow-[0_8px_20px_-8px_rgb(var(--azure)/0.9)] transition-all duration-300 hover:gap-3"
               >
                 View my work
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
-              </Magnetic>
-              <Magnetic strength={0.2}>
               <a
                 href={CV_FILE}
                 download
-                data-cursor="download"
                 className="group inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:border-ink/40"
               >
                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV
               </a>
-              </Magnetic>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-medium text-ink/80 transition-colors duration-300 hover:border-ink/35 hover:text-ink"

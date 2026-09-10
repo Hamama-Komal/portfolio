@@ -20,8 +20,6 @@ export default function Portrait() {
 
   const rotateY = useTransform(sx, [-0.5, 0.5], [7, -7]);
   const rotateX = useTransform(sy, [-0.5, 0.5], [-7, 7]);
-  const lightX = useTransform(sx, [-0.5, 0.5], ["25%", "75%"]);
-  const lightY = useTransform(sy, [-0.5, 0.5], ["25%", "75%"]);
 
   const handleMove = (event) => {
     if (event.pointerType !== "mouse") return;
@@ -38,21 +36,7 @@ export default function Portrait() {
 
   return (
     <div className="relative mx-auto w-full max-w-[19rem] sm:max-w-[24rem] lg:max-w-none">
-      <div className="pointer-events-none absolute inset-[12%] rounded-full bg-azure/20 blur-[80px]" />
-
-      {/* Slow arc that traces the frame */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute -inset-[4%] rounded-full"
-        style={{
-          background:
-            "conic-gradient(from 0deg, transparent 0deg, transparent 250deg, rgb(var(--azure)) 320deg, transparent 360deg)",
-          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 2px), #000 0)",
-          mask: "radial-gradient(farthest-side, transparent calc(100% - 2px), #000 0)",
-        }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-      />
+      
 
       <motion.div
         ref={frameRef}
@@ -65,26 +49,22 @@ export default function Portrait() {
         style={{ rotateX, rotateY, transformPerspective: 900 }}
         className="relative aspect-square w-full select-none overflow-hidden rounded-full ring-1 ring-inset ring-ink/10"
       >
+        {/* One file per theme so the photo's backdrop always matches the page */}
         <Image
-          src="/img/me-blue.webp"
+          src="/img/me-light.webp"
           alt="Hamama Komal, Flutter developer"
           fill
           priority
           sizes="(max-width: 640px) 88vw, (max-width: 1024px) 24rem, 34rem"
-          className="scale-[1.18] object-cover object-[30%_35%]"
+          className="scale-[1.18] object-cover object-[30%_35%] dark:hidden"
         />
-
-        {/* Highlight that follows the pointer */}
-        <motion.div
+        <Image
+          src="/img/me-dark.webp"
+          alt=""
           aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: useTransform(
-              [lightX, lightY],
-              ([x, y]) =>
-                `radial-gradient(45% 45% at ${x} ${y}, rgba(255,255,255,0.22), transparent 70%)`
-            ),
-          }}
+          fill
+          sizes="(max-width: 640px) 88vw, (max-width: 1024px) 24rem, 34rem"
+          className="hidden scale-[1.18] object-cover object-[30%_35%] dark:block"
         />
       </motion.div>
     </div>

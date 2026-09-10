@@ -39,7 +39,7 @@ export default function Intro() {
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Bio card */}
           <Reveal from="left">
-            <div className="glass relative h-full overflow-hidden p-6 sm:p-8">
+            <div className="card relative h-full overflow-hidden p-6 sm:p-8">
               <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-azure/20 blur-3xl" />
               <Quote className="h-7 w-7 text-azure-600/70" />
               <p className="mt-5 text-base leading-relaxed text-ink/80 sm:text-lg">
@@ -71,7 +71,7 @@ export default function Intro() {
                   <motion.div
                     whileHover={{ y: -6 }}
                     transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                    className={`glass group relative h-full overflow-hidden p-6 transition-colors ${
+                    className={`card group relative h-full overflow-hidden p-6 transition-colors ${
                       isAzure ? "hover:border-azure/40" : "hover:border-sky-400/40"
                     }`}
                   >

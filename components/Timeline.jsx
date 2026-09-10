@@ -30,7 +30,6 @@ function JobPanel({ job, index, total, isActive, onActivate }) {
           onActivate();
         }
       }}
-      data-cursor={isActive ? undefined : "open"}
       initial={{ opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -44,14 +43,7 @@ function JobPanel({ job, index, total, isActive, onActivate }) {
       className="group relative min-w-0 flex-1 overflow-hidden rounded-3xl border border-ink/10 bg-paper-100 transition-[flex-grow,border-color] duration-700 hover:border-ink/20"
     >
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 opacity-70"
-          style={{
-            background: `radial-gradient(90% 70% at 12% 0%, rgba(${accent.rgb},0.2), transparent 62%)`,
-          }}
-        />
-        <div className="absolute inset-0 grid-bg opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-paper-50 via-paper-50/60 to-transparent" />
+        
       </div>
 
       {/* Collapsed spine */}
@@ -92,7 +84,7 @@ function JobPanel({ job, index, total, isActive, onActivate }) {
                 </span>
                 {job.current ? (
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-azure/30 bg-azure/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-azure-600">
-                    <span className="h-1.5 w-1.5 rounded-full bg-azure animate-blink" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-azure" />
                     Current
                   </span>
                 ) : null}
@@ -137,7 +129,7 @@ function JobPanel({ job, index, total, isActive, onActivate }) {
                 className="pointer-events-none absolute inset-2 rounded-full blur-3xl"
                 style={{ background: `rgba(${accent.rgb},0.18)` }}
               />
-              <div className="relative flex flex-col items-center gap-5 rounded-[1.75rem] border border-ink/10 bg-paper-50/70 px-6 py-8 text-center backdrop-blur-sm">
+              <div className="relative flex flex-col items-center gap-5 rounded-[1.75rem] border border-ink/10 bg-paper-200 px-6 py-8 text-center">
                 <span
                   className={`flex h-14 w-14 items-center justify-center rounded-2xl border bg-paper-100 ${accent.border} ${accent.glow}`}
                 >
@@ -175,18 +167,11 @@ function JobRow({ job, index, isOpen, onToggle }) {
         isOpen ? accent.border : "border-ink/10"
       }`}
     >
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          background: `radial-gradient(80% 60% at 0% 0%, rgba(${accent.rgb},0.14), transparent 60%)`,
-        }}
-      />
 
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        data-cursor={isOpen ? "close" : "open"}
         className="relative flex w-full items-center gap-3.5 p-4 text-left"
       >
         <span

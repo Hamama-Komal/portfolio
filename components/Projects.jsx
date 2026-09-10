@@ -79,17 +79,6 @@ export default function Projects() {
             }}
             className="relative cursor-grab overflow-hidden rounded-[1.75rem] border border-ink/10 bg-paper-100 shadow-[0_18px_50px_-30px_rgb(var(--shadow)/0.4)] active:cursor-grabbing"
           >
-            {/* Accent wash keyed to the current project */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`wash-${index}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_85%_0%,rgb(var(--azure)/0.16),transparent_60%)]"
-              />
-            </AnimatePresence>
 
             <div className="relative grid items-center gap-8 p-6 sm:p-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:p-11">
               {/* ---- Copy ---- */}
@@ -181,7 +170,6 @@ export default function Projects() {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          data-cursor="google play"
                           className="group/link mt-7 inline-flex items-center gap-2 rounded-full bg-azure px-5 py-2.5 text-[13px] font-semibold text-black transition-all duration-300 hover:gap-3"
                         >
                           View on Google Play
@@ -211,7 +199,6 @@ export default function Projects() {
               type="button"
               onClick={() => paginate(-1)}
               aria-label="Previous project"
-              data-cursor="prev"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-azure hover:bg-azure hover:text-black active:scale-95"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -242,7 +229,6 @@ export default function Projects() {
               type="button"
               onClick={() => paginate(1)}
               aria-label="Next project"
-              data-cursor="next"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-azure hover:bg-azure hover:text-black active:scale-95"
             >
               <ArrowRight className="h-4 w-4" />
@@ -263,7 +249,6 @@ export default function Projects() {
                 href={app.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor="google play"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}

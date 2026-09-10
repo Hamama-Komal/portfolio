@@ -13,7 +13,6 @@ import {
   Phone,
 } from "lucide-react";
 import Reveal from "./Reveal";
-import Magnetic from "./Magnetic";
 import { profile, CV_FILE } from "@/lib/data";
 
 const socials = [
@@ -81,9 +80,9 @@ export default function Contact() {
     <footer id="contact" className="relative scroll-mt-24 overflow-hidden pb-12 pt-24 sm:pt-28">
       <div className="section">
         <Reveal from="up">
-          <div className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-gradient-to-b from-ink/[0.06] to-ink/[0.02] p-8 text-center backdrop-blur-2xl sm:p-14">
+          <div className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-paper-100 p-8 text-center sm:p-14">
             <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-azure/20 blur-[100px]" />
-            <div className="pointer-events-none absolute inset-0 grid-bg opacity-30 [mask-image:radial-gradient(60%_50%_at_50%_0%,#000,transparent)]" />
+            
 
             <span className="eyebrow relative">
               <span className="h-1.5 w-1.5 rounded-full bg-sky-600" />
@@ -110,7 +109,7 @@ export default function Contact() {
                     whileHover={{ y: -4 }}
                     whileTap={{ scale: 0.96 }}
                     transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                    className={`group flex items-center gap-2.5 rounded-full border border-ink/12 bg-ink/[0.04] px-5 py-3 text-sm font-medium text-ink/80 backdrop-blur-md transition-all duration-300 ${social.color}`}
+                    className={`group flex items-center gap-2.5 rounded-full border border-ink/12 bg-paper-200 px-5 py-3 text-sm font-medium text-ink/80 transition-all duration-300 ${social.color}`}
                   >
                     <Icon className={`h-4 w-4 ${social.iconColor}`} />
                     <span className="hidden sm:inline">{social.value}</span>
@@ -121,11 +120,9 @@ export default function Contact() {
             </div>
 
             <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Magnetic strength={0.3}>
               <button
                 type="button"
                 onClick={copyEmail}
-                data-cursor="copy"
                 className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-azure px-6 py-3.5 text-sm font-bold text-black transition-transform duration-300 hover:scale-[1.03] active:scale-95"
               >
                 <span className="absolute inset-0 -translate-x-full bg-white/40 transition-transform duration-700 group-hover:translate-x-full" />
@@ -157,12 +154,10 @@ export default function Contact() {
                   )}
                 </AnimatePresence>
               </button>
-              </Magnetic>
 
               <a
                 href={CV_FILE}
                 download
-                data-cursor="download"
                 className="group inline-flex items-center gap-2.5 rounded-2xl border border-ink/15 bg-paper-50/60 px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:border-azure/50 hover:text-azure-700"
               >
                 <Download className="h-4 w-4 text-azure-600 transition-transform duration-300 group-hover:translate-y-0.5" />

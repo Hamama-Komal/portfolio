@@ -12,7 +12,6 @@ function StackCard({ stack, index }) {
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const spotlight = useMotionTemplate`radial-gradient(320px circle at ${mx}px ${my}px, rgba(${accent.rgb},0.18), transparent 70%)`;
 
   const handleMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -26,12 +25,8 @@ function StackCard({ stack, index }) {
         onPointerMove={handleMove}
         whileHover={{ y: -6 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
-        className="glass group relative h-full overflow-hidden p-6 transition-colors duration-300 hover:border-ink/25"
+        className="card group relative h-full overflow-hidden p-6 transition-colors duration-300 hover:border-azure"
       >
-        <motion.div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{ background: spotlight }}
-        />
 
         <div className="relative flex items-center gap-3">
           <span
@@ -57,7 +52,7 @@ function StackCard({ stack, index }) {
         </div>
 
         <span
-          className={`pointer-events-none absolute bottom-0 left-0 h-px w-full bg-gradient-to-r ${accent.grad} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
+          className="pointer-events-none absolute bottom-0 left-0 h-[2px] w-full bg-azure opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         />
       </motion.div>
     </Reveal>

@@ -87,7 +87,7 @@ export default function NavBar() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ layout: { type: "spring", stiffness: 420, damping: 36 }, duration: 0.7 }}
-        className="pointer-events-auto flex items-center gap-1 rounded-full border border-ink/10 bg-paper-50/80 p-1.5 shadow-[0_10px_40px_-20px_rgb(var(--shadow)/0.5)] backdrop-blur-xl"
+        className="pointer-events-auto flex items-center gap-1 rounded-full border border-ink/10 bg-paper-100 p-1.5 shadow-[0_6px_24px_-16px_rgb(var(--shadow)/0.5)]"
       >
         {/* Toggle — becomes the close button when open */}
         <button
@@ -95,7 +95,6 @@ export default function NavBar() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
-          data-cursor={open ? "close" : "menu"}
           className="relative flex h-9 items-center gap-2 rounded-full px-3 text-ink transition-colors duration-300 hover:text-azure-600"
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -176,7 +175,6 @@ export default function NavBar() {
                     key={label}
                     href={href}
                     aria-label={label}
-                    data-cursor={label.toLowerCase()}
                     target={external ? "_blank" : undefined}
                     rel={external ? "noopener noreferrer" : undefined}
                     initial={{ opacity: 0, y: -6 }}

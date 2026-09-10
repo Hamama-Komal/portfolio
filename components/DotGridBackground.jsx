@@ -243,8 +243,6 @@ export default function DotGridBackground({
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-paper-50">
       <canvas ref={canvasRef} className="dot-grid h-full w-full" aria-hidden />
-      {/* Keeps type legible where the field runs behind content */}
-      <div className="absolute inset-0 bg-[radial-gradient(120%_85%_at_50%_0%,transparent_35%,rgb(var(--paper-50)/0.72)_100%)]" />
     </div>
   );
 }

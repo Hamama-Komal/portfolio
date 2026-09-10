@@ -107,7 +107,7 @@ export default function Preloader() {
 
           <div className="mt-7 h-[2px] w-44 overflow-hidden rounded-full bg-ink/10">
             <motion.span
-              className="block h-full rounded-full bg-gradient-to-r from-azure to-sky-400"
+              className="block h-full rounded-full bg-azure"
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             />
