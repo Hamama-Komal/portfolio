@@ -2,47 +2,46 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { smoothScrollTo } from "@/lib/smoothScroll";
 import { profile } from "@/lib/data";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { id: "top", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "experience", label: "Work" },
-  { id: "projects", label: "Projects" },
-  { id: "stack", label: "Skills" },
+  { id: "about", label: "Profile" },
+  { id: "work", label: "Work" },
+  { id: "experience", label: "Experience" },
+  { id: "capabilities", label: "Capabilities" },
   { id: "contact", label: "Contact" },
 ];
 
-const socials = [
-  { href: `mailto:${profile.email}`, Icon: Mail, label: "Email", external: false },
-  { href: profile.linkedin, Icon: Linkedin, label: "LinkedIn", external: true },
-  { href: profile.github, Icon: Github, label: "GitHub", external: true },
-];
-
 /**
- * Collapsed navigation: at rest it is a single pill showing only the section you
- * are in. Opening it expands the full list with a shared layout animation, so the
- * chrome stays out of the way until it is wanted.
+ * Navigation is the one part of a portfolio that should not be interesting. It
+ * names where you are, gets out of the way, and grows a hairline once the page
+ * has scrolled far enough for the bar to need separating from the content.
  */
 export default function NavBar() {
-  const [active, setActive] = useState("top");
+  const [active, setActive] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const navRef = useRef(null);
+  const panelRef = useRef(null);
 
   useEffect(() => {
-    const sections = links.map((link) => document.getElementById(link.id)).filter(Boolean);
+    const ids = links.map((link) => link.id);
 
     const onScroll = () => {
-      const line = window.scrollY + window.innerHeight * 0.35;
-      let current = links[0].id;
-      sections.forEach((section) => {
-        if (section.offsetTop <= line) current = section.id;
+      setScrolled(window.scrollY > 24);
+
+      const line = window.scrollY + window.innerHeight * 0.3;
+      let current = "";
+      ids.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= line) current = id;
       });
+      // The last section rarely reaches the trigger line, so the page bottom
+      // stands in for it.
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 80) {
-        current = links[links.length - 1].id;
+        current = ids[ids.length - 1];
       }
       setActive(current);
     };
@@ -56,142 +55,121 @@ export default function NavBar() {
     };
   }, []);
 
-  // Close on outside click or Escape.
   useEffect(() => {
     if (!open) return;
-    const onDown = (event) => {
-      if (navRef.current && !navRef.current.contains(event.target)) setOpen(false);
-    };
     const onKey = (event) => event.key === "Escape" && setOpen(false);
-    document.addEventListener("pointerdown", onDown);
     document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
   const go = (id) => {
-    smoothScrollTo(id === "top" ? null : `#${id}`, { offset: 96 });
-    window.history.replaceState(null, "", id === "top" ? "#top" : `#${id}`);
+    smoothScrollTo(`#${id}`, { offset: 76 });
+    window.history.replaceState(null, "", `#${id}`);
     setOpen(false);
   };
 
-  const activeLabel = links.find((link) => link.id === active)?.label ?? "Home";
-
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 sm:pt-5">
-      <motion.nav
-        ref={navRef}
-        layout
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ layout: { type: "spring", stiffness: 420, damping: 36 }, duration: 0.7 }}
-        className="pointer-events-auto flex items-center gap-1 rounded-full border border-ink/10 bg-paper-100 p-1.5 shadow-[0_6px_24px_-16px_rgb(var(--shadow)/0.5)]"
-      >
-        {/* Toggle — becomes the close button when open */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="relative flex h-9 items-center gap-2 rounded-full px-3 text-ink transition-colors duration-300 hover:text-azure-600"
+    <header
+      /* Only the border transitions. Animating background-color here too would
+         make the bar visibly lag the page on a theme switch. */
+      className={`fixed inset-x-0 top-0 z-50 bg-paper transition-[border-color] duration-300 ${
+        scrolled || open ? "border-b border-rule" : "border-b border-transparent"
+      }`}
+    >
+      <div className="shell flex h-16 items-center justify-between gap-6">
+        {/* Wordmark */}
+        <a
+          href="#top"
+          className="group flex shrink-0 items-baseline gap-2"
+          aria-label="Back to top"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={open ? "close" : "menu"}
-              initial={{ opacity: 0, rotate: -60, scale: 0.7 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, rotate: 60, scale: 0.7 }}
-              transition={{ duration: 0.18 }}
-              className="flex"
-            >
-              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </motion.span>
-          </AnimatePresence>
+          <span className="font-display text-[19px] leading-none tracking-tight text-ink">
+            {profile.name}
+          </span>
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125" />
+        </a>
 
-          {/* At rest the pill names the section you're in */}
-          <AnimatePresence initial={false}>
-            {open ? null : (
-              <motion.span
-                key={activeLabel}
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: "auto" }}
-                exit={{ opacity: 0, width: 0 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden whitespace-nowrap text-[13px] font-medium tracking-tight"
-              >
-                {activeLabel}
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
+        <div className="flex items-center gap-1">
+          {/* Desktop links */}
+          <nav className="hidden items-center lg:flex">
+            {links.map((link) => {
+              const isActive = active === link.id;
+              return (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => go(link.id)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`relative px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-200 ${
+                    isActive ? "text-ink" : "text-ink-faint hover:text-ink"
+                  }`}
+                >
+                  {link.label}
+                  {isActive ? (
+                    <motion.span
+                      layoutId="nav-active"
+                      transition={{ type: "spring", stiffness: 480, damping: 40 }}
+                      className="absolute inset-x-3 -bottom-px h-px bg-accent"
+                    />
+                  ) : null}
+                </button>
+              );
+            })}
+          </nav>
 
-        {/* Expanded list */}
-        <AnimatePresence initial={false}>
-          {open ? (
-            <motion.div
-              key="links"
-              initial={{ opacity: 0, width: 0 }}
-              animate={{ opacity: 1, width: "auto" }}
-              exit={{ opacity: 0, width: 0 }}
-              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center overflow-hidden"
-            >
-              <span className="mx-1 h-5 w-px shrink-0 bg-ink/10" />
+          <span className="mx-2 hidden h-4 w-px bg-rule lg:block" />
 
-              {links.map((link, i) => {
-                const isActive = active === link.id;
-                return (
-                  <motion.button
-                    key={link.id}
-                    type="button"
-                    onClick={() => go(link.id)}
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.04 + i * 0.035, duration: 0.25 }}
-                    aria-current={isActive ? "true" : undefined}
-                    className={`relative shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors duration-200 ${
-                      isActive ? "text-black" : "text-ink/60 hover:text-ink"
+          <ThemeToggle />
+
+          {/* Mobile trigger */}
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="-mr-2 flex h-9 w-9 items-center justify-center text-ink lg:hidden"
+          >
+            {open ? <X className="h-[18px] w-[18px]" /> : <Menu className="h-[18px] w-[18px]" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile panel */}
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.nav
+            ref={panelRef}
+            key="panel"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-rule lg:hidden"
+          >
+            <div className="shell flex flex-col py-2">
+              {links.map((link, i) => (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => go(link.id)}
+                  className="flex items-baseline gap-3 border-b border-rule py-3.5 text-left last:border-b-0"
+                >
+                  <span className="meta w-6 shrink-0 text-ink-faint">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`text-[15px] ${
+                      active === link.id ? "text-accent-ink" : "text-ink"
                     }`}
                   >
-                    {isActive ? (
-                      <motion.span
-                        layoutId="nav-active-pill"
-                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                        className="absolute inset-0 rounded-full bg-azure"
-                      />
-                    ) : null}
-                    <span className="relative">{link.label}</span>
-                  </motion.button>
-                );
-              })}
-
-              <span className="mx-1 hidden h-5 w-px shrink-0 bg-ink/10 sm:block" />
-
-              <div className="hidden items-center gap-0.5 sm:flex">
-                {socials.map(({ href, Icon, label, external }, i) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    aria-label={label}
-                    target={external ? "_blank" : undefined}
-                    rel={external ? "noopener noreferrer" : undefined}
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.28 + i * 0.04, duration: 0.25 }}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink/55 transition-colors duration-300 hover:bg-ink/[0.06] hover:text-azure-600"
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-
-        <ThemeToggle />
-      </motion.nav>
+                    {link.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </motion.nav>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }

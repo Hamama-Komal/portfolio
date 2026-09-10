@@ -1,6 +1,7 @@
-import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import { profile } from "@/lib/data";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -8,8 +9,12 @@ const sans = Inter({
   display: "swap",
 });
 
-const display = Outfit({
+// A serif for the display sizes only. Against the grotesk body and the mono
+// metadata it does most of the work of making the page look set rather than
+// generated.
+const display = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-display",
   display: "swap",
 });
@@ -21,61 +26,87 @@ const mono = JetBrains_Mono({
 });
 
 const siteUrl = "https://hamama-komal.vercel.app";
+const title = "Hamama Komal — Flutter Developer";
+const description =
+  "Flutter developer in Bhakkar, Pakistan. Nine Android apps live on Google Play, built end to end on clean architecture with Provider, GetX and Firebase.";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Hamama Komal | Flutter Developer",
-  description:
-    "Flutter developer in Bhakkar, Pakistan. 10+ Android apps shipped to the Play Store, built on clean architecture with Provider, GetX and Firebase.",
+  title: {
+    default: title,
+    template: "%s — Hamama Komal",
+  },
+  description,
   keywords: [
     "Hamama Komal",
     "Flutter Developer",
     "Mobile App Developer",
+    "Android Developer",
     "Bhakkar",
     "Pakistan",
     "Clean Architecture",
-    "AI Engineer",
-    "RAG",
-    "LLM",
-    "FastAPI",
+    "Dart",
+    "Firebase",
     "Portfolio",
   ],
-  authors: [{ name: "Hamama Komal" }],
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Hamama Komal | Flutter Developer",
-    description:
-      "Flutter developer. 10+ Android apps live on the Play Store.",
+    title,
+    description,
     url: siteUrl,
-    siteName: "Hamama Komal",
+    siteName: profile.name,
+    locale: "en_US",
     type: "website",
-    images: [{ url: "/img/me-blue.webp", width: 1024, height: 1024, alt: "Hamama Komal, Flutter developer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hamama Komal | Flutter Developer",
-    description: "Flutter developer. 10+ Android apps live on the Play Store.",
-    images: ["/img/me-blue.webp"],
+    title,
+    description,
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
+  robots: { index: true, follow: true },
 };
 
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FDFBF4" },
-    { media: "(prefers-color-scheme: dark)", color: "#080808" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0e0d" },
   ],
 };
 
 // Runs before paint so the stored theme is applied without a flash of the wrong one.
 const themeScript = `(function(){try{var t=localStorage.getItem("hk-theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})();`;
 
+/** Structured data: lets a recruiter's search result show the real role and links. */
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  email: `mailto:${profile.email}`,
+  url: siteUrl,
+  address: { "@type": "PostalAddress", addressLocality: "Bhakkar", addressCountry: "PK" },
+  sameAs: [profile.linkedin, profile.github],
+  knowsAbout: ["Flutter", "Dart", "Android", "Clean Architecture", "Firebase"],
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${sans.variable} ${display.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
       </head>
       <body className="font-sans">
         <Providers>{children}</Providers>

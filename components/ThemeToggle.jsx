@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
 export const THEME_KEY = "hk-theme";
@@ -17,11 +16,19 @@ export default function ThemeToggle() {
 
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
-    document.documentElement.classList.toggle("dark", next === "dark");
+    const root = document.documentElement;
+
+    // The crossfade is switched on only for the swap itself. Left on permanently
+    // it would animate every hairline whenever a colour changed, and the page
+    // would shimmer instead of settling.
+    root.classList.add("theme-shift");
+    root.classList.toggle("dark", next === "dark");
+    window.setTimeout(() => root.classList.remove("theme-shift"), 400);
+
     try {
       window.localStorage.setItem(THEME_KEY, next);
     } catch {
-      /* private mode — the choice just won't persist */
+      /* private mode — the choice just will not persist */
     }
     setTheme(next);
   };
@@ -33,20 +40,17 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      className="relative ml-1 flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 sm:h-8 sm:w-8 text-ink/70 transition-colors duration-300 hover:border-azure/50 hover:text-azure-600"
+      className="flex h-9 w-9 items-center justify-center rounded-sm text-ink-faint transition-colors duration-200 hover:text-ink"
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={isDark ? "moon" : "sun"}
-          initial={{ opacity: 0, rotate: -70, scale: 0.6 }}
-          animate={{ opacity: 1, rotate: 0, scale: 1 }}
-          exit={{ opacity: 0, rotate: 70, scale: 0.6 }}
-          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute"
-        >
-          {isDark ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
-        </motion.span>
-      </AnimatePresence>
+      {/* Rendered before the theme is known, both icons are hidden — which is
+          correct: it prevents the wrong one flashing in on hydration. */}
+      {theme === null ? (
+        <span className="h-[15px] w-[15px]" />
+      ) : isDark ? (
+        <Moon className="h-[15px] w-[15px]" />
+      ) : (
+        <Sun className="h-[15px] w-[15px]" />
+      )}
     </button>
   );
 }

@@ -1,143 +1,101 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import Portrait from "./Portrait";
-import CountUp from "./CountUp";
-import { profile, CV_FILE } from "@/lib/data";
+import { profile, CV_FILE, stats, publishedCount } from "@/lib/data";
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const stats = [
-  { n: 10, suffix: "+", v: "Apps on Google Play" },
-  { n: 4, suffix: "", v: "Years building mobile" },
-  { n: 30, suffix: "+", v: "Apps built in total" },
-];
+/**
+ * The hero is a server component with a CSS entrance.
+ *
+ * Framer would keep this copy at opacity 0 until hydration, and on a slow
+ * connection that means a blank first paint of the largest element on the page.
+ * `.rise` starts as soon as the stylesheet applies, so the name is on screen
+ * before any JavaScript arrives — and none of this section ships any.
+ */
+const rise = (delay) => ({ animationDelay: `${delay}ms` });
 
 export default function Hero() {
   return (
-    <section id="top" className="relative pt-24 sm:pt-28 lg:pt-32">
-      <div className="section">
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-6">
-          {/* Copy */}
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="card order-2 p-6 sm:p-8 lg:order-1 lg:p-9"
+    <section id="top" className="shell pb-14 pt-24 sm:pb-16 sm:pt-28 lg:pb-20 lg:pt-32">
+      {/* Standing details, stated once, in the technical register */}
+      <div className="rise flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-rule pb-4">
+        <span className="meta flex items-center gap-2 text-ink">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          {profile.available}
+        </span>
+        <span className="meta">{profile.location}</span>
+        <span className="meta ml-auto hidden sm:inline">Available from Bhakkar · Remote</span>
+      </div>
+
+      <div className="grid gap-12 pt-10 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16 lg:pt-14">
+        <div>
+          <h1
+            style={rise(60)}
+            className="rise font-display text-[clamp(3.25rem,13vw,7.5rem)] font-normal leading-[0.9] tracking-tightest text-ink"
           >
-            <motion.div variants={item} className="flex items-center gap-3">
-              <span className="h-1.5 w-1.5 rounded-full bg-azure" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink/60">
-                {profile.status}
-              </span>
-              <span className="hidden h-3 w-px bg-ink/15 sm:block" />
-              <span className="hidden items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-ink/45 sm:flex">
-                <MapPin className="h-3 w-3" />
-                {profile.location}
-              </span>
-            </motion.div>
+            <span className="block">Hamama</span>
+            <span className="block">Komal</span>
+          </h1>
 
-            <motion.h1
-              variants={item}
-              className="mt-6 font-display text-[3.25rem] font-semibold leading-[0.95] tracking-[-0.03em] sm:text-7xl lg:text-[5.25rem]"
+          <p
+            style={rise(140)}
+            className="rise mt-8 max-w-xl text-lg leading-snug text-ink sm:text-[22px]"
+          >
+            I build Android apps in Flutter and take them all the way to release —{" "}
+            <span className="text-accent-ink">{publishedCount} of them are on Google Play</span>.
+          </p>
+
+          <p
+            style={rise(200)}
+            className="rise mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft"
+          >
+            Full-time at Devlix Technologies. I started in native Android with Java and MVVM,
+            moved across to Flutter, and have been shipping there since — mostly solo, from the
+            requirement through to the Play Console.
+          </p>
+
+          <div style={rise(260)} className="rise mt-9 flex flex-wrap items-center gap-3">
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-3 text-[13px] font-medium text-white transition-colors duration-200 hover:bg-ink"
             >
-              <span className="block text-ink">Hamama</span>
-              <span className="block text-ink">Komal</span>
-            </motion.h1>
-
-            <motion.p
-              variants={item}
-              className="mt-6 max-w-lg font-display text-lg font-medium leading-snug text-ink/80 sm:text-xl"
+              Selected work
+              <ArrowDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-y-0.5" />
+            </a>
+            <a
+              href={CV_FILE}
+              download
+              className="inline-flex items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 text-[13px] font-medium text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-paper"
             >
-              Flutter Developer shipping{" "}
-              <span className="text-azure-600">production mobile apps</span>.
-            </motion.p>
-
-            <motion.p
-              variants={item}
-              className="mt-3 max-w-md text-[15px] leading-relaxed text-ink/55"
+              Download CV
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className="group inline-flex items-center gap-1.5 px-1 py-3 text-[13px] font-medium text-ink-soft transition-colors duration-200 hover:text-accent-ink"
             >
-              Full-time at Devlix Technologies. I build Android apps in Flutter — clean
-              architecture, real users, shipped to the Play Store.
-            </motion.p>
-
-
-            <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
-              <a
-                href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-azure px-6 py-3 text-sm font-semibold text-black shadow-[0_8px_20px_-8px_rgb(var(--azure)/0.9)] transition-all duration-300 hover:gap-3"
-              >
-                View my work
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-              <a
-                href={CV_FILE}
-                download
-                className="group inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:border-ink/40"
-              >
-                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
-                Download CV
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-medium text-ink/80 transition-colors duration-300 hover:border-ink/35 hover:text-ink"
-              >
-                Get in touch
-              </a>
-            </motion.div>
-
-            <motion.dl
-              variants={item}
-              className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/10 pt-6"
-            >
-              {stats.map((stat) => (
-                <div key={stat.v}>
-                  <dt className="font-display text-2xl font-semibold tracking-tight text-ink">
-                    <CountUp value={stat.n} suffix={stat.suffix} />
-                  </dt>
-                  <dd className="mt-1 text-[11px] uppercase tracking-[0.14em] text-ink/45">
-                    {stat.v}
-                  </dd>
-                </div>
-              ))}
-            </motion.dl>
-          </motion.div>
-
-          {/* Portrait */}
-          <div className="order-1 lg:order-2 lg:-mr-6 lg:-mt-6">
-            <Portrait />
+              Email me
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </div>
         </div>
 
-        <motion.a
-          href="#about"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-          className="mx-auto mt-14 flex w-fit items-center gap-2.5 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.28em] text-ink/35 transition-colors hover:text-ink/80 sm:mt-16"
-        >
-          Scroll
-          <motion.span
-            animate={{ y: [0, 5, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowDown className="h-3.5 w-3.5" />
-          </motion.span>
-        </motion.a>
+        <div style={rise(200)} className="rise lg:pb-2">
+          <Portrait />
+        </div>
       </div>
+
+      {/* Figures, each one counted from the data rather than typed */}
+      <dl style={rise(340)} className="rise mt-14 grid grid-cols-3 border-t border-rule sm:mt-16">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="border-rule py-5 pr-4 sm:border-l sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
+          >
+            <dt className="font-display text-[2.25rem] leading-none tracking-tight text-ink sm:text-[2.75rem]">
+              {stat.value}
+            </dt>
+            <dd className="meta mt-2.5 normal-case tracking-[0.1em]">{stat.label}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }

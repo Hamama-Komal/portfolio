@@ -4,164 +4,157 @@
 
 /* ---------------------------------------------------------------
    Theme tokens. Light is the default; adding `.dark` to <html>
-   repaints everything because every Tailwind colour reads these.
+   repaints everything, because every Tailwind colour reads these.
    Values are "R G B" so Tailwind can apply its own alpha.
+
+   The palette is deliberately narrow: warm paper, warm near-black
+   ink, and one rust accent. Two ink weights and two accent weights
+   is the whole system — anything that needs a third is over-designed.
 ---------------------------------------------------------------- */
 :root {
   color-scheme: light;
 
-  /* Surfaces: background -> card -> muted -> border */
-  --paper-50: 251 252 248; /* #fbfcf8 background */
-  --paper-100: 255 255 255; /* #ffffff card */
-  --paper-200: 241 245 249; /* #f1f5f9 muted */
-  --paper-300: 226 232 240; /* #e2e8f0 border */
-  --paper-400: 203 213 225;
+  --paper: 247 246 243; /* #f7f6f3 — page */
+  --paper-raised: 255 255 255; /* #ffffff — the rare raised surface */
+  --paper-sunken: 238 236 231; /* #eeece7 — inset fills, code, thumbs */
 
-  /* Type: foreground -> secondary -> muted-foreground */
-  --ink: 15 23 42; /* #0f172a foreground */
-  --ink-900: 2 6 23;
-  --ink-700: 51 65 85; /* #334155 secondary */
-  --ink-500: 100 116 139; /* #64748b muted-foreground */
-  --ink-300: 148 163 184;
+  --ink: 18 17 15; /* #12110f — headings, primary text */
+  --ink-soft: 74 71 66; /* #4a4742 — body */
+  --ink-faint: 112 107 99; /* #706b63 — metadata, captions (4.9:1) */
 
-  /* Slate scale for secondary surfaces */
-  --sky-900: 2 6 23;
-  --sky-800: 15 23 42;
-  --sky-700: 51 65 85;
-  --sky-600: 71 85 105;
-  --sky-500: 100 116 139;
-  --sky-400: 148 163 184;
-  --sky-300: 203 213 225;
+  /* Fill uses --accent with white type (5.2:1); --accent-ink is the
+     text-safe tint for the current theme (6.8:1 here). */
+  --accent: 194 65 12; /* #c2410c */
+  --accent-ink: 154 52 18; /* #9a3412 */
+  --accent-wash: 253 240 233; /* #fdf0e9 — the faintest tint */
 
-  /* Primary is a SURFACE colour — lime carries black text, never the reverse.
-     azure-600/700 are the readable accent tints for type on light. */
-  --azure: 175 243 62; /* #aff33e primary */
-  --azure-700: 20 83 45; /* #14532d */
-  --azure-600: 22 101 52; /* #166534 accent-foreground */
-  --azure-400: 132 204 22;
-  --azure-300: 217 249 157;
-  --azure-100: 240 253 244; /* #f0fdf4 accent */
-
-  --on-primary: 0 0 0; /* #000000 primary-foreground */
-
-  --shadow: 0 0 0;
-  --shadow-opacity: 0.05;
-  --grid-line: 15 23 42;
-  --grid-alpha: 0.05;
-  --dot-rgb: 15 23 42;
-  --dot-active-rgb: 132 204 22;
+  --rule: 18 17 15; /* hairlines, always used with alpha */
+  --rule-alpha: 0.13;
 }
 
 .dark {
   color-scheme: dark;
 
-  /* Neutral black — no blue cast */
-  --paper-50: 10 10 10; /* #0a0a0a background */
-  --paper-100: 20 20 20; /* #141414 card */
-  --paper-200: 28 28 28; /* #1c1c1c muted */
-  --paper-300: 42 42 42; /* #2a2a2a border */
-  --paper-400: 64 64 64;
+  --paper: 14 14 13; /* #0e0e0d */
+  --paper-raised: 24 23 22; /* #181716 */
+  --paper-sunken: 33 32 30; /* #21201e */
 
-  --ink: 250 250 250; /* #fafafa foreground */
-  --ink-900: 255 255 255;
-  --ink-700: 212 212 212;
-  --ink-500: 163 163 163; /* muted-foreground */
-  --ink-300: 115 115 115;
+  --ink: 242 240 236; /* #f2f0ec */
+  --ink-soft: 186 182 175; /* #bab6af */
+  --ink-faint: 134 129 121; /* #868179 */
 
-  --sky-900: 250 250 250;
-  --sky-800: 28 28 28;
-  --sky-700: 212 212 212;
-  --sky-600: 163 163 163;
-  --sky-500: 163 163 163;
-  --sky-400: 212 212 212;
-  --sky-300: 229 229 229;
+  --accent: 194 65 12; /* unchanged: white type stays legible on it */
+  --accent-ink: 251 146 60; /* #fb923c — 8.5:1 on the dark ground */
+  --accent-wash: 38 24 16; /* #261810 */
 
-  --azure: 175 243 62;
-  --azure-700: 217 249 157;
-  --azure-600: 175 243 62;
-  --azure-400: 175 243 62;
-  --azure-300: 132 204 22;
-  --azure-100: 32 42 12;
-
-  --on-primary: 0 0 0;
-
-  --shadow: 0 0 0;
-  --shadow-opacity: 0.5;
-  --grid-line: 175 243 62;
-  --grid-alpha: 0.04;
-  --dot-rgb: 115 115 115;
-  --dot-active-rgb: 175 243 62;
+  --rule: 242 240 236;
+  --rule-alpha: 0.14;
 }
 
 /* Scrolling is animated in JS (lib/smoothScroll.js); native smooth would fight it. */
 html {
   scroll-behavior: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  @apply bg-paper-50 text-ink/75 antialiased;
+  @apply bg-paper text-ink-soft antialiased;
   /* `clip` (not `hidden`) so position: sticky keeps working */
   overflow-x: clip;
-  transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
+  font-feature-settings: "kern", "liga";
+}
+
+/* The theme swap gets a short crossfade; individual elements do not, or every
+   hairline on the page animates at once and the whole thing shimmers. */
+html.theme-shift,
+html.theme-shift body {
+  transition: background-color 0.32s ease, color 0.32s ease;
 }
 
 ::selection {
-  background: rgba(175, 243, 62, 0.35);
+  background: rgb(var(--accent) / 0.22);
   color: rgb(var(--ink));
-}
-.dark ::selection {
-  background: rgba(175, 243, 62, 0.3);
-  color: rgb(248 250 252);
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
 }
 ::-webkit-scrollbar-track {
-  background: rgb(var(--paper-100));
+  background: rgb(var(--paper));
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--azure));
+  background: rgb(var(--ink) / 0.2);
+  border: 3px solid rgb(var(--paper));
   border-radius: 999px;
-  border: 2px solid rgb(var(--paper-100));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--ink) / 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--accent-ink));
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 @layer components {
-  .card {
-    @apply rounded-2xl border border-ink/10 bg-paper-100;
+  /* One content column for the whole site. */
+  .shell {
+    @apply mx-auto w-full max-w-[76rem] px-5 sm:px-8 lg:px-10;
   }
-  .section {
-    @apply relative mx-auto w-full max-w-6xl px-5 sm:px-8;
+
+  /* Section rhythm, so vertical spacing is decided once. */
+  .band {
+    @apply scroll-mt-20 border-t border-rule py-16 sm:py-20 lg:py-24;
   }
-  .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60;
+
+  /* Mono metadata — the technical register that runs through the page. */
+  .meta {
+    @apply font-mono text-[11px] uppercase leading-none tracking-[0.16em] text-ink-faint;
   }
-  .pill {
-    @apply inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-3.5 py-1.5 text-xs font-medium text-ink/70;
+
+  .link-underline {
+    @apply underline decoration-ink/25 decoration-1 underline-offset-4 transition-colors hover:decoration-accent-ink;
   }
 }
 
 @layer utilities {
-  .mask-fade-x {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  .balance {
+    text-wrap: balance;
   }
-  .perspective {
-    perspective: 1400px;
+}
+
+/* The hero's entrance is CSS, not JavaScript. Framer would hold the copy at
+   opacity 0 until hydration, which shows a blank first paint on a slow
+   connection — and the hero is the largest contentful paint. This starts the
+   moment the stylesheet applies. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .animate-pulseRing {
-    animation: none !important;
+  .rise {
+    animation: none;
   }
 }
 
-/* ---- Cursor ---- */
+/* ---- Pointer ------------------------------------------------------------
+   A hairline ring that trails the pointer with a dot pinned inside it. It
+   thickens and squares off over anything interactive, so it reads as a tool
+   rather than an ornament. Fine pointers only; touch keeps its own behaviour.
+------------------------------------------------------------------------- */
 html.has-cursor,
 html.has-cursor * {
   cursor: none !important;
@@ -178,17 +171,16 @@ html.has-cursor * {
   will-change: transform;
 }
 .cursor-dot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 9999px;
-  background: rgb(var(--azure));
+  background: rgb(var(--accent-ink));
 }
 .cursor-ring {
-  width: 30px;
-  height: 30px;
-  border: 1.5px solid rgb(var(--azure));
-  /* the ring trails, so keep the transform snappy but let shape ease */
-  transition: border-radius 0.2s ease;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgb(var(--accent-ink) / 0.75);
+  transition: border-radius 0.22s ease, border-width 0.22s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -196,4 +188,9 @@ html.has-cursor * {
   html.has-cursor * {
     cursor: auto !important;
   }
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
 }
+

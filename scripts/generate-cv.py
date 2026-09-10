@@ -12,19 +12,29 @@ MARGIN_X = 52
 TOP = 44
 BOTTOM = 38
 
-INK = (0.039, 0.098, 0.161)  # #0A1929
-INK_SOFT = (0.180, 0.263, 0.353)
-MUTED = (0.400, 0.459, 0.529)
-ACCENT = (0.008, 0.490, 0.992)  # #027DFD
-DEEP = (0.039, 0.098, 0.161)  # #0A1929
-PAPER = (1.0, 1.0, 1.0)
-RULE = (0.804, 0.878, 0.949)
+# Same palette as the site: warm ink on bone, one rust accent.
+INK = (0.071, 0.067, 0.059)  # #12110F
+INK_SOFT = (0.290, 0.278, 0.259)  # #4A4742
+MUTED = (0.486, 0.467, 0.435)  # #7C776F
+ACCENT = (0.604, 0.204, 0.071)  # #9A3412 — the text-safe rust
+ACCENT_BAR = (0.761, 0.255, 0.047)  # #C2410C — the fill rust
+DEEP = (0.071, 0.067, 0.059)
+PAPER = (0.973, 0.965, 0.953)  # #F8F6F3
+RULE = (0.863, 0.851, 0.824)  # #DCD9D2
 
 BOLD = "hebo"
 REG = "helv"
 OBL = "heit"
+# Times stands in for the site's Instrument Serif on the name. It is one of the
+# base-14 faces, so nothing has to be embedded.
+SERIF = "tiro"
 
-FONTS = {REG: fitz.Font("helv"), BOLD: fitz.Font("hebo"), OBL: fitz.Font("heit")}
+FONTS = {
+    REG: fitz.Font("helv"),
+    BOLD: fitz.Font("hebo"),
+    OBL: fitz.Font("heit"),
+    SERIF: fitz.Font("tiro"),
+}
 
 
 def wrapped_lines(content, width, size, fontname):
@@ -65,8 +75,8 @@ class Sheet:
     def new_page(self):
         self.page = self.doc.new_page(width=PAGE_W, height=PAGE_H)
         self.page.draw_rect(fitz.Rect(0, 0, PAGE_W, PAGE_H), color=None, fill=PAPER)
-        # warm accent bar down the left edge
-        self.page.draw_rect(fitz.Rect(0, 0, 6, PAGE_H), color=None, fill=ACCENT)
+        # rust bar down the left edge, matching the site
+        self.page.draw_rect(fitz.Rect(0, 0, 6, PAGE_H), color=None, fill=ACCENT_BAR)
         self.y = TOP
 
     def space(self, amount):
@@ -135,11 +145,13 @@ def build():
     s = Sheet()
 
     # ---- Header ----
-    s.page.insert_text((MARGIN_X, s.y + 26), latin1("Hamama Komal"), fontsize=26, fontname=BOLD, color=INK)
-    s.y += 34
+    s.page.insert_text(
+        (MARGIN_X, s.y + 28), latin1("Hamama Komal"), fontsize=30, fontname=SERIF, color=INK
+    )
+    s.y += 36
     s.page.insert_text(
         (MARGIN_X, s.y + 11),
-        latin1("Flutter Developer  |  Android Applications"),
+        latin1("Flutter Developer  ·  Android Applications"),
         fontsize=10.5,
         fontname=REG,
         color=ACCENT,
@@ -147,7 +159,7 @@ def build():
     s.y += 19
     s.page.insert_text(
         (MARGIN_X, s.y + 9),
-        latin1("Bhakkar, Pakistan   ·   +92 302 1976361   ·   Hamama.komal.00@gmail.com"),
+        latin1("Bhakkar, Pakistan   ·   +92 302 1976361   ·   hamama.komal.00@gmail.com"),
         fontsize=8.8,
         fontname=REG,
         color=MUTED,
@@ -171,7 +183,7 @@ def build():
     s.text(
         "Flutter developer building production Android applications, working full-time at Devlix "
         "Technologies. Started in native Android with Java and MVVM, then moved to Flutter, where "
-        "clean architecture and maintainable app structure became the focus. Ten applications "
+        "clean architecture and maintainable app structure became the focus. Nine applications "
         "shipped to the Google Play Store, most built end to end from requirement to release. "
         "Also teaches AI and machine learning part-time at XOKSIS.",
         gap=2,
@@ -180,7 +192,7 @@ def build():
     # ---- Experience ----
     s.heading("Experience")
 
-    s.role("Flutter App Developer — Full-Time", "Devlix Technologies", "June 2026 – Present")
+    s.role("Flutter App Developer — Full-Time", "Devlix Technologies", "Jun 2026 – Present")
     s.bullets(
         [
             "Build and ship production Flutter applications end to end, from product requirement to Play Store release.",
@@ -190,7 +202,7 @@ def build():
         ]
     )
 
-    s.role("AI Engineer & AI/ML Instructor — Part-Time", "XOKSIS", "January 2026 – Present")
+    s.role("AI Engineer & AI/ML Instructor — Part-Time", "XOKSIS", "Jan 2026 – Present")
     s.bullets(
         [
             "Teach AI and Machine Learning concepts, LLM fundamentals and RAG pipeline architecture.",
@@ -199,7 +211,7 @@ def build():
         ]
     )
 
-    s.role("Mobile Application Developer", "ETOS Way", "March 2025 – August 2025")
+    s.role("Mobile Application Developer — Contract", "ETOS Way", "Mar 2025 – Aug 2025")
     s.bullets(
         [
             "Built 5+ Flutter applications with AI-powered features.",
@@ -208,7 +220,7 @@ def build():
         ]
     )
 
-    s.role("Android Developer", "BISM Software House", "June 2024 – September 2024")
+    s.role("Android Developer — Internship", "BISM Software House", "Jun 2024 – Sep 2024")
     s.bullets(
         [
             "Developed native Android applications using Firebase, Room and Android Jetpack.",
@@ -240,6 +252,7 @@ def build():
         ("Voice Changer", "On-device audio effects engine with instant playback."),
         ("Football Wallpapers", "High-resolution wallpaper app with cached image browsing."),
         ("14 August Photo Editor", "Themed photo editor built around Pakistan's Independence Day."),
+        ("15 August Tiranga Frames", "Themed frames and wallpapers (Devlix Technologies)."),
         ("AI Grammar Checker", "Writing assistant with grammar correction (ETOS Way)."),
         ("Voice Notes", "Diary and memo recorder with local storage (ETOS Way)."),
         ("Status Saver", "Media downloader and manager (ETOS Way)."),

@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Cursor: a precise centre dot with a ring that trails a beat behind it.
+ * Pointer: a hairline ring that trails a beat behind a dot pinned to the exact
+ * position. Over anything interactive the ring squares off and thickens; on
+ * press it contracts. One rAF loop writes transforms straight to the DOM, so
+ * there is no React state per frame.
  *
- * The ring is what makes it feel like a tool rather than a decoration — it lags
- * on movement, snaps square to the element under it on hover, and contracts on
- * press. One rAF loop writes transforms straight to the DOM; no React state per
- * frame. Fine-pointer devices only, so touch keeps its native behaviour.
+ * Fine pointers only. Touch keeps its native behaviour, and reduced-motion
+ * hands the real cursor back.
  */
 export default function Cursor() {
   const dotRef = useRef(null);
@@ -30,7 +31,7 @@ export default function Cursor() {
     const ring = { x: pointer.x, y: pointer.y };
     let scale = 1;
     let targetScale = 1;
-    let radius = 999; // px; drops to a square-ish corner over interactive elements
+    let radius = 999; // px — squares off over interactive elements
     let targetRadius = 999;
     let visible = 0;
     let targetVisible = 0;
@@ -43,23 +44,23 @@ export default function Cursor() {
     };
 
     const onOver = (event) => {
-      const target =
+      const hit =
         event.target instanceof Element
-          ? event.target.closest('a, button, [role="button"], input, textarea, select')
+          ? event.target.closest('a, button, [role="button"], input, textarea, select, summary')
           : null;
-      targetScale = target ? 1.9 : 1;
-      targetRadius = target ? 8 : 999;
+      targetScale = hit ? 1.75 : 1;
+      targetRadius = hit ? 5 : 999;
+      if (ringRef.current) ringRef.current.style.borderWidth = hit ? "1.5px" : "1px";
     };
 
-    const onDown = () => (targetScale = targetScale > 1 ? 1.5 : 0.7);
+    const onDown = () => (targetScale = targetScale > 1 ? 1.4 : 0.65);
     const onUp = () => (targetScale = targetScale < 1 ? 1 : targetScale);
     const onLeave = () => (targetVisible = 0);
     const onEnter = () => (targetVisible = 1);
 
     const tick = () => {
-      // Ring eases toward the pointer; the dot is pinned to it exactly.
-      ring.x += (pointer.x - ring.x) * 0.16;
-      ring.y += (pointer.y - ring.y) * 0.16;
+      ring.x += (pointer.x - ring.x) * 0.17;
+      ring.y += (pointer.y - ring.y) * 0.17;
       scale += (targetScale - scale) * 0.16;
       radius += (targetRadius - radius) * 0.2;
       visible += (targetVisible - visible) * 0.15;
@@ -71,7 +72,7 @@ export default function Cursor() {
       if (ringRef.current) {
         ringRef.current.style.transform = `translate3d(${ring.x}px, ${ring.y}px, 0) translate(-50%, -50%) scale(${scale})`;
         ringRef.current.style.borderRadius = `${radius}px`;
-        ringRef.current.style.opacity = String(visible * 0.9);
+        ringRef.current.style.opacity = String(visible * 0.85);
       }
       raf = requestAnimationFrame(tick);
     };

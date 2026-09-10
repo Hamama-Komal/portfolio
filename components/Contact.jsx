@@ -1,55 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowUp,
-  Check,
-  Copy,
-  Download,
-  Github,
-  Linkedin,
-  Mail,
-  Phone,
-} from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check, Copy, Download } from "lucide-react";
 import Reveal from "./Reveal";
 import { profile, CV_FILE } from "@/lib/data";
 
-const socials = [
-  {
-    label: "Phone",
-    value: profile.phone,
-    href: profile.phoneHref,
-    icon: Phone,
-    color: "hover:border-sky-600/50 hover:text-sky-600 hover:shadow-[0_0_28px_-8px_rgba(52,211,153,0.8)]",
-    iconColor: "text-sky-600",
-  },
-  {
-    label: "Email",
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-    icon: Mail,
-    color: "hover:border-azure/50 hover:text-azure-600 hover:shadow-[0_0_28px_-8px_rgba(139,92,246,0.9)]",
-    iconColor: "text-azure-600",
-  },
-  {
-    label: "LinkedIn",
-    value: "hamama-komal",
-    href: profile.linkedin,
-    icon: Linkedin,
-    color: "hover:border-sky-400/50 hover:text-sky-600 hover:shadow-[0_0_28px_-8px_rgba(56,189,248,0.9)]",
-    iconColor: "text-sky-600",
-    external: true,
-  },
-  {
-    label: "GitHub",
-    value: "Hamama-Komal",
-    href: profile.github,
-    icon: Github,
-    color: "hover:border-ink/50 hover:text-ink hover:shadow-[0_0_28px_-8px_rgba(255,255,255,0.6)]",
-    iconColor: "text-ink",
-    external: true,
-  },
+const channels = [
+  { label: "LinkedIn", value: "hamama-komal", href: profile.linkedin, external: true },
+  { label: "GitHub", value: "Hamama-Komal", href: profile.github, external: true },
+  { label: "Phone", value: profile.phone, href: profile.phoneHref, external: false },
 ];
 
 export default function Contact() {
@@ -60,6 +19,7 @@ export default function Contact() {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(profile.email);
       } else {
+        // http:// or an older browser — the hidden textarea still works there.
         const area = document.createElement("textarea");
         area.value = profile.email;
         area.style.position = "fixed";
@@ -70,125 +30,98 @@ export default function Contact() {
         document.body.removeChild(area);
       }
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      window.setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
     }
   };
 
   return (
-    <footer id="contact" className="relative scroll-mt-24 overflow-hidden pb-12 pt-24 sm:pt-28">
-      <div className="section">
-        <Reveal from="up">
-          <div className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-paper-100 p-8 text-center sm:p-14">
-            <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-azure/20 blur-[100px]" />
-            
+    <footer id="contact" className="band pb-10">
+      <div className="shell">
+        <div className="flex items-baseline justify-between gap-6">
+          <span className="meta">
+            <span className="text-accent-ink">05</span>
+            <span className="px-2 text-ink-faint">/</span>
+            Contact
+          </span>
+          <span className="meta hidden sm:inline">{profile.location}</span>
+        </div>
 
-            <span className="eyebrow relative">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-600" />
-              Contact
-            </span>
+        <Reveal className="mt-8 lg:mt-10">
+          <h2 className="balance max-w-3xl font-display text-[2.5rem] leading-[1.05] tracking-tightest text-ink sm:text-5xl lg:text-[3.75rem]">
+            Available for Flutter work — say what you are building.
+          </h2>
+        </Reveal>
 
-            <h2 className="relative mt-5 font-display text-3xl font-extrabold tracking-tight text-ink sm:text-5xl">
-              Let&apos;s work <span className="text-azure-600">together</span>
-            </h2>
-            <p className="relative mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink/60 sm:text-base">
-              Mobile development, AI, or something completely experimental — if it makes me stop and
-              think &ldquo;okay… how can I build this?&rdquo;, I&apos;m probably interested.
-            </p>
+        {/* The email is the whole call to action, so it gets the display size */}
+        <Reveal delay={0.06} className="mt-10 lg:mt-12">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-4">
+            <a
+              href={`mailto:${profile.email}`}
+              className="group inline-flex min-w-0 items-baseline gap-3 font-display text-[1.4rem] leading-tight tracking-tight text-ink transition-colors duration-200 hover:text-accent-ink sm:text-[2rem]"
+            >
+              <span className="truncate underline decoration-rule decoration-1 underline-offset-[6px] transition-colors group-hover:decoration-accent-ink">
+                {profile.email}
+              </span>
+            </a>
 
-            <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
-              {socials.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target={social.external ? "_blank" : undefined}
-                    rel={social.external ? "noopener noreferrer" : undefined}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.96 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                    className={`group flex items-center gap-2.5 rounded-full border border-ink/12 bg-paper-200 px-5 py-3 text-sm font-medium text-ink/80 transition-all duration-300 ${social.color}`}
-                  >
-                    <Icon className={`h-4 w-4 ${social.iconColor}`} />
-                    <span className="hidden sm:inline">{social.value}</span>
-                    <span className="sm:hidden">{social.label}</span>
-                  </motion.a>
-                );
-              })}
-            </div>
-
-            <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={copyEmail}
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-azure px-6 py-3.5 text-sm font-bold text-black transition-transform duration-300 hover:scale-[1.03] active:scale-95"
-              >
-                <span className="absolute inset-0 -translate-x-full bg-white/40 transition-transform duration-700 group-hover:translate-x-full" />
-                <AnimatePresence mode="wait" initial={false}>
-                  {copied ? (
-                    <motion.span
-                      key="copied"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.2 }}
-                      className="relative flex items-center gap-2"
-                    >
-                      <Check className="h-4 w-4" />
-                      Copied to Clipboard!
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="copy"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.2 }}
-                      className="relative flex items-center gap-2"
-                    >
-                      <Copy className="h-4 w-4" />
-                      Copy Email
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </button>
-
-              <a
-                href={CV_FILE}
-                download
-                className="group inline-flex items-center gap-2.5 rounded-2xl border border-ink/15 bg-paper-50/60 px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:border-azure/50 hover:text-azure-700"
-              >
-                <Download className="h-4 w-4 text-azure-600 transition-transform duration-300 group-hover:translate-y-0.5" />
-                Download CV
-              </a>
-            </div>
-
-            <AnimatePresence>
-              {copied ? (
-                <motion.p
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="relative mt-3 font-mono text-xs text-sky-600"
-                >
-                  {profile.email}
-                </motion.p>
-              ) : null}
-            </AnimatePresence>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="inline-flex shrink-0 items-center gap-2 rounded-sm border border-rule px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint transition-colors duration-200 hover:border-ink/40 hover:text-ink"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-accent-ink" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? "Copied" : "Copy"}
+            </button>
           </div>
         </Reveal>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ink/[0.06] pt-8 sm:flex-row">
-          <p className="text-xs text-ink/45">
-            © {new Date().getFullYear()} Hamama Komal — Flutter App Developer &amp; AI Explorer.
+        {/* Everything else, as a plain index */}
+        <div className="mt-12 border-t border-rule lg:mt-14">
+          {channels.map((channel) => (
+            <a
+              key={channel.label}
+              href={channel.href}
+              target={channel.external ? "_blank" : undefined}
+              rel={channel.external ? "noopener noreferrer" : undefined}
+              className="group flex items-center gap-5 border-b border-rule py-4 transition-colors duration-200"
+            >
+              <span className="meta w-24 shrink-0 transition-colors duration-200 group-hover:text-accent-ink">
+                {channel.label}
+              </span>
+              <span className="min-w-0 flex-1 truncate text-[15px] text-ink transition-colors duration-200 group-hover:text-accent-ink">
+                {channel.value}
+              </span>
+              <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-ink" />
+            </a>
+          ))}
+
+          <a
+            href={CV_FILE}
+            download
+            className="group flex items-center gap-5 border-b border-rule py-4 transition-colors duration-200"
+          >
+            <span className="meta w-24 shrink-0 transition-colors duration-200 group-hover:text-accent-ink">
+              CV
+            </span>
+            <span className="min-w-0 flex-1 truncate text-[15px] text-ink transition-colors duration-200 group-hover:text-accent-ink">
+              Hamama-Komal-CV.pdf
+            </span>
+            <Download className="h-4 w-4 shrink-0 text-ink-faint transition-all duration-200 group-hover:translate-y-0.5 group-hover:text-accent-ink" />
+          </a>
+        </div>
+
+        <div className="mt-10 flex flex-col-reverse items-start justify-between gap-5 sm:flex-row sm:items-center">
+          <p className="meta normal-case tracking-[0.06em]">
+            © {new Date().getFullYear()} {profile.name} · Designed and built in Next.js, Tailwind
+            and Framer Motion
           </p>
           <a
             href="#top"
-            className="group flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] px-4 py-2.5 text-xs text-ink/60 transition-colors hover:border-azure/40 hover:text-ink"
+            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint transition-colors duration-200 hover:text-ink"
           >
-            <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
+            <ArrowUp className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5" />
             Back to top
           </a>
         </div>

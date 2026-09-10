@@ -14,69 +14,35 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Page and surfaces
         paper: {
-          50: token("paper-50"),
-          100: token("paper-100"),
-          200: token("paper-200"),
-          300: token("paper-300"),
-          400: token("paper-400"),
+          DEFAULT: token("paper"),
+          raised: token("paper-raised"),
+          sunken: token("paper-sunken"),
         },
-        // Type
         ink: {
           DEFAULT: token("ink"),
-          900: token("ink-900"),
-          700: token("ink-700"),
-          500: token("ink-500"),
-          300: token("ink-300"),
+          soft: token("ink-soft"),
+          faint: token("ink-faint"),
         },
-        // Secondary accent
-        sky: {
-          900: token("sky-900"),
-          800: token("sky-800"),
-          700: token("sky-700"),
-          600: token("sky-600"),
-          500: token("sky-500"),
-          400: token("sky-400"),
-          300: token("sky-300"),
+        accent: {
+          DEFAULT: token("accent"),
+          ink: token("accent-ink"),
+          wash: token("accent-wash"),
         },
-        // Primary accent
-        azure: {
-          DEFAULT: token("azure"),
-          700: token("azure-700"),
-          600: token("azure-600"),
-          400: token("azure-400"),
-          300: token("azure-300"),
-          100: token("azure-100"),
-        },
+        // Fixed alpha rather than <alpha-value>: hairlines want one weight
+        // across the whole page, and it changes per theme via --rule-alpha.
+        rule: "rgb(var(--rule) / var(--rule-alpha))",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
-      boxShadow: {
-        glow: "0 0 26px -8px rgba(51,82,127,0.45)",
+      letterSpacing: {
+        tightest: "-0.04em",
       },
-      keyframes: {
-        marquee: {
-          from: { transform: "translate3d(0,0,0)" },
-          to: { transform: "translate3d(-100%,0,0)" },
-        },
-        pulseRing: {
-          "0%": { transform: "scale(0.9)", opacity: "0.7" },
-          "70%": { transform: "scale(1.7)", opacity: "0" },
-          "100%": { transform: "scale(1.7)", opacity: "0" },
-        },
-        blink: {
-          "0%,100%": { opacity: "1" },
-          "50%": { opacity: "0.25" },
-        },
-      },
-      animation: {
-        marquee: "marquee var(--marquee-duration,26s) linear infinite",
-        pulseRing: "pulseRing 2.4s ease-out infinite",
-        blink: "blink 1.6s ease-in-out infinite",
+      transitionTimingFunction: {
+        out: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },
