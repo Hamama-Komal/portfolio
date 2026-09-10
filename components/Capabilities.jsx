@@ -24,13 +24,15 @@ export default function Capabilities() {
             <div key={group.label} className="flex h-full flex-col border-b border-rule py-7">
               <span className="meta text-accent-ink">{group.label}</span>
 
-              <p className="mt-4 text-[15px] leading-snug text-ink">{group.statement}</p>
+              <p className="mt-4 text-[16px] font-medium leading-snug text-ink">
+                {group.statement}
+              </p>
 
               <ul className="mt-6 border-t border-rule">
                 {group.items.map((entry) => (
                   <li
                     key={entry}
-                    className="border-b border-rule py-2.5 text-[13px] text-ink-soft last:border-b-0"
+                    className="border-b border-rule py-3 text-[14.5px] text-ink-soft last:border-b-0"
                   >
                     {entry}
                   </li>

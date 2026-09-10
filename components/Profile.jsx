@@ -25,14 +25,14 @@ export default function Profile() {
         <div className="mt-12 grid gap-12 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
           <div>
             <Reveal>
-              <p className="max-w-2xl border-l-2 border-accent pl-6 font-display text-[1.7rem] leading-[1.25] tracking-tight text-ink sm:text-[2.1rem]">
+              <p className="max-w-2xl border-l-2 border-accent pl-6 font-display text-[1.7rem] font-medium leading-[1.25] tracking-tight text-ink sm:text-[2.1rem]">
                 Most of these apps were built alone, which means the structure has to hold up with
                 nobody around to ask.
               </p>
             </Reveal>
 
             <Reveal delay={0.06}>
-              <div className="mt-9 grid max-w-2xl gap-5 text-[15px] leading-relaxed text-ink-soft sm:grid-cols-2 sm:gap-8">
+              <div className="mt-9 grid max-w-2xl gap-5 text-[16px] leading-relaxed text-ink-soft sm:grid-cols-2 sm:gap-8">
                 <p>
                   {publishedCount} releases in, that habit is fixed. I pick an architecture at the
                   start and keep to it, because the version of me opening the project six months
@@ -49,7 +49,7 @@ export default function Profile() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
+              <p className="mt-8 max-w-2xl text-[16px] leading-relaxed text-ink-soft">
                 What I want next is more of the same with a bigger surface: a product with real
                 users, a team to review against, and the room to own a codebase properly rather than
                 only shipping to it.
@@ -63,12 +63,12 @@ export default function Profile() {
               {glance.map((row) => (
                 <div key={row.term} className="border-b border-rule py-4">
                   <dt className="meta">{row.term}</dt>
-                  <dd className="mt-2 text-[14px] leading-snug text-ink">{row.detail}</dd>
+                  <dd className="mt-2 text-[15px] leading-snug text-ink">{row.detail}</dd>
                 </div>
               ))}
               <div className="border-b border-rule py-4">
                 <dt className="meta">Reach me</dt>
-                <dd className="mt-2 text-[14px] leading-snug">
+                <dd className="mt-2 text-[15px] leading-snug">
                   <a href={`mailto:${profile.email}`} className="link-underline text-accent-ink">
                     {profile.email}
                   </a>

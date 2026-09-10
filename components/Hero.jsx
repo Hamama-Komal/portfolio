@@ -31,14 +31,14 @@ export default function Hero() {
 
       <div className="grid gap-12 pt-10 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16 lg:pt-14">
         <div>
-          <h1 className="font-display text-[clamp(3.25rem,13vw,7.5rem)] font-normal leading-[0.9] tracking-tightest text-ink">
+          <h1 className="font-display text-[clamp(3.25rem,13vw,7.5rem)] font-medium leading-[0.9] tracking-tightest text-ink">
             <span className="block">Hamama</span>
             <span className="block">Komal</span>
           </h1>
 
           <p
             style={rise(140)}
-            className="rise mt-8 max-w-xl text-lg leading-snug text-ink sm:text-[22px]"
+            className="rise mt-8 max-w-xl text-xl font-medium leading-snug text-ink sm:text-[23px]"
           >
             I build Android apps in Flutter and take them all the way to release —{" "}
             <span className="text-accent-ink">{publishedCount} of them are on Google Play</span>.
@@ -46,7 +46,7 @@ export default function Hero() {
 
           <p
             style={rise(200)}
-            className="rise mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft"
+            className="rise mt-4 max-w-xl text-[16px] leading-relaxed text-ink-soft"
           >
             Full-time at Devlix Technologies. I started in native Android with Java and MVVM, moved
             across to Flutter, and have been shipping there since — mostly solo, from the
@@ -56,7 +56,7 @@ export default function Hero() {
           <div style={rise(260)} className="rise mt-9 flex flex-wrap items-center gap-3">
             <a
               href="#work"
-              className="group inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-3 text-[13px] font-medium text-white transition-colors duration-200 hover:bg-ink"
+              className="group inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-3 text-[14px] font-semibold text-white transition-colors duration-200 hover:bg-ink"
             >
               Selected work
               <ArrowDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-y-0.5" />
@@ -64,13 +64,13 @@ export default function Hero() {
             <a
               href={CV_FILE}
               download
-              className="inline-flex items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 text-[13px] font-medium text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-paper"
+              className="inline-flex items-center gap-2 rounded-sm border border-ink/25 px-5 py-3 text-[14px] font-semibold text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-paper"
             >
               Download CV
             </a>
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex items-center gap-1.5 px-1 py-3 text-[13px] font-medium text-ink-soft transition-colors duration-200 hover:text-accent-ink"
+              className="group inline-flex items-center gap-1.5 px-1 py-3 text-[14px] font-semibold text-ink-soft transition-colors duration-200 hover:text-accent-ink"
             >
               Email me
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -90,7 +90,7 @@ export default function Hero() {
             key={stat.label}
             className="border-rule py-5 pr-4 sm:border-l sm:pl-6 sm:first:border-l-0 sm:first:pl-0"
           >
-            <dt className="font-display text-[2.25rem] leading-none tracking-tight text-ink sm:text-[2.75rem]">
+            <dt className="font-display text-[2.4rem] font-semibold leading-none tracking-tight text-ink sm:text-[2.9rem]">
               {stat.value}
             </dt>
             <dd className="meta mt-2.5 normal-case tracking-[0.1em]">{stat.label}</dd>

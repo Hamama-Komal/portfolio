@@ -1,4 +1,4 @@
-import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Inter, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import { profile } from "@/lib/data";
@@ -9,12 +9,11 @@ const sans = Inter({
   display: "swap",
 });
 
-// A serif for the display sizes only. Against the grotesk body and the mono
-// metadata it does most of the work of making the page look set rather than
-// generated.
-const display = Instrument_Serif({
+// A variable serif, so the same face can be light and elegant at 7rem and still
+// have real weight at 1.5rem. Instrument Serif was one weight of hairlines and
+// went thin the moment a heading was small.
+const display = Fraunces({
   subsets: ["latin"],
-  weight: "400",
   variable: "--font-display",
   display: "swap",
 });

@@ -40,16 +40,17 @@ export default function Contact() {
     <footer id="contact" className="band pb-10">
       <div className="shell">
         <div className="flex items-baseline justify-between gap-6">
-          <span className="meta">
-            <span className="text-accent-ink">05</span>
-            <span className="px-2 text-ink-faint">/</span>
-            Contact
+          <span className="flex items-center gap-3">
+            <span className="inline-flex items-center rounded-sm bg-accent px-2 py-1 font-mono text-[11px] font-semibold leading-none tracking-[0.08em] text-white">
+              05
+            </span>
+            <span className="meta">Contact</span>
           </span>
           <span className="meta hidden sm:inline">{profile.location}</span>
         </div>
 
         <Reveal className="mt-8 lg:mt-10">
-          <h2 className="balance max-w-3xl font-display text-[2.5rem] leading-[1.05] tracking-tightest text-ink sm:text-5xl lg:text-[3.75rem]">
+          <h2 className="balance max-w-3xl font-display text-[2.5rem] font-medium leading-[1.05] tracking-tightest text-ink sm:text-5xl lg:text-[3.75rem]">
             Available for Flutter work — say what you are building.
           </h2>
         </Reveal>
@@ -59,7 +60,7 @@ export default function Contact() {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-4">
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex min-w-0 items-baseline gap-3 font-display text-[1.4rem] leading-tight tracking-tight text-ink transition-colors duration-200 hover:text-accent-ink sm:text-[2rem]"
+              className="group inline-flex min-w-0 items-baseline gap-3 font-display text-[1.5rem] font-semibold leading-tight tracking-tight text-ink transition-colors duration-200 hover:text-accent-ink sm:text-[2rem]"
             >
               <span className="truncate underline decoration-rule decoration-1 underline-offset-[6px] transition-colors group-hover:decoration-accent-ink">
                 {profile.email}
@@ -94,7 +95,7 @@ export default function Contact() {
               <span className="meta w-24 shrink-0 transition-colors duration-200 group-hover:text-accent-ink">
                 {channel.label}
               </span>
-              <span className="min-w-0 flex-1 truncate text-[15px] text-ink transition-colors duration-200 group-hover:text-accent-ink">
+              <span className="min-w-0 flex-1 truncate text-[16px] text-ink transition-colors duration-200 group-hover:text-accent-ink">
                 {channel.value}
               </span>
               <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-ink" />
@@ -109,7 +110,7 @@ export default function Contact() {
             <span className="meta w-24 shrink-0 transition-colors duration-200 group-hover:text-accent-ink">
               CV
             </span>
-            <span className="min-w-0 flex-1 truncate text-[15px] text-ink transition-colors duration-200 group-hover:text-accent-ink">
+            <span className="min-w-0 flex-1 truncate text-[16px] text-ink transition-colors duration-200 group-hover:text-accent-ink">
               Hamama-Komal-CV.pdf
             </span>
             <Download className="h-4 w-4 shrink-0 text-ink-faint transition-all duration-200 group-hover:translate-y-0.5 group-hover:text-accent-ink" />

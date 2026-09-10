@@ -83,7 +83,7 @@ export default function NavBar() {
           className="group flex shrink-0 items-baseline gap-2"
           aria-label="Back to top"
         >
-          <span className="font-display text-[19px] leading-none tracking-tight text-ink">
+          <span className="font-display text-[19px] font-semibold leading-none tracking-tight text-ink">
             {profile.name}
           </span>
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125" />
@@ -100,7 +100,7 @@ export default function NavBar() {
                   type="button"
                   onClick={() => go(link.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-200 ${
+                  className={`relative px-3 py-2 font-mono text-[11.5px] font-medium uppercase tracking-[0.1em] transition-colors duration-200 ${
                     isActive ? "text-ink" : "text-ink-faint hover:text-ink"
                   }`}
                 >
@@ -158,7 +158,7 @@ export default function NavBar() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span
-                    className={`text-[15px] ${active === link.id ? "text-accent-ink" : "text-ink"}`}
+                    className={`text-[16px] font-medium ${active === link.id ? "text-accent-ink" : "text-ink"}`}
                   >
                     {link.label}
                   </span>

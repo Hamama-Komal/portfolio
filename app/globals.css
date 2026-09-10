@@ -29,26 +29,26 @@
   --accent-wash: 253 240 233; /* #fdf0e9 — the faintest tint */
 
   --rule: 18 17 15; /* hairlines, always used with alpha */
-  --rule-alpha: 0.13;
+  --rule-alpha: 0.155;
 }
 
 .dark {
   color-scheme: dark;
 
-  --paper: 14 14 13; /* #0e0e0d */
-  --paper-raised: 24 23 22; /* #181716 */
-  --paper-sunken: 33 32 30; /* #21201e */
+  --paper: 20 19 18; /* #141312 */
+  --paper-raised: 30 28 26; /* #1e1c1a */
+  --paper-sunken: 40 38 35; /* #282623 */
 
-  --ink: 242 240 236; /* #f2f0ec */
-  --ink-soft: 186 182 175; /* #bab6af */
-  --ink-faint: 134 129 121; /* #868179 */
+  --ink: 246 244 240; /* #f6f4f0 */
+  --ink-soft: 198 193 186; /* #c6c1ba */
+  --ink-faint: 150 144 135; /* #969087 */
 
   --accent: 194 65 12; /* unchanged: white type stays legible on it */
   --accent-ink: 251 146 60; /* #fb923c — 8.5:1 on the dark ground */
-  --accent-wash: 38 24 16; /* #261810 */
+  --accent-wash: 46 30 20; /* #2e1e14 */
 
-  --rule: 242 240 236;
-  --rule-alpha: 0.14;
+  --rule: 246 244 240;
+  --rule-alpha: 0.17;
 }
 
 /* Scrolling is animated in JS (lib/smoothScroll.js); native smooth would fight it. */
@@ -113,7 +113,7 @@ html.theme-shift body {
 
   /* Mono metadata — the technical register that runs through the page. */
   .meta {
-    @apply font-mono text-[11px] uppercase leading-none tracking-[0.16em] text-ink-faint;
+    @apply font-mono text-[11.5px] font-medium uppercase leading-none tracking-[0.11em] text-ink-faint;
   }
 
   .link-underline {
@@ -199,3 +199,5 @@ html.has-cursor * {
     display: none;
   }
 }
+
+

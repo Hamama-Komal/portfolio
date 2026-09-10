@@ -35,7 +35,7 @@ export default function Experience() {
 
               <div>
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <h3 className="font-display text-[1.6rem] leading-tight tracking-tight text-ink sm:text-[1.9rem]">
+                  <h3 className="font-display text-[1.6rem] font-semibold leading-tight tracking-tight text-ink sm:text-[1.9rem]">
                     {job.company}
                   </h3>
                   {job.current ? (
@@ -46,9 +46,9 @@ export default function Experience() {
                   ) : null}
                 </div>
 
-                <p className="mt-1.5 text-[15px] font-medium text-accent-ink">{job.role}</p>
+                <p className="mt-1.5 text-[15.5px] font-semibold text-accent-ink">{job.role}</p>
 
-                <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
+                <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-ink-soft">
                   {job.summary}
                 </p>
 
