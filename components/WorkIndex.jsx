@@ -1,174 +1,213 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowUpRight, Minus, Plus, Star } from "lucide-react";
+import Reveal from "./Reveal";
 import SectionMarker from "./SectionMarker";
-import { work, publishedCount, caseStudyCount } from "@/lib/data";
+import {
+  clientApps,
+  featuredClientApps,
+  indexedClientApps,
+  publishedCount,
+  topDownloads,
+} from "@/lib/data";
+
+/** Downloads and rating, stated the same way everywhere they appear. */
+function Figures({ app, className = "" }) {
+  return (
+    <span className={`meta flex flex-wrap items-center gap-x-3 gap-y-1 ${className}`}>
+      <span className="text-ink">{app.downloads}</span>
+      <span>downloads</span>
+      {app.rating ? (
+        <span className="inline-flex items-center gap-1 text-accent-ink">
+          <Star className="h-3 w-3 fill-current" />
+          {app.rating}
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
+/**
+ * A highlighted app: one real screen, cross-fading to a second on hover.
+ *
+ * The card is a link to the store first and foremost. Where an app has a write-up
+ * it gets a disclosure under the copy rather than a second card style, so the grid
+ * stays one shape and only the rows that have something to say grow.
+ */
+function FeaturedCard({ app, index }) {
+  const [open, setOpen] = useState(false);
+  const [primary, secondary] = app.shots ?? [];
+
+  return (
+    <li className="flex h-full flex-col">
+      <a
+        href={app.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group/card block"
+        aria-label={`${app.title} on Google Play`}
+      >
+        <div className="relative overflow-hidden rounded-sm border border-rule bg-paper-sunken">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={primary}
+            alt={`${app.title} running on a phone`}
+            loading="lazy"
+            decoding="async"
+            className={`block aspect-[9/16] w-full object-cover object-top transition-[opacity,transform] duration-[550ms] ease-out ${
+              secondary ? "group-hover/card:opacity-0" : "group-hover/card:scale-[1.03]"
+            }`}
+          />
+          {secondary ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={secondary}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 block aspect-[9/16] w-full object-cover object-top opacity-0 transition-opacity duration-[550ms] ease-out group-hover/card:opacity-100"
+            />
+          ) : null}
+
+          {/* Rank, printed on the sheet rather than floated over the art */}
+          <span className="absolute left-0 top-0 bg-paper px-2 py-1 font-mono text-[10.5px] font-semibold leading-none tracking-[0.08em] text-ink-faint">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+
+        <div className="mt-4 flex items-start justify-between gap-3">
+          <h3 className="font-display text-[1.2rem] font-semibold leading-tight tracking-tight text-ink transition-colors duration-200 group-hover/card:text-accent-ink">
+            {app.title}
+          </h3>
+          <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-ink-faint transition-all duration-200 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5 group-hover/card:text-accent-ink" />
+        </div>
+
+        <p className="mb-4 mt-1.5 text-[14px] leading-snug text-ink-soft">{app.detail}</p>
+      </a>
+
+      {/* Pushed to the foot of the card so the figures line up across a row,
+          whatever the title and the summary above them wrapped to. */}
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-rule pt-3">
+        <Figures app={app} />
+        <span className="meta hidden sm:inline">{app.category}</span>
+      </div>
+
+      {app.problem ? (
+        <>
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls={`case-${app.slug}`}
+            className="group/more mt-3 inline-flex items-center gap-2 self-start font-mono text-[11px] font-medium uppercase tracking-[0.11em] text-ink-faint transition-colors duration-200 hover:text-accent-ink"
+          >
+            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-rule transition-colors duration-200 group-hover/more:border-accent group-hover/more:text-accent-ink">
+              {open ? <Minus className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
+            </span>
+            {open ? "Close" : "Why it was built"}
+          </button>
+
+          {/* Collapsed by grid-template-rows rather than unmounted, so the copy
+              is in the HTML whether or not anybody opens it. */}
+          <div
+            id={`case-${app.slug}`}
+            inert={open ? undefined : true}
+            className={`grid transition-[grid-template-rows] duration-[380ms] ease-out ${
+              open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            }`}
+          >
+            <div className="overflow-hidden">
+              <dl className="mt-3 space-y-4 border-t border-rule pt-4">
+                <div>
+                  <dt className="meta pb-1.5">The problem</dt>
+                  <dd className="text-[14px] leading-relaxed text-ink-soft">{app.problem}</dd>
+                </div>
+                <div>
+                  <dt className="meta pb-1.5 text-accent-ink">What I built</dt>
+                  <dd className="text-[14px] leading-relaxed text-ink-soft">{app.solution}</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </>
+      ) : null}
+    </li>
+  );
+}
 
 export default function WorkIndex() {
-  const [open, setOpen] = useState(-1);
-  const [hover, setHover] = useState(-1);
-
-  // Whatever is being pointed at wins, then whatever is open, then the first
-  // row — so the viewer is never empty and never argues with the list.
-  const activeIndex = hover > -1 ? hover : open > -1 ? open : 0;
-  const active = work[activeIndex];
-
   return (
     <section id="work" className="band">
       <div className="shell">
         <SectionMarker
-          index="01"
-          label="Selected work"
-          title="Everything I have shipped to Google Play."
-          description="Every app is listed with what it does. Open a row for the four that carry a full write-up: what was wrong, and what I built instead."
-          aside={`${publishedCount} apps · ${caseStudyCount} case studies`}
+          index="02"
+          label="Client work"
+          title="Apps I have shipped for teams."
+          description="Built to someone else's brief and released under their Play Console account. The ones with the reach, or an idea worth looking at, are shown with real screens; the rest are listed plainly with a link to the store."
+          aside={`${clientApps.length} apps · up to ${topDownloads} downloads`}
         />
 
-        <div className="mt-12 lg:mt-14 lg:grid lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-start lg:gap-12">
-          {/* ---- The index ---- */}
-          <div className="border-t border-rule">
-            {work.map((item, index) => {
-              const isOpen = open === index;
-              const isHot = hover === index || isOpen;
-
-              return (
-                <div
-                  key={item.title}
-                  className={`border-b border-rule transition-colors duration-200 ${
-                    isHot ? "bg-accent-wash" : ""
-                  }`}
-                >
-                  <h3>
-                    <button
-                      type="button"
-                      onClick={() => setOpen(isOpen ? -1 : index)}
-                      onMouseEnter={() => setHover(index)}
-                      onFocus={() => setHover(index)}
-                      onMouseLeave={() => setHover(-1)}
-                      onBlur={() => setHover(-1)}
-                      aria-expanded={isOpen}
-                      aria-controls={`work-panel-${index}`}
-                      className="group flex w-full items-start gap-4 px-3 py-5 text-left sm:gap-5"
-                    >
-                      <span
-                        className={`meta mt-1.5 w-6 shrink-0 transition-colors duration-200 ${
-                          isHot ? "text-accent-ink" : ""
-                        }`}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      <span className="min-w-0 flex-1">
-                        <span
-                          className={`block font-display text-[1.35rem] font-semibold leading-tight tracking-tight transition-colors duration-200 sm:text-[1.6rem] ${
-                            isHot ? "text-accent-ink" : "text-ink"
-                          }`}
-                        >
-                          {item.title}
-                        </span>
-                        <span className="mt-1.5 block max-w-lg text-[14.5px] leading-snug text-ink-soft">
-                          {item.detail}
-                        </span>
-                      </span>
-
-                      <span className="meta mt-1.5 hidden shrink-0 md:inline">{item.category}</span>
-
-                      <span
-                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-                          isOpen
-                            ? "rotate-45 border-accent bg-accent text-white"
-                            : "border-rule text-ink-faint group-hover:border-accent group-hover:text-accent-ink"
-                        }`}
-                      >
-                        <Plus className="h-4 w-4" />
-                      </span>
-                    </button>
-                  </h3>
-
-                  {/* Collapsed with grid-template-rows rather than unmounted, so
-                      the case study — and above all the Play Store link — is in
-                      the HTML whether or not anybody opens the row. `inert`
-                      keeps the hidden links out of the tab order. */}
-                  <div
-                    id={`work-panel-${index}`}
-                    inert={isOpen ? undefined : true}
-                    className={`grid transition-[grid-template-rows] duration-[380ms] ease-out ${
-                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="px-3 pb-8 sm:pl-14">
-                        {item.problem ? (
-                          <dl className="grid gap-6 sm:grid-cols-2 sm:gap-8">
-                            <div>
-                              <dt className="meta pb-2.5">The problem</dt>
-                              <dd className="border-t border-rule pt-3.5 text-[15px] leading-relaxed text-ink-soft">
-                                {item.problem}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt className="meta pb-2.5 text-accent-ink">What I built</dt>
-                              <dd className="border-t border-rule pt-3.5 text-[15px] leading-relaxed text-ink-soft">
-                                {item.solution}
-                              </dd>
-                            </div>
-                          </dl>
-                        ) : null}
-
-                        {/* The viewer beside the list is desktop-only, so small
-                            screens get the screen here instead. */}
-                        <div className="mt-7 w-[8.5rem] overflow-hidden rounded-md border border-rule bg-paper-sunken lg:hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={item.shot}
-                            alt={`${item.title} running on a phone`}
-                            loading="lazy"
-                            className="block aspect-[9/19] w-full object-cover object-top"
-                          />
-                        </div>
-
-                        <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5">
-                          <span className="meta">{item.stack.join(" · ")}</span>
-                          {item.org ? <span className="meta">at {item.org}</span> : null}
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/link ml-auto inline-flex items-center gap-1.5 text-[14px] font-semibold text-accent-ink"
-                          >
-                            <span className="link-underline decoration-accent-ink/40">
-                              View {item.title} on Google Play
-                            </span>
-                            <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+        {/* ---- The highlights ---- */}
+        <Reveal className="mt-12 lg:mt-14">
+          <div className="flex items-baseline justify-between gap-6 border-t border-rule pt-5">
+            <h3 className="font-display text-[1.3rem] font-semibold tracking-tight text-ink">
+              Highlights
+            </h3>
+            <span className="meta">{featuredClientApps.length} apps · hover for a second screen</span>
           </div>
+        </Reveal>
 
-          {/* ---- The viewer ----
-              Sticky rather than pinned to a row: it stays in view for the whole
-              list, and nothing has to re-measure when a row opens. */}
-          <aside aria-hidden className="hidden lg:sticky lg:top-24 lg:block">
-            <div className="overflow-hidden rounded-md border border-rule bg-paper-sunken">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={active.shot}
-                alt=""
-                className="block aspect-[9/19] w-full object-cover object-top"
-              />
-            </div>
-            <p className="mt-4 truncate font-display text-[15px] font-semibold text-ink">
-              {active.title}
-            </p>
-            <p className="meta mt-2 truncate text-accent-ink">{active.category}</p>
-          </aside>
+        <ul className="mt-8 grid grid-cols-2 gap-x-5 gap-y-12 sm:gap-x-7 lg:grid-cols-4 lg:gap-x-8">
+          {featuredClientApps.map((app, index) => (
+            <FeaturedCard key={app.slug} app={app} index={index} />
+          ))}
+        </ul>
+
+        {/* ---- Everything else ---- */}
+        <Reveal className="mt-20 lg:mt-24">
+          <div className="flex items-baseline justify-between gap-6 border-t border-rule pt-5">
+            <h3 className="font-display text-[1.3rem] font-semibold tracking-tight text-ink">
+              Also on the store
+            </h3>
+            <span className="meta">{indexedClientApps.length} apps</span>
+          </div>
+        </Reveal>
+
+        <div className="mt-6 border-t border-rule">
+          {indexedClientApps.map((app, index) => (
+            <a
+              key={app.slug}
+              href={app.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-baseline gap-x-4 gap-y-1 border-b border-rule px-2 py-4 transition-colors duration-200 hover:bg-accent-wash sm:grid-cols-[1.75rem_minmax(0,1fr)_11.5rem_auto] sm:gap-x-5"
+            >
+              <span className="meta transition-colors duration-200 group-hover:text-accent-ink">
+                {String(featuredClientApps.length + index + 1).padStart(2, "0")}
+              </span>
+
+              <span className="min-w-0">
+                <span className="block font-display text-[1.1rem] font-semibold leading-tight tracking-tight text-ink transition-colors duration-200 group-hover:text-accent-ink">
+                  {app.title}
+                </span>
+                <span className="mt-1 block text-[14px] leading-snug text-ink-soft">
+                  {app.detail}
+                </span>
+                <Figures app={app} className="mt-2 sm:hidden" />
+              </span>
+
+              <Figures app={app} className="hidden sm:flex" />
+
+              <ArrowUpRight className="h-4 w-4 shrink-0 self-center text-ink-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-ink" />
+            </a>
+          ))}
         </div>
+
+        <p className="meta mt-6 normal-case tracking-[0.08em]">
+          {publishedCount} apps live on Google Play in total, counting the two under my own studio.
+        </p>
       </div>
     </section>
   );

@@ -6,8 +6,9 @@ import { profile, publishedCount } from "@/lib/data";
 
 const glance = [
   { term: "Based in", detail: "Bhakkar, Pakistan — remote or on site" },
-  { term: "Currently", detail: "Flutter App Developer, Devlix Technologies" },
-  { term: "Also", detail: "AI/ML instructor at XOKSIS, part-time" },
+  { term: "Currently", detail: "Flutter Developer & Application Instructor, XOKSIS" },
+  { term: "And", detail: "Flutter App Developer at Devlix Technologies" },
+  { term: "Own studio", detail: "HK Craft Labs — my own apps on Google Play" },
   { term: "Open to", detail: "Flutter roles, contract or full-time" },
 ];
 
@@ -16,7 +17,7 @@ export default function Profile() {
     <section id="about" className="band">
       <div className="shell">
         <SectionMarker
-          index="04"
+          index="05"
           label="Profile"
           title="How I work."
           description="The short version of what it is like to hand me an app."
@@ -40,16 +41,23 @@ export default function Profile() {
                   management choice per app, dependencies injected rather than reached for.
                 </p>
                 <p>
-                  Teaching keeps that honest. Two evenings a week I explain LLM fundamentals and RAG
-                  pipelines to students at XOKSIS, and there is no hiding a half-understood concept
-                  in front of a room. The same standard ends up in my pull requests and handover
-                  notes.
+                  Teaching keeps that honest. As Application Instructor at XOKSIS I take students
+                  from Dart through to a real Play Store release, and there is no hiding a
+                  half-understood concept in front of a room. The same standard ends up in my pull
+                  requests and handover notes.
                 </p>
               </div>
             </Reveal>
 
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-2xl text-[16px] leading-relaxed text-ink-soft">
+                HK Craft Labs is where that gets tested without a brief to hide behind. Picking the
+                idea, drawing the screens, writing the store listing and reading the one-star review
+                is a different job from taking a spec and building it well, and it has made me
+                better at the second one.
+              </p>
+
+              <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-ink-soft">
                 What I want next is more of the same with a bigger surface: a product with real
                 users, a team to review against, and the room to own a codebase properly rather than
                 only shipping to it.

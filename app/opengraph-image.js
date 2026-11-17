@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { publishedCount } from "@/lib/data";
 
-export const alt = "Hamama Komal — Flutter Developer";
+export const alt = "Hamama Komal — Flutter Developer & Application Instructor";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +45,7 @@ export default function Image() {
             letterSpacing: "-0.01em",
           }}
         >
-          Flutter Developer · Bhakkar, Pakistan
+          Flutter Developer & Application Instructor · Bhakkar
         </div>
       </div>
 

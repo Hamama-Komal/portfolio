@@ -42,7 +42,7 @@ export default function Contact() {
         <div className="flex items-baseline justify-between gap-6">
           <span className="flex items-center gap-3">
             <span className="inline-flex items-center rounded-sm bg-accent px-2 py-1 font-mono text-[11px] font-semibold leading-none tracking-[0.08em] text-white">
-              05
+              06
             </span>
             <span className="meta">Contact</span>
           </span>

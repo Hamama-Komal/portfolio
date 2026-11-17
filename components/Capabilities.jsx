@@ -13,7 +13,7 @@ export default function Capabilities() {
     <section id="capabilities" className="band">
       <div className="shell">
         <SectionMarker
-          index="03"
+          index="04"
           label="Capabilities"
           title="What I reach for, and why."
           description="Grouped by the part of the job it belongs to rather than by how impressive the name looks."

@@ -79,11 +79,14 @@ To change any text, job, project or tech badge, edit [`lib/data.js`](lib/data.js
 
 ## App screenshots
 
-Three screenshots per published app live in `public/img/apps/` (pulled from the Play Store listings and re-encoded to ~25–60 KB WebP each). Each project's `shots` array in `lib/data.js` drives the 3D phone fan; a missing file falls back to a tinted placeholder rather than a broken image.
+Only highlighted apps carry screenshots. An app earns them by having the downloads to justify the space or an idea distinct enough to be worth looking at — that is the `featured: true` flag in `lib/data.js`. Everything else is listed with a title, one line of description, its download figure and a link to the store.
 
-The YouTube AI Learning Assistant has no store listing, so it renders `components/AiProjectArt.jsx` — a hand-built animated mock of the video → Q&A → quiz → flashcard flow. Swap in a real image by adding a path to its `shots` array.
+Three screenshots per featured app live in `public/img/apps/` (pulled from the Play Store listing and re-encoded to WebP at 560 px wide, ~15–105 KB each) and are named `<slug>-1.webp` … `-3.webp` to match the `shots` array:
 
-All screenshots are compressed WebP under 60 KB each.
+- **Studio apps** (`studio: true`) use all three, side by side, in `components/Shelf.jsx`.
+- **Client highlights** use the first as the card image and the second as the hover state in `components/WorkIndex.jsx`.
+
+An app with no `shots` must not be marked `featured`, or its card renders empty.
 
 ## CV
 

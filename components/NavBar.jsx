@@ -8,10 +8,11 @@ import { profile } from "@/lib/data";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { id: "about", label: "Profile" },
+  { id: "studio", label: "Studio" },
   { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
-  { id: "capabilities", label: "Capabilities" },
+  { id: "capabilities", label: "Skills" },
+  { id: "about", label: "Profile" },
   { id: "contact", label: "Contact" },
 ];
 

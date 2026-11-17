@@ -25,9 +25,9 @@ const mono = JetBrains_Mono({
 });
 
 const siteUrl = "https://hamama-komal.vercel.app";
-const title = "Hamama Komal — Flutter Developer";
+const title = "Hamama Komal — Flutter Developer & Application Instructor";
 const description =
-  "Flutter developer in Bhakkar, Pakistan. Nine Android apps live on Google Play, built end to end on clean architecture with Provider, GetX and Firebase.";
+  "Flutter developer and application instructor in Bhakkar, Pakistan. 24 Android apps live on Google Play — including two under my own studio, HK Craft Labs — built end to end on clean architecture with Provider, GetX and Firebase.";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,8 +39,11 @@ export const metadata = {
   keywords: [
     "Hamama Komal",
     "Flutter Developer",
+    "Application Instructor",
     "Mobile App Developer",
     "Android Developer",
+    "HK Craft Labs",
+    "XOKSIS",
     "Bhakkar",
     "Pakistan",
     "Clean Architecture",
@@ -90,7 +93,12 @@ const personSchema = {
   url: siteUrl,
   address: { "@type": "PostalAddress", addressLocality: "Bhakkar", addressCountry: "PK" },
   sameAs: [profile.linkedin, profile.github],
-  knowsAbout: ["Flutter", "Dart", "Android", "Clean Architecture", "Firebase"],
+  knowsAbout: ["Flutter", "Dart", "Android", "Clean Architecture", "Firebase", "Teaching"],
+  worksFor: [
+    { "@type": "Organization", name: "XOKSIS" },
+    { "@type": "Organization", name: "Devlix Technologies" },
+    { "@type": "Organization", name: "HK Craft Labs" },
+  ],
 };
 
 export default function RootLayout({ children }) {

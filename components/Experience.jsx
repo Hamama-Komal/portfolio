@@ -1,23 +1,23 @@
 "use client";
 
 import SectionMarker from "./SectionMarker";
-import { experience, startYear } from "@/lib/data";
+import { employerCount, experience, startYear } from "@/lib/data";
 
 /**
  * No accordion here on purpose. The work index already asks to be opened; a
- * second thing that hides its content would make the page feel evasive. Four
- * roles fit on one screen if they are set properly, so they are all just there.
+ * second thing that hides its content would make the page feel evasive. The
+ * roles fit if they are set properly, so they are all just there.
  */
 export default function Experience() {
   return (
     <section id="experience" className="band">
       <div className="shell">
         <SectionMarker
-          index="02"
+          index="03"
           label="Experience"
-          title="Native Android to full-time Flutter."
-          description="Four teams since 2024 — an internship in Java, a contract run of Flutter apps, and the full-time role I hold now."
-          aside={`${experience.length} roles · since ${startYear}`}
+          title="Native Android to Flutter, and teaching it."
+          description="An internship in Java, a contract run of Flutter apps, a full-time developer role, a part-time instructor post — and my own studio running alongside all of it."
+          aside={`${employerCount} teams · since ${startYear}`}
         />
 
         <div className="mt-12 border-t border-rule lg:mt-14">

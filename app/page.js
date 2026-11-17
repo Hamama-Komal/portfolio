@@ -2,6 +2,7 @@ import Cursor from "@/components/Cursor";
 import SmoothAnchors from "@/components/SmoothAnchors";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
+import Studio from "@/components/Studio";
 import WorkIndex from "@/components/WorkIndex";
 import Experience from "@/components/Experience";
 import Capabilities from "@/components/Capabilities";
@@ -18,6 +19,7 @@ export default function Home() {
           animations without creating a scroll container, so sticky still works. */}
       <main className="relative overflow-x-clip">
         <Hero />
+        <Studio />
         <WorkIndex />
         <Experience />
         <Capabilities />

@@ -151,7 +151,7 @@ def build():
     s.y += 36
     s.page.insert_text(
         (MARGIN_X, s.y + 11),
-        latin1("Flutter Developer  ·  Android Applications"),
+        latin1("Flutter Developer  ·  Application Instructor"),
         fontsize=10.5,
         fontname=REG,
         color=ACCENT,
@@ -181,33 +181,39 @@ def build():
     # ---- Profile ----
     s.heading("Profile")
     s.text(
-        "Flutter developer building production Android applications, working full-time at Devlix "
-        "Technologies. Started in native Android with Java and MVVM, then moved to Flutter, where "
-        "clean architecture and maintainable app structure became the focus. Nine applications "
-        "shipped to the Google Play Store, most built end to end from requirement to release. "
-        "Also teaches AI and machine learning part-time at XOKSIS.",
-        gap=2,
+        "Flutter developer and application instructor building production Android applications. "
+        "Full-time at Devlix Technologies, and Flutter Developer & Application Instructor at "
+        "XOKSIS. Started in native Android with Java and MVVM, then moved to Flutter, where clean "
+        "architecture became the focus. 24 applications shipped to Google Play, most built end to "
+        "end from requirement to release and the largest past 10,000 downloads — two of them under "
+        "HK Craft Labs, my own developer account.",
+        gap=8,
     )
 
     # ---- Experience ----
     s.heading("Experience")
+
+    s.role("Founder & Solo Developer — Independent", "HK Craft Labs", "2026 – Present")
+    s.bullets(
+        [
+            "Own developer account on Google Play: design, build, release and support my own app ideas in Flutter.",
+            "Shipped Posely, a pose-guide camera that overlays a pose outline on the live viewfinder, and Study Desk, an offline focus timer with notes and flashcards.",
+        ]
+    )
 
     s.role("Flutter App Developer — Full-Time", "Devlix Technologies", "Jun 2026 – Present")
     s.bullets(
         [
             "Build and ship production Flutter applications end to end, from product requirement to Play Store release.",
             "Apply clean architecture, state management and dependency injection across the codebase.",
-            "Integrate REST APIs and third-party services; optimise UI performance and responsiveness.",
-            "Own feature development and ongoing improvements to live applications.",
         ]
     )
 
-    s.role("AI Engineer & AI/ML Instructor — Part-Time", "XOKSIS", "Jan 2026 – Present")
+    s.role("Flutter Developer & Application Instructor — Part-Time", "XOKSIS", "Jan 2026 – Present")
     s.bullets(
         [
-            "Teach AI and Machine Learning concepts, LLM fundamentals and RAG pipeline architecture.",
-            "Build practical AI features, RAG systems and automation pipelines for production use.",
-            "Guide students through hands-on, job-oriented AI projects.",
+            "Build Flutter applications, and teach the stack they are built on.",
+            "Take students from Dart fundamentals through state management and clean architecture to a real Play Store release.",
         ]
     )
 
@@ -216,7 +222,6 @@ def build():
         [
             "Built 5+ Flutter applications with AI-powered features.",
             "Worked with Firebase, REST APIs and GetX state management.",
-            "Established clean architecture patterns and reusable UI systems.",
         ]
     )
 
@@ -224,9 +229,30 @@ def build():
     s.bullets(
         [
             "Developed native Android applications using Firebase, Room and Android Jetpack.",
-            "Applied MVVM architecture and asynchronous programming patterns.",
         ]
     )
+
+    # ---- Published apps ----
+    s.heading("Selected Applications — Google Play (24 published)")
+    for name, detail in [
+        ("Posely", "Pose-guide camera overlaying a pose on the live viewfinder (HK Craft Labs)."),
+        ("Study Desk", "Offline focus timer, notes, flashcards and daily plan (HK Craft Labs)."),
+        ("15 August Tiranga Frames", "Independence Day frames and wallpapers. 10,000+ downloads."),
+        ("14 August Photo Frames", "Themed photo editor, photo to export in three taps. 1,000+ downloads."),
+        ("Diwali Wallpapers: 4K & Live", "4K and animated live wallpapers. 1,000+ downloads."),
+        ("Voice Changer", "On-device audio effects engine with instant playback. 500+ downloads."),
+        ("GPS Land Area Calculator", "Map-based area measurement on Google Maps. 500+ downloads, 4.4 stars."),
+        ("AI Grammar Checker", "Writing assistant with grammar correction (ETOS Way). 4.5 stars."),
+    ]:
+        s.room(16)
+        s.page.insert_text((MARGIN_X + 3, s.y + 8), "·", fontsize=13, fontname=BOLD, color=ACCENT)
+        s.page.insert_text((MARGIN_X + 14, s.y + 8), latin1(name), fontsize=9.5, fontname=BOLD, color=INK)
+        w = fitz.get_text_length(latin1(name), fontname=BOLD, fontsize=9.5)
+        s.page.insert_text(
+            (MARGIN_X + 18 + w, s.y + 8), latin1("- " + detail), fontsize=9.5, fontname=REG, color=INK_SOFT
+        )
+        s.y += 13
+    s.space(2)
 
     # ---- Skills ----
     s.heading("Technical Skills")
@@ -245,34 +271,11 @@ def build():
         s.text(items, size=9.5, indent=78, gap=2)
     s.space(2)
 
-    # ---- Published apps ----
-    s.heading("Published Applications — Google Play")
-    for name, detail in [
-        ("Hide Photos & Videos", "Private vault with gallery lock for photos and video."),
-        ("Voice Changer", "On-device audio effects engine with instant playback."),
-        ("Football Wallpapers", "High-resolution wallpaper app with cached image browsing."),
-        ("14 August Photo Editor", "Themed photo editor built around Pakistan's Independence Day."),
-        ("15 August Tiranga Frames", "Themed frames and wallpapers (Devlix Technologies)."),
-        ("AI Grammar Checker", "Writing assistant with grammar correction (ETOS Way)."),
-        ("Voice Notes", "Diary and memo recorder with local storage (ETOS Way)."),
-        ("Status Saver", "Media downloader and manager (ETOS Way)."),
-        ("GPS Land Area Calculator", "Map-based area measurement using Google Maps (ETOS Way)."),
-    ]:
-        s.room(16)
-        s.page.insert_text((MARGIN_X + 3, s.y + 8), "·", fontsize=13, fontname=BOLD, color=ACCENT)
-        s.page.insert_text((MARGIN_X + 14, s.y + 8), latin1(name), fontsize=9.5, fontname=BOLD, color=INK)
-        w = fitz.get_text_length(latin1(name), fontname=BOLD, fontsize=9.5)
-        s.page.insert_text(
-            (MARGIN_X + 18 + w, s.y + 8), latin1("- " + detail), fontsize=9.5, fontname=REG, color=INK_SOFT
-        )
-        s.y += 13
-    s.space(2)
-
     s.doc.set_metadata(
         {
             "title": "Hamama Komal — CV",
             "author": "Hamama Komal",
-            "subject": "Flutter Developer | Android Applications",
+            "subject": "Flutter Developer | Application Instructor",
         }
     )
     s.doc.save("public/Hamama-Komal-CV.pdf", deflate=True, garbage=4)

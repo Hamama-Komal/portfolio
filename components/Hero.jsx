@@ -41,16 +41,22 @@ export default function Hero() {
             className="rise mt-8 max-w-xl text-xl font-medium leading-snug text-ink sm:text-[23px]"
           >
             I build Android apps in Flutter and take them all the way to release —{" "}
-            <span className="text-accent-ink">{publishedCount} of them are on Google Play</span>.
+            <span className="text-accent-ink">{publishedCount} of them are on Google Play</span>,
+            two under my own studio.
           </p>
 
           <p
             style={rise(200)}
             className="rise mt-4 max-w-xl text-[16px] leading-relaxed text-ink-soft"
           >
-            Full-time at Devlix Technologies. I started in native Android with Java and MVVM, moved
-            across to Flutter, and have been shipping there since — mostly solo, from the
-            requirement through to the Play Console.
+            Flutter Developer and Application Instructor at XOKSIS, and a Flutter developer at
+            Devlix Technologies. I started in native Android with Java and MVVM, moved across to
+            Flutter, and have been shipping there since — mostly solo, from the requirement through
+            to the Play Console. The rest goes out under{" "}
+            <a href="#studio" className="link-underline text-ink">
+              HK Craft Labs
+            </a>
+            , my own account.
           </p>
 
           <div style={rise(260)} className="rise mt-9 flex flex-wrap items-center gap-3">
